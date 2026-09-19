@@ -2,6 +2,22 @@
 
 **Auditoria técnico-documental e inteligência operacional para contratos assistenciais em saúde pública.**
 
+> **English:** Audit and decision-support MVP built around structured evidence, traceability and operational healthcare workflows.
+
+[**Abrir demonstração**](https://joyceradis.github.io/AuditorES/)
+
+## O que este repositório demonstra
+
+| Competência | Evidência no projeto |
+| --- | --- |
+| Modelagem de informação | contratos, competências, indicadores, evidências e níveis de risco representados como dados estruturados |
+| Data-driven UI | atualização dinâmica de KPIs, tabelas e contexto operacional em JavaScript |
+| Visualização | gráficos de tendência e distribuição de risco com Chart.js |
+| Regras de negócio | transformação de dados em exposição, classificação e priorização para revisão humana |
+| Product thinking | separação explícita entre evidência, alerta automatizado e conclusão técnico-administrativa |
+
+**Portfolio signal:** data modeling · decision-support UI · JavaScript · Chart.js · audit workflows · human-in-the-loop design
+
 O AuditorES é um MVP de produto voltado à transformação de dados contratuais, assistenciais e documentais em uma visão operacional mais auditável. O projeto explora como indicadores, evidências e critérios de risco podem ser organizados para apoiar análise técnica sem reduzir auditoria a um dashboard genérico.
 
 ## Problema
