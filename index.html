@@ -1,71 +1,243 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#101721">
-<meta name="description" content="AuditorES — inteligência territorial, auditoria assistencial e governança pública da saúde no Espírito Santo.">
-<title>AuditorES — Inteligência em Saúde Pública</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root{--nav:#101721;--nav2:#1b2633;--paper:#f6f4ee;--ink:#152230;--muted:#63717e;--line:#dce0de;--accent:#e8a45f;--blue:#567baf;--white:#fff}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:3px} .mono,.eyebrow,.micro,.stat-label,.section-index,.kicker{font-family:'IBM Plex Mono',monospace}
-.shell{max-width:1460px;margin:auto;padding:0 6.15%}.top{background:var(--nav);color:#d3d9dc;border-bottom:1px solid #34404b;position:relative;z-index:10}.top-inner{display:flex;align-items:center;justify-content:space-between;min-height:79px;gap:24px}.brand{display:flex;align-items:center;gap:12px}.brand-icon{display:grid;place-items:center;width:38px;height:38px;background:#df9f59;color:#101721;font:800 20px Manrope;border-radius:9px}.brand-name{font:800 21px Manrope;letter-spacing:-.08em;color:#fff}.brand-name em{font-style:normal;color:var(--accent)}.brand-sub{font:400 9px 'IBM Plex Mono';text-transform:uppercase;letter-spacing:.16em;color:#8393a1;margin-top:1px}.nav{display:flex;gap:32px;align-items:center;font-size:12px;font-weight:700}.nav a{color:#b9c2c9}.nav a:hover{color:#fff}.nav .nav-cta{border:1px solid #60707d;padding:12px 16px;border-radius:3px;color:#fff}.menu{display:none;background:transparent;border:1px solid #586677;border-radius:4px;color:#fff;padding:8px 12px}
-.hero{background:var(--nav);color:#f5f6f4;position:relative;overflow:hidden;min-height:590px}.hero::before{content:"";position:absolute;inset:0;opacity:.30;background-image:linear-gradient(#67798c22 1px,transparent 1px),linear-gradient(90deg,#67798c22 1px,transparent 1px);background-size:58px 58px;mask-image:linear-gradient(90deg,transparent 4%,black 100%)}.hero::after{content:"";position:absolute;width:580px;height:580px;border:1px solid #6a8ba22a;border-radius:50%;right:-100px;top:-140px;box-shadow:0 0 0 100px #7295aa0a,0 0 0 200px #7295aa08;pointer-events:none}
-.hero-layout{display:grid;grid-template-columns:1fr .93fr;align-items:center;gap:6%;padding-top:78px;padding-bottom:83px;position:relative;z-index:1}
-.eyebrow{font-size:10px;color:var(--accent);letter-spacing:.14em;line-height:1.6;text-transform:uppercase}.rule{display:inline-block;height:1px;width:34px;background:var(--accent);margin:0 12px 3px 0}.hero h1{font:800 clamp(43px,5.7vw,78px)/1.09 Manrope;letter-spacing:-.075em;margin:24px 0 26px;max-width:750px}.hero h1 span{color:#e7a45d}.hero p{max-width:505px;color:#aebdc7;font-size:15px;line-height:1.85;margin:0 0 30px}.cta{display:inline-flex;align-items:center;gap:27px;background:var(--accent);color:#16212b;font:700 12px Manrope;padding:17px 20px;border:0;border-radius:3px;letter-spacing:.015em}.cta:hover{background:#f5bb7f}.ghost-link{display:inline-flex;margin-left:23px;color:#d8e0e4;font-size:12px;font-weight:700;gap:8px}.hero-meta{display:flex;gap:26px;margin-top:52px;font:500 9px 'IBM Plex Mono';text-transform:uppercase;letter-spacing:.12em;color:#8a9aa7;flex-wrap:wrap}.hero-meta span::before{content:"●";color:var(--accent);margin-right:9px}
-.terminal{border:1px solid #445462;background:#161f2a;box-shadow:0 32px 100px #0005;border-radius:7px;overflow:hidden;transform:translateY(16px)}.terminal-head{display:flex;justify-content:space-between;align-items:center;padding:15px 18px;border-bottom:1px solid #35424f;background:#1b2734}.dots{display:flex;gap:6px}.dots i{width:7px;height:7px;background:#667686;border-radius:50%}.dots i:first-child{background:#e2a260}.terminal-tag{color:#99a8b4;font:500 9px 'IBM Plex Mono';letter-spacing:.06em}.terminal-body{padding:26px}.t-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}.t-title{font:700 15px Manrope;color:#f5f6f4}.t-desc{font:400 10px 'IBM Plex Mono';color:#8597a6;margin-top:7px}.t-live{font:500 9px 'IBM Plex Mono';color:#e4b77f;border:1px solid #695b4b;padding:7px 9px;border-radius:3px}.t-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.t-box{border:1px solid #354554;padding:18px 16px;min-height:111px;background:#192631}.t-label{font:500 9px 'IBM Plex Mono';color:#91a4b0;letter-spacing:.04em;text-transform:uppercase}.t-value{color:#e8ebeb;font:800 22px Manrope;letter-spacing:-.05em;margin-top:17px}.t-value.gold{color:#e7ad6a}.t-caption{color:#718793;font:400 9px 'IBM Plex Mono';margin-top:4px}.t-line{margin-top:11px;border:1px solid #354554;padding:17px}.t-line-head{display:flex;justify-content:space-between;color:#95a7b3;font:500 9px 'IBM Plex Mono';text-transform:uppercase}.bars{height:71px;display:flex;align-items:end;gap:8px;margin-top:18px}.bars i{display:block;flex:1;background:linear-gradient(#dba66a,#6b7185);opacity:.9;min-width:3px}.bars i:nth-child(3n){background:#668db4}.t-foot{display:flex;justify-content:space-between;gap:12px;padding-top:17px;color:#718793;font:400 9px 'IBM Plex Mono'}
-.section{padding:88px 0}.section-index{font-size:10px;color:#9a6d47;text-transform:uppercase;letter-spacing:.16em}.section h2{font:800 clamp(28px,3.2vw,45px)/1.18 Manrope;letter-spacing:-.055em;margin:15px 0}.section-intro{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:34px}.section-intro p{max-width:400px;color:var(--muted);line-height:1.7;font-size:13px;margin:0 0 8px}
-.catalog{border-top:1px solid #cbd1d0}.catalog-row{display:grid;grid-template-columns:70px 1.1fr 1.2fr 110px;gap:24px;padding:26px 8px 28px 0;border-bottom:1px solid #d3d9d7;align-items:center;transition:background .18s}.catalog-row:hover{background:#ecebe4}.catalog-num{font:500 11px 'IBM Plex Mono';color:#a0734b}.catalog-title{font:800 19px Manrope;letter-spacing:-.035em}.catalog-title small{display:block;font:400 10px 'IBM Plex Mono';color:#7c8a91;margin-top:6px;letter-spacing:0}.catalog-desc{font-size:12px;line-height:1.65;color:#67737b}.catalog-state{font:600 10px 'IBM Plex Mono';text-align:right;color:#8c7254}.catalog-state.active{color:#3b628f}
-.dual{display:grid;grid-template-columns:1fr 1fr;gap:20px}.module{padding:30px;border:1px solid #d9ddda;background:#fbfaf6;min-height:326px;display:flex;flex-direction:column}.module.dark{background:#192532;color:#fff;border-color:#192532}.module-top{display:flex;justify-content:space-between;gap:16px;align-items:center}.module-icon{font:700 11px 'IBM Plex Mono';border:1px solid currentColor;opacity:.8;padding:8px}.module-no{font:500 10px 'IBM Plex Mono';opacity:.5}.module h3{font:800 26px Manrope;letter-spacing:-.055em;margin:35px 0 11px}.module p{font-size:12px;line-height:1.8;max-width:440px;color:#74808a;margin:0}.module.dark p{color:#adbac4}.module-foot{border-top:1px solid #dce0df;margin-top:auto;padding-top:20px;display:flex;justify-content:space-between;font:600 10px 'IBM Plex Mono';color:#657889}.module.dark .module-foot{border-color:#475360;color:#d4a46f}
-.method{background:#eceae4;border-top:1px solid #d0d2ce;border-bottom:1px solid #d0d2ce}.method-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:#ced3d0;border:1px solid #ced3d0;margin-top:35px}.method-item{background:#f1efea;padding:22px;min-height:170px}.method-item b{display:block;color:#b28256;font:600 11px 'IBM Plex Mono';margin-bottom:31px}.method-item strong{display:block;font:800 16px Manrope;margin-bottom:8px}.method-item p{font-size:11px;line-height:1.65;color:#68757e;margin:0}
-.next{background:#111b25;color:#fff;padding:58px 0}.next-inner{display:flex;justify-content:space-between;gap:32px;align-items:center}.next h2{font:800 clamp(24px,3vw,38px) Manrope;letter-spacing:-.05em;margin:11px 0}.next p{color:#acb8c1;max-width:600px;font-size:13px;line-height:1.7}.footer{background:#0e1720;color:#788a98;padding:24px 0;border-top:1px solid #2e3c49;font:400 10px 'IBM Plex Mono'}.footer-inner{display:flex;justify-content:space-between;gap:22px}
-@media(max-width:980px){.hero-layout{grid-template-columns:1fr;gap:48px;padding-top:62px}.terminal{max-width:620px;transform:none}.method-grid{grid-template-columns:repeat(3,1fr)}.catalog-row{grid-template-columns:42px 1fr 1fr}.catalog-state{grid-column:2/4;text-align:left}.section-intro{flex-direction:column;align-items:start}.section-intro p{max-width:700px}}
-@media(max-width:650px){.shell{padding:0 22px}.nav{display:none;position:absolute;top:79px;left:0;right:0;background:#15202b;padding:20px;flex-direction:column;align-items:start;border-bottom:1px solid #47505e}.nav.open{display:flex}.menu{display:block}.hero h1{font-size:43px}.hero-layout{padding-top:54px;padding-bottom:70px}.hero-meta{margin-top:34px;gap:15px}.ghost-link{display:flex;margin:18px 0}.section{padding:60px 0}.catalog-row{grid-template-columns:33px 1fr;gap:12px}.catalog-desc,.catalog-state{grid-column:2;text-align:left}.dual{grid-template-columns:1fr}.method-grid{grid-template-columns:1fr 1fr}.next-inner{display:block}.footer-inner{display:block;line-height:2}.terminal-body{padding:18px}.t-box{padding:13px;min-height:98px}.t-value{font-size:19px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
-.skip{position:absolute;top:6px;left:8px;z-index:20;transform:translateY(-200%);padding:12px;background:#fff;color:#152230}.skip:focus{transform:none}.catalog-title small,.module p{color:#52636f}.module.dark p{color:#adbac4}.section-index{color:#765230}.footer{color:#9dafbd}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101721">
+  <meta name="description" content="Explore os municípios, os eixos de análise e as fontes do AuditorES, projeto de inteligência em saúde pública no Espírito Santo.">
+  <title>AuditorES | Inteligência em saúde pública</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --nav: #101721;
+      --nav-surface: #1a2734;
+      --nav-muted: #b7c7d2;
+      --ink: #152230;
+      --muted: #4d6070;
+      --paper: #f6f4ee;
+      --surface: #fffefa;
+      --line: #c8d0d3;
+      --accent: #e8a45f;
+      --focus: #155c9e;
+      font: 100%/1.5 "DM Sans", system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    h1, h2, h3, h4, p { margin: 0; }
+    h1, h2, h3, h4 { line-height: 1.14; letter-spacing: -.035em; }
+    h1 { font-size: clamp(2.65rem, 7vw, 5rem); text-wrap: balance; }
+    h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+    h3 { font-size: 1.18rem; }
+    h4 { font-size: 1.08rem; }
+    p { max-width: 65ch; }
+    a { color: var(--focus); text-underline-offset: .2em; }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+    [id] { scroll-margin-block-start: 1.25rem; }
+    .shell { width: min(72rem, calc(100% - 2.5rem)); margin-inline: auto; }
+    .skip { position: absolute; z-index: 2; inset: .5rem auto auto .5rem; transform: translateY(-200%); padding: .65rem .9rem; background: var(--surface); }
+    .skip:focus { transform: none; }
+    .masthead, .hero { background: var(--nav); color: #f8fbfd; }
+    .masthead { border-bottom: 1px solid #334352; }
+    .masthead :focus-visible, .hero :focus-visible { outline-color: var(--accent); }
+    .header-inner { display: flex; min-height: 4.5rem; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .4rem 2rem; }
+    .brand { display: inline-flex; align-items: center; gap: .65rem; color: inherit; text-decoration: none; font-size: 1.35rem; font-weight: 780; letter-spacing: -.04em; }
+    .brand-mark { display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border-radius: .3rem; background: var(--accent); color: var(--nav); font-size: 1rem; }
+    .brand-accent { color: var(--accent); }
+    .main-nav { display: flex; flex-wrap: wrap; gap: .15rem 1.3rem; font-size: .9rem; font-weight: 650; }
+    .main-nav a { display: inline-flex; min-height: 2.75rem; align-items: center; color: #dce6ee; text-decoration: none; }
+    .main-nav a:hover { text-decoration: underline; }
+    .hero-inner { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, .8fr); gap: clamp(2rem, 6vw, 6rem); align-items: center; padding-block: clamp(2.75rem, 6vw, 5.5rem); }
+    .geography { color: var(--accent); font-size: .85rem; font-weight: 750; letter-spacing: .06em; margin-bottom: .8rem; }
+    .hero-copy > p:not(.geography) { margin-top: 1.15rem; color: var(--nav-muted); font-size: clamp(1rem, 2vw, 1.17rem); }
+    .primary-link { display: inline-flex; gap: .8rem; align-items: center; margin-top: 1.35rem; padding: .75rem 1rem; border-radius: .35rem; background: var(--accent); color: var(--nav); text-decoration: none; font-weight: 750; }
+    .primary-link:hover { background: #f6bb80; }
+    .path { list-style: none; margin: 0; padding: .25rem 1.1rem; border: 1px solid #405060; border-radius: .45rem; background: var(--nav-surface); }
+    .path li { display: flex; gap: .75rem; align-items: center; padding: .9rem 0; font-size: .95rem; font-weight: 650; }
+    .path li + li { border-top: 1px solid #405060; }
+    .path li::before { content: ""; inline-size: .55rem; block-size: .55rem; flex: none; border-radius: 50%; background: var(--accent); }
+    .section { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
+    .section-intro { margin-bottom: 1.55rem; }
+    .section-intro p { margin-top: .6rem; color: var(--muted); }
+    .municipalities { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: .85rem; }
+    .municipality { border: 1px solid var(--line); border-radius: .5rem; background: var(--surface); scroll-margin-block-start: 1.25rem; }
+    .municipality[open] { border-color: #8193a0; }
+    summary { display: grid; grid-template-columns: minmax(0, 1fr) 2rem; gap: .35rem .75rem; align-items: center; padding: 1.15rem; list-style: none; border-radius: .5rem; cursor: pointer; }
+    summary::-webkit-details-marker { display: none; }
+    summary:hover { background: #edf2f4; }
+    .municipality-name { grid-column: 1; font-weight: 780; font-size: 1.25rem; letter-spacing: -.025em; }
+    .axis-name { grid-column: 1; color: var(--muted); font-size: .875rem; }
+    .disclosure { grid-column: 2; grid-row: 1 / span 2; display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border: 1px solid #8193a0; border-radius: 50%; color: var(--focus); font-size: 1.2rem; }
+    .disclosure::before { content: "+"; }
+    details[open] .disclosure::before { content: "−"; }
+    .municipality-content { border-top: 1px solid var(--line); margin-inline: 1.15rem; padding-block: 1rem 1.2rem; }
+    .municipality-content p { margin-top: .45rem; color: var(--muted); }
+    .scope-list { margin: .95rem 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+    .scope-list li { padding-block: .85rem; }
+    .scope-list li + li { border-top: 1px solid var(--line); }
+    .scope-type { display: block; margin-bottom: .25rem; color: var(--muted); font-size: .83rem; font-weight: 700; }
+    .source-link { display: inline-flex; align-items: center; min-height: 2.75rem; font-weight: 650; }
+    .method { background: #eaf0f2; border-block: 1px solid var(--line); }
+    .method-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem 2rem; margin: 0; }
+    .method-grid div { border-top: 1px solid #8193a0; padding-top: .75rem; }
+    .method-grid dt { font-weight: 750; }
+    .method-grid dd { margin: .25rem 0 0; color: var(--muted); }
+    .access p { margin-block: .65rem .35rem; color: var(--muted); }
+    .footer { border-top: 1px solid var(--line); padding-block: 1.25rem; color: var(--muted); font-size: .875rem; }
+    @media (max-width: 48rem) {
+      .hero-inner { grid-template-columns: 1fr; gap: 1.65rem; }
+      .path { max-width: 28rem; }
+      .method-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 36rem) {
+      .header-inner { padding-block: .65rem .15rem; }
+      .main-nav { width: 100%; }
+      .municipalities { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-<a class="skip" href="#conteudo">Ir para o conteúdo</a>
-<header class="top"><div class="shell top-inner">
-<a class="brand" href="./" aria-label="Página inicial AuditorES"><div class="brand-icon">A.</div><div><div class="brand-name">Auditor<em>ES</em></div><div class="brand-sub">Inteligência pública · Espírito Santo</div></div></a>
-<button class="menu" id="menu" type="button" aria-controls="nav" aria-expanded="false">Menu ☰</button>
-<nav class="nav" id="nav" aria-label="Navegação"><a href="#territorios">Territórios</a><a href="#modulos">Módulos</a><a href="#metodo">Metodologia</a><a class="nav-cta" href="#acesso">Área de trabalho ↗</a></nav>
-</div></header>
-<main id="conteudo">
-<section class="hero"><div class="shell hero-layout">
-<div><div class="eyebrow"><span class="rule"></span>Plataforma / ES — saúde pública baseada em evidências</div><h1>O dado é público.<br><span>A inteligência,</span><br>estratégica.</h1><p>Uma nova forma de investigar redes assistenciais, contratos de gestão e proteção social. Municípios, unidades e fontes conectados em análises rastreáveis — sem confundir evidência com conclusão.</p><a href="#territorios" class="cta">Explorar a plataforma <span aria-hidden="true">↗</span></a><a href="#metodo" class="ghost-link">Conhecer o método <span>→</span></a><div class="hero-meta"><span>Territórios do Espírito Santo</span><span>Análise multissetorial</span><span>Decisão fundamentada</span></div></div>
-<div class="terminal" role="img" aria-label="Prévia conceitual do painel de inteligência. Métricas ilustrativas e sem dados internos.">
-<div class="terminal-head"><div class="dots"><i></i><i></i><i></i></div><div class="terminal-tag">AUDITORES / INTELLIGENCE DESK</div><div class="terminal-tag">V.02</div></div>
-<div class="terminal-body"><div class="t-top"><div><div class="t-title">Panorama de análise</div><div class="t-desc">ES / Municípios e evidências</div></div><span class="t-live">DEMONSTRAÇÃO</span></div><div class="t-grid">
-<div class="t-box"><div class="t-label">Escala geográfica</div><div class="t-value gold">Municipal</div><div class="t-caption">Recortes independentes</div></div>
-<div class="t-box"><div class="t-label">Unidades analíticas</div><div class="t-value">OS / ESF</div><div class="t-caption">Modelos distintos</div></div>
-<div class="t-box"><div class="t-label">Integridade de fontes</div><div class="t-value">Ano + origem</div><div class="t-caption">Rastreabilidade por indicador</div></div>
-<div class="t-box"><div class="t-label">Situação dos estudos</div><div class="t-value">Em revisão</div><div class="t-caption">Sem conclusões automatizadas</div></div></div>
-<div class="t-line"><div class="t-line-head"><span>Camadas de análise / ilustração</span><span>01—08</span></div><div class="bars"><i style="height:38%"></i><i style="height:55%"></i><i style="height:44%"></i><i style="height:75%"></i><i style="height:63%"></i><i style="height:90%"></i><i style="height:70%"></i><i style="height:82%"></i></div></div>
-<div class="t-foot"><span>Os gráficos acima são ilustrativos</span><span>ATUALIZAÇÃO / 2026</span></div></div></div>
-</div></section>
-<section id="territorios" class="section"><div class="shell"><div class="section-intro"><div><div class="section-index">01 / Geografia da análise</div><h2>Um estado. Múltiplas realidades.</h2></div><p>Cada município exige um modelo próprio de leitura. Analisar um contrato de organização social não é o mesmo que estudar a capacidade assistencial e a proteção previdenciária de uma região rural.</p></div>
-<div class="catalog" aria-label="Municípios"><div class="catalog-row"><div class="catalog-num">01</div><div class="catalog-title">Vitória<small>Grande Vitória · ES</small></div><div class="catalog-desc">Contratos assistenciais, organizações sociais, metas, evidências documentais e governança contratual. Estudo de referência: PA São Pedro.</div><div class="catalog-state active">EIXO / OS</div></div>
-<div class="catalog-row"><div class="catalog-num">02</div><div class="catalog-title">Serra<small>Grande Vitória · ES</small></div><div class="catalog-desc">Estrutura preparada para mapeamento de contratos, unidades e modalidades de gestão. Fontes e vínculos a verificar antes de preencher indicadores.</div><div class="catalog-state">EM ESTRUTURAÇÃO</div></div>
-<div class="catalog-row"><div class="catalog-num">03</div><div class="catalog-title">Colatina<small>Região Noroeste · ES</small></div><div class="catalog-desc">Expansão da matriz de gestão e auditoria assistencial com classificação por unidade e instrumento jurídico.</div><div class="catalog-state">EM ESTRUTURAÇÃO</div></div>
-<div class="catalog-row"><div class="catalog-num">04</div><div class="catalog-title">Marechal Floriano<small>Região Serrana · Victor Hugo</small></div><div class="catalog-desc">Saúde do trabalhador rural, acesso ao tratamento, indicadores territoriais e proteção previdenciária. Uma análise municipal — não uma OS.</div><div class="catalog-state active">EIXO / TERRITÓRIO</div></div></div></div></section>
-<section class="section" id="modulos" style="padding-top:16px"><div class="shell"><div class="section-intro"><div><div class="section-index">02 / Arquitetura da plataforma</div><h2>Dois sistemas de perguntas.<br>Uma mesma inteligência.</h2></div></div><div class="dual">
-<article class="module dark"><div class="module-top"><span class="module-icon">AUDIT / 01</span><span class="module-no">GESTÃO & CONTRATOS</span></div><h3>Fiscalização de contratos e OS</h3><p>O que foi contratado? O que foi executado? Qual evidência demonstra a entrega? Onde estão os riscos, as inconsistências e as pendências de análise?</p><div class="module-foot"><span>VITÓRIA · SERRA · COLATINA</span><span>TRILHA DE EVIDÊNCIAS ↗</span></div></article>
-<article class="module"><div class="module-top"><span class="module-icon">ATLAS / 02</span><span class="module-no">INTELIGÊNCIA TERRITORIAL</span></div><h3>Saúde, trabalho e proteção social</h3><p>Quem depende de sua capacidade de trabalho para viver? Onde a doença encontra barreiras econômicas, assistenciais e previdenciárias? O que os dados públicos permitem — ou não — concluir?</p><div class="module-foot"><span>MARECHAL FLORIANO · VICTOR HUGO</span><span>FONTES E RECORTES ↗</span></div></article>
-</div></div></section>
-<section id="metodo" class="section method"><div class="shell"><div class="section-index">03 / Fundamento analítico</div><h2>Investigação, não presunção.</h2><p style="max-width:700px;font-size:13px;line-height:1.8;color:#65717a">O AuditorES organiza os dados em uma trilha verificável. Sinais de risco não são conclusões oficiais; diferenças entre anos, fontes e abrangências são explicitadas antes de qualquer interpretação.</p><div class="method-grid">
-<div class="method-item"><b>01 /</b><strong>Escopo</strong><p>Qual município, unidade, contrato e período estão sendo estudados?</p></div>
-<div class="method-item"><b>02 /</b><strong>Fonte</strong><p>De onde veio cada indicador? Qual a natureza e atualização do dado?</p></div>
-<div class="method-item"><b>03 /</b><strong>Evidência</strong><p>O que o documento demonstra e o que permanece não comprovado?</p></div>
-<div class="method-item"><b>04 /</b><strong>Risco</strong><p>Qual a implicação assistencial, social, financeira ou administrativa?</p></div>
-<div class="method-item"><b>05 /</b><strong>Ação</strong><p>O que verificar, documentar, encaminhar ou aprofundar tecnicamente?</p></div>
-</div></div></section>
-<section id="acesso" class="next"><div class="shell next-inner"><div><div class="eyebrow">Ambiente de trabalho</div><h2>Informação aberta. Análise controlada.</h2><p>A vitrine apresenta a arquitetura do projeto. Painéis internos, evidências detalhadas e dados de trabalho não são publicados nesta página. A equipe acessa o ambiente de trabalho pelo endereço fornecido pelo administrador.</p></div><a class="cta" href="https://github.com/joyceradis/AuditorES" target="_blank" rel="noopener noreferrer">Ver projeto no GitHub ↗</a></div></section>
-</main><footer class="footer"><div class="shell footer-inner"><span>© 2026 AUDITORES · INTELIGÊNCIA PÚBLICA / ES</span><span>Pesquisa aplicada · Governança · Proteção social · Saúde</span></div></footer>
-<script>
-const menu=document.getElementById('menu'),nav=document.getElementById('nav');menu.addEventListener('click',()=>{let v=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(v))});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false')}));
-</script>
+  <a class="skip" href="#conteudo">Ir para o conteúdo</a>
+  <header class="masthead">
+    <div class="shell header-inner">
+      <a class="brand" href="./" aria-label="Página inicial AuditorES">
+        <span class="brand-mark" aria-hidden="true">A.</span>
+        <span>Auditor<span class="brand-accent">ES</span></span>
+      </a>
+      <nav class="main-nav" aria-label="Navegação principal">
+        <a href="#territorios">Municípios</a>
+        <a href="#metodo">Metodologia</a>
+        <a href="#acesso">Acesso restrito</a>
+      </nav>
+    </div>
+  </header>
+  <main id="conteudo" tabindex="-1">
+    <header class="hero">
+      <div class="shell hero-inner">
+        <div class="hero-copy">
+          <p class="geography">Espírito Santo</p>
+          <h1>Inteligência em saúde pública</h1>
+          <p>Explore o escopo dos estudos do AuditorES sobre contratos assistenciais, saúde no território e proteção social.</p>
+          <a class="primary-link" href="#territorios">Explorar municípios <span aria-hidden="true">↓</span></a>
+        </div>
+        <ol class="path" aria-label="Hierarquia da análise">
+          <li>Município</li>
+          <li>Eixo de análise</li>
+          <li>Unidade, contrato ou território</li>
+        </ol>
+      </div>
+    </header>
+
+    <section id="territorios" class="section" aria-labelledby="municipios-titulo">
+      <div class="shell">
+        <div class="section-intro">
+          <h2 id="municipios-titulo">Municípios</h2>
+          <p>Abra um município para consultar o eixo e os recortes apresentados na vitrine.</p>
+        </div>
+        <div class="municipalities">
+          <details class="municipality" id="vitoria">
+            <summary>
+              <span class="municipality-name">Vitória</span>
+              <span class="axis-name">Auditoria de OS</span>
+              <span class="disclosure" aria-hidden="true"></span>
+            </summary>
+            <div class="municipality-content">
+              <p>O eixo acompanha evidências relacionadas à execução de contratos assistenciais.</p>
+              <ul class="scope-list">
+                <li id="pa-sao-pedro">
+                  <span class="scope-type">Unidade</span>
+                  <h3>PA São Pedro</h3>
+                  <p>Unidade de referência para o estudo de auditoria assistencial em Vitória.</p>
+                </li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="municipality" id="serra">
+            <summary>
+              <span class="municipality-name">Serra</span>
+              <span class="axis-name">Auditoria de OS</span>
+              <span class="disclosure" aria-hidden="true"></span>
+            </summary>
+            <div class="municipality-content">
+              <p>O mapeamento de unidades e contratos aguarda validação documental.</p>
+            </div>
+          </details>
+
+          <details class="municipality" id="colatina">
+            <summary>
+              <span class="municipality-name">Colatina</span>
+              <span class="axis-name">Auditoria de OS</span>
+              <span class="disclosure" aria-hidden="true"></span>
+            </summary>
+            <div class="municipality-content">
+              <p>O mapeamento de unidades e instrumentos de gestão está em estruturação.</p>
+            </div>
+          </details>
+
+          <details class="municipality" id="marechal-floriano">
+            <summary>
+              <span class="municipality-name">Marechal Floriano</span>
+              <span class="axis-name">Inteligência territorial</span>
+              <span class="disclosure" aria-hidden="true"></span>
+            </summary>
+            <div class="municipality-content">
+              <p>O eixo reúne estudos sobre saúde do trabalhador rural, acesso à assistência e proteção previdenciária.</p>
+              <ul class="scope-list">
+                <li id="recorte-municipal">
+                  <span class="scope-type">Território</span>
+                  <h3>Recorte municipal</h3>
+                  <p>Observações cujo escopo abrange Marechal Floriano.</p>
+                </li>
+                <li id="victor-hugo">
+                  <span class="scope-type">Equipe de Saúde da Família</span>
+                  <h3>ESF Victor Hugo</h3>
+                  <p>Observações específicas da equipe e referências cadastrais da unidade.</p>
+                </li>
+              </ul>
+              <a class="source-link" href="https://github.com/joyceradis/AuditorES/blob/main/docs/fontes.md">Consultar fontes públicas de Marechal Floriano</a>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="metodo" class="section method" aria-labelledby="modulos">
+      <div class="shell">
+        <div class="section-intro">
+          <h2 id="modulos">Metodologia</h2>
+          <p>Cada observação é lida no seu recorte e vinculada ao período, à fonte e ao método.</p>
+        </div>
+        <dl class="method-grid">
+          <div><dt>Escopo</dt><dd>Município, eixo e unidade, contrato ou território a que a observação se refere.</dd></div>
+          <div><dt>Fonte e período</dt><dd>Origem, ano ou competência e método usados para obter o indicador.</dd></div>
+          <div><dt>Interpretação</dt><dd>Evidências e sinais de risco orientam a revisão técnica.</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="acesso" class="shell section access" aria-labelledby="acesso-titulo">
+      <h2 id="acesso-titulo">Acesso restrito</h2>
+      <p>Os painéis internos e as evidências detalhadas ficam no ambiente de trabalho. A equipe acessa esse ambiente pelo endereço fornecido pelo administrador.</p>
+      <a class="source-link" href="https://github.com/joyceradis/AuditorES">Ver projeto no GitHub</a>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="shell">AuditorES · Inteligência pública no Espírito Santo</div>
+  </footer>
+  <script>
+    function openMunicipalityFromLink() {
+      const target = document.getElementById(window.location.hash.slice(1));
+      const municipality = target?.closest("details.municipality");
+      if (municipality && !municipality.open) {
+        municipality.open = true;
+        target.scrollIntoView();
+      }
+    }
+
+    window.addEventListener("hashchange", openMunicipalityFromLink);
+    openMunicipalityFromLink();
+  </script>
 </body>
 </html>
