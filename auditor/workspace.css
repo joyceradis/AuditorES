@@ -31,7 +31,7 @@ p { color: var(--muted); line-height: 1.6; }
 .filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 1rem; }
 label { display: grid; gap: .4rem; color: var(--ink); font-weight: 650; font-size: .9rem; min-width: 0; }
 select, input, button { font: inherit; max-width: 100%; min-height: 2.75rem; }
-select { padding: .5rem; border: 1px solid #71838e; background: white; color: var(--ink); border-radius: .25rem; }
+select { width: 100%; min-width: 0; padding: .5rem; border: 1px solid #71838e; background: white; color: var(--ink); border-radius: .25rem; }
 button { margin-top: .6rem; border: 0; border-radius: .25rem; background: var(--nav); color: white; padding: .6rem 1rem; cursor: pointer; }
 button:disabled { opacity: .65; cursor: default; }
 a { color: #15558f; text-underline-offset: .18em; }

@@ -13,3 +13,7 @@ Consulta em 21/11/2026. As medidas abaixo são agregados públicos. Os resultado
 | MDS | Famílias beneficiárias do Bolsa Família, em verificação | Competência mensal a fixar | Extrair a quantidade de famílias da folha mensal agregada para 3203346 e registrar o mês e a versão da série. A página municipal confirma o programa. O valor do indicador de folha depende de extração da fonte primária agregada | [Ferramentas da SAGICAD](https://www.gov.br/mds/pt-br/orgaos/SAGICAD/dados-e-ferramentas-informacionais/dados-e-ferramentas-do-cadastro-unico/) |
 
 Os recortes de residência, órgão pagador, estabelecimento e equipe têm abrangências distintas. A população do Censo de 2022 e os benefícios emitidos em dezembro de 2025 aparecem como observações independentes. Nenhuma medida foi atribuída a contratos de Serra ou Colatina.
+
+## Arquivos de importação
+
+Use os [agregados municipais](dados-publicos/marechal-floriano-municipio.json) no recorte Município e os [agregados da equipe](dados-publicos/marechal-floriano-victor-hugo.json) no recorte ESF Victor Hugo. O código CNES é mantido na documentação como referência cadastral. A área de trabalho inicia com banco vazio e recebe estes conjuntos por importação autorizada.
