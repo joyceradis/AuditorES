@@ -1,4 +1,4 @@
-name: Deploy Jekyll with GitHub Pages dependencies preinstalled
+name: Publicar vitrine do AuditorES
 
 on:
   push:
@@ -24,25 +24,10 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
       
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.1'
-          bundler-cache: true
-      
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
-      
-      - name: Verify build output
+      - name: Empacotar vitrine pública
         run: |
-          if [ ! -d "_site" ]; then
-            echo "Build failed: _site directory not found"
-            exit 1
-          fi
-      
+          mkdir _site
+          cp index.html _site/index.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

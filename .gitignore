@@ -23,3 +23,6 @@ backups/
 exports/
 local-data/
 *.private.json
+
+__pycache__/
+*.sqlite3*

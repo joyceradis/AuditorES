@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Área de trabalho | AuditorES</title>
+  <link rel="stylesheet" href="/workspace.css">
+  <script src="/workspace.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#conteudo">Ir para a análise</a>
+  <header class="masthead">
+    <div class="shell brand"><span class="mark" aria-hidden="true">A.</span><strong>Auditor<span>ES</span></strong></div>
+  </header>
+  <main id="conteudo" class="shell">
+    <section class="intro" aria-labelledby="titulo">
+      <h1 id="titulo">Área de trabalho</h1>
+      <p>Explore observações e suas fontes por município, recorte e período.</p>
+    </section>
+    <section class="panel" aria-labelledby="contexto">
+      <h2 id="contexto">Recorte da análise</h2>
+      <div class="filters">
+        <label>Município <select id="city"></select></label>
+        <label>Unidade, contrato ou território <select id="scope"></select></label>
+        <label>Ano <select id="period"></select></label>
+        <label>Fonte <select id="source"></select></label>
+      </div>
+      <p id="axis" class="axis"></p>
+      <p id="status" role="status"></p>
+    </section>
+    <div id="results" hidden>
+      <section class="panel" aria-labelledby="serie">
+        <h2 id="serie">Série temporal</h2>
+        <label>Indicador e fonte <select id="series"></select></label>
+        <p id="series-note">As barras usam a mesma escala dentro da série. A tabela traz os valores e as referências.</p>
+        <ol id="chart" class="chart" aria-label="Observações por competência"></ol>
+      </section>
+      <section class="panel" aria-labelledby="evidencias">
+        <div class="section-top">
+          <h2 id="evidencias">Observações e fontes</h2>
+          <a id="export">Exportar JSON</a>
+        </div>
+        <div class="table-scroll" tabindex="0" role="region" aria-labelledby="evidencias">
+          <table>
+            <thead><tr><th scope="col">Indicador</th><th scope="col">Valor</th><th scope="col">Competência</th><th scope="col">Fonte</th><th scope="col">Método</th></tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+    <section class="panel" id="import-panel" aria-labelledby="import-title" hidden>
+      <h2 id="import-title">Importar observações agregadas</h2>
+      <p>Selecione um arquivo JSON de até 256 KiB. Inclua apenas indicadores agregados e referências oficiais de acesso público. A importação mantém as entradas como observações de trabalho para revisão.</p>
+      <label>Arquivo JSON <input id="import-file" type="file" accept=".json,application/json"></label>
+      <button id="import-button" type="button">Importar no recorte selecionado</button>
+      <p id="import-status" role="status"></p>
+    </section>
+  </main>
+</body>
+</html>

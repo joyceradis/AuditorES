@@ -23,15 +23,17 @@
 @media(max-width:980px){.hero-layout{grid-template-columns:1fr;gap:48px;padding-top:62px}.terminal{max-width:620px;transform:none}.method-grid{grid-template-columns:repeat(3,1fr)}.catalog-row{grid-template-columns:42px 1fr 1fr}.catalog-state{grid-column:2/4;text-align:left}.section-intro{flex-direction:column;align-items:start}.section-intro p{max-width:700px}}
 @media(max-width:650px){.shell{padding:0 22px}.nav{display:none;position:absolute;top:79px;left:0;right:0;background:#15202b;padding:20px;flex-direction:column;align-items:start;border-bottom:1px solid #47505e}.nav.open{display:flex}.menu{display:block}.hero h1{font-size:43px}.hero-layout{padding-top:54px;padding-bottom:70px}.hero-meta{margin-top:34px;gap:15px}.ghost-link{display:flex;margin:18px 0}.section{padding:60px 0}.catalog-row{grid-template-columns:33px 1fr;gap:12px}.catalog-desc,.catalog-state{grid-column:2;text-align:left}.dual{grid-template-columns:1fr}.method-grid{grid-template-columns:1fr 1fr}.next-inner{display:block}.footer-inner{display:block;line-height:2}.terminal-body{padding:18px}.t-box{padding:13px;min-height:98px}.t-value{font-size:19px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+.skip{position:absolute;top:6px;left:8px;z-index:20;transform:translateY(-200%);padding:12px;background:#fff;color:#152230}.skip:focus{transform:none}.catalog-title small,.module p{color:#52636f}.module.dark p{color:#adbac4}.section-index{color:#765230}.footer{color:#9dafbd}
 </style>
 </head>
 <body>
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
 <header class="top"><div class="shell top-inner">
 <a class="brand" href="./" aria-label="Página inicial AuditorES"><div class="brand-icon">A.</div><div><div class="brand-name">Auditor<em>ES</em></div><div class="brand-sub">Inteligência pública · Espírito Santo</div></div></a>
-<button class="menu" id="menu" type="button" aria-label="Abrir menu" aria-expanded="false">Menu ☰</button>
+<button class="menu" id="menu" type="button" aria-controls="nav" aria-expanded="false">Menu ☰</button>
 <nav class="nav" id="nav" aria-label="Navegação"><a href="#territorios">Territórios</a><a href="#modulos">Módulos</a><a href="#metodo">Metodologia</a><a class="nav-cta" href="#acesso">Área de trabalho ↗</a></nav>
 </div></header>
-<main>
+<main id="conteudo">
 <section class="hero"><div class="shell hero-layout">
 <div><div class="eyebrow"><span class="rule"></span>Plataforma / ES — saúde pública baseada em evidências</div><h1>O dado é público.<br><span>A inteligência,</span><br>estratégica.</h1><p>Uma nova forma de investigar redes assistenciais, contratos de gestão e proteção social. Municípios, unidades e fontes conectados em análises rastreáveis — sem confundir evidência com conclusão.</p><a href="#territorios" class="cta">Explorar a plataforma <span aria-hidden="true">↗</span></a><a href="#metodo" class="ghost-link">Conhecer o método <span>→</span></a><div class="hero-meta"><span>Territórios do Espírito Santo</span><span>Análise multissetorial</span><span>Decisão fundamentada</span></div></div>
 <div class="terminal" role="img" aria-label="Prévia conceitual do painel de inteligência. Métricas ilustrativas e sem dados internos.">
@@ -60,7 +62,7 @@
 <div class="method-item"><b>04 /</b><strong>Risco</strong><p>Qual a implicação assistencial, social, financeira ou administrativa?</p></div>
 <div class="method-item"><b>05 /</b><strong>Ação</strong><p>O que verificar, documentar, encaminhar ou aprofundar tecnicamente?</p></div>
 </div></div></section>
-<section id="acesso" class="next"><div class="shell next-inner"><div><div class="eyebrow">Ambiente de trabalho</div><h2>Informação aberta. Análise controlada.</h2><p>A vitrine apresenta a arquitetura do projeto. Painéis internos, evidências detalhadas e dados de trabalho não são publicados nesta página. O acesso administrativo será disponibilizado após a implantação e validação da autenticação.</p></div><a class="cta" href="https://github.com/joyceradis/AuditorES" target="_blank" rel="noopener noreferrer">Ver projeto no GitHub ↗</a></div></section>
+<section id="acesso" class="next"><div class="shell next-inner"><div><div class="eyebrow">Ambiente de trabalho</div><h2>Informação aberta. Análise controlada.</h2><p>A vitrine apresenta a arquitetura do projeto. Painéis internos, evidências detalhadas e dados de trabalho não são publicados nesta página. A equipe acessa o ambiente de trabalho pelo endereço fornecido pelo administrador.</p></div><a class="cta" href="https://github.com/joyceradis/AuditorES" target="_blank" rel="noopener noreferrer">Ver projeto no GitHub ↗</a></div></section>
 </main><footer class="footer"><div class="shell footer-inner"><span>© 2026 AUDITORES · INTELIGÊNCIA PÚBLICA / ES</span><span>Pesquisa aplicada · Governança · Proteção social · Saúde</span></div></footer>
 <script>
 const menu=document.getElementById('menu'),nav=document.getElementById('nav');menu.addEventListener('click',()=>{let v=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(v))});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false')}));
