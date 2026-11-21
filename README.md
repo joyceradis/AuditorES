@@ -22,10 +22,11 @@ A área de trabalho mantém observações agregadas por recorte, indicador, unid
 Vitrine pública, a partir da raiz do repositório:
 
 ```bash
+bash scripts/build-pages.sh /tmp/auditores-vitrine
 python3 -m http.server --bind 127.0.0.1 --directory /tmp/auditores-vitrine 8000
 ```
 
-Antes de iniciar, crie `/tmp/auditores-vitrine` e copie somente `index.html` para esse diretório. O workflow do GitHub Pages empacota esse mesmo arquivo.
+Use um diretório de saída novo. O mesmo script empacota apenas as páginas públicas para o GitHub Pages, incluindo o ATLAS de consulta. A importação de observações fica na área de trabalho autenticada.
 
 Área de trabalho, com Python 3.10+ e SQLite 3.24+:
 
