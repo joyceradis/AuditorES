@@ -17,7 +17,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
 
-from .catalog import SCOPES, SOURCES
+from .catalog import AXES, SCOPES, SOURCES
 
 HERE = Path(__file__).resolve().parent
 MAX_BODY = 256 * 1024
@@ -38,14 +38,17 @@ def load_scopes(path):
     scopes = {city: (name, axis, entries.copy()) for city, (name, axis, entries) in SCOPES.items()}
     if path is not None:
         for city, entries in json.loads(path.read_text(encoding="utf-8")).items():
+            if city not in scopes:
+                raise ValueError("Município inválido na definição de recorte.")
+            _, axis, current_scopes = scopes[city]
+            _, kinds = AXES[axis]
             for scope, entry in entries.items():
                 name, kind = entry["name"], entry["kind"]
-                kinds = {"Unidade", "Território"} if city == "marechal-floriano" else {"Unidade", "Contrato"}
-                if (city not in scopes or scope in scopes[city][2] or kind not in kinds
+                if (scope in current_scopes or kind not in kinds
                         or not re.fullmatch(r"[a-z0-9-]{1,80}", scope)
                         or not isinstance(name, str) or not 1 <= len(name.strip()) <= 120):
                     raise ValueError("Definição de recorte inválida.")
-                scopes[city][2][scope] = f"{name.strip()} · {kind}"
+                current_scopes[scope] = (name.strip(), kind)
     return scopes
 
 
@@ -177,11 +180,14 @@ class Handler(BaseHTTPRequestHandler):
             self.send_payload(200, (HERE / file).read_bytes(), content_type)
         elif url.path == "/api/catalog":
             cities = {}
-            for city, (name, axis, scopes) in self.server.catalog.items():
+            for city, (name, axis_id, scopes) in self.server.catalog.items():
+                axis, kinds = AXES[axis_id]
                 grants = account["grants"].get(city, {})
-                cities[city] = {"name": name, "axis": axis, "scopes": {
-                    scope: {"name": scopes[scope], "role": role} for scope, role in grants.items()
-                }}
+                entries = {}
+                for scope, role in grants.items():
+                    label, kind = scopes[scope]
+                    entries[scope] = {"name": f"{label} · {kind}", "label": label, "kind": kind, "role": role}
+                cities[city] = {"name": name, "axis": axis, "axisId": axis_id, "kinds": kinds, "scopes": entries}
             self.send_payload(200, {"cities": cities, "sources": SOURCES})
         elif url.path in {"/api/observations", "/api/export"}:
             query = parse_qs(url.query)

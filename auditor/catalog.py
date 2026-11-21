@@ -1,12 +1,17 @@
 """Catálogo de recortes de trabalho e instituições de referência."""
 
+AXES = {
+    "auditoria-os": ("Auditoria de OS", ("Unidade", "Contrato")),
+    "inteligencia-territorial": ("Inteligência territorial", ("Território", "Unidade")),
+}
+
 SCOPES = {
-    "vitoria": ("Vitória", "Auditoria de OS", {"pa-sao-pedro": "PA São Pedro · Unidade"}),
-    "serra": ("Serra", "Auditoria de OS", {}),
-    "colatina": ("Colatina", "Auditoria de OS", {}),
+    "vitoria": ("Vitória", "auditoria-os", {"pa-sao-pedro": ("PA São Pedro", "Unidade")}),
+    "serra": ("Serra", "auditoria-os", {}),
+    "colatina": ("Colatina", "auditoria-os", {}),
     "marechal-floriano": (
-        "Marechal Floriano", "Inteligência territorial",
-        {"municipio": "Município · Território", "victor-hugo": "ESF Victor Hugo · Unidade"}
+        "Marechal Floriano", "inteligencia-territorial",
+        {"municipio": ("Município", "Território"), "victor-hugo": ("ESF Victor Hugo", "Unidade")}
     ),
 }
 

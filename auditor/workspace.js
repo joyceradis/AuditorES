@@ -1,17 +1,26 @@
 "use strict";
 
 const get = id => document.getElementById(id);
-const city = get("city");
-const scope = get("scope");
 const period = get("period");
 const source = get("source");
 const series = get("series");
 const results = get("results");
 const importPanel = get("import-panel");
 const number = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 12 });
-let catalog;
 let groups;
-let request = 0;
+
+const AXIS_CONTENT = {
+  "auditoria-os": {
+    description: "Acompanhe indicadores e evidências de auditoria por unidade ou contrato.",
+    evidenceTitle: "Indicadores e evidências de auditoria",
+  },
+  "inteligencia-territorial": {
+    description: "Consulte os indicadores por recorte municipal ou da equipe de saúde.",
+    evidenceTitle: "Indicadores e fontes territoriais",
+  },
+};
+
+const SCOPE_HEADINGS = { Unidade: "Unidades", Contrato: "Contratos", Território: "Territórios" };
 
 function options(select, items) {
   select.replaceChildren(...items.map(([value, label]) => new Option(label, value)));
@@ -25,8 +34,66 @@ async function api(path, options) {
   return body;
 }
 
-function scopeQuery() {
-  return new URLSearchParams({ city: city.value, scope: scope.value });
+function pagePath(parts) {
+  return "/?" + new URLSearchParams(parts);
+}
+
+function setPage(title, description, parents = [], context = "") {
+  document.title = title + " | AuditorES";
+  get("titulo").textContent = title;
+  get("context").textContent = context;
+  get("context").hidden = !context;
+  get("intro-copy").textContent = description;
+  get("intro-copy").hidden = !description;
+
+  if (!parents.length) return;
+  const breadcrumbs = get("breadcrumbs");
+  const list = breadcrumbs.querySelector("ol");
+  for (const [label, href] of parents) {
+    const item = document.createElement("li");
+    const link = document.createElement("a");
+    link.textContent = label;
+    link.href = href;
+    item.append(link);
+    list.append(item);
+  }
+  const current = document.createElement("li");
+  current.textContent = title;
+  current.setAttribute("aria-current", "page");
+  list.append(current);
+  breadcrumbs.hidden = false;
+}
+
+function renderDirectory(entries, heading) {
+  const list = document.createElement("ul");
+  list.className = "directory-list";
+  for (const { title, caption, href } of entries) {
+    const card = get("directory-card").content.cloneNode(true);
+    const link = card.querySelector("a");
+    link.href = href;
+    link.querySelector(".card-title").textContent = title;
+    link.querySelector(".card-caption").textContent = caption;
+    list.append(card);
+  }
+
+  const directory = get("directory");
+  if (!heading) {
+    directory.append(list);
+    return;
+  }
+
+  const section = document.createElement("section");
+  section.className = "directory-group";
+  const title = document.createElement("h2");
+  title.textContent = heading;
+  section.append(title, list);
+  directory.append(section);
+}
+
+function showNavigationStatus(message) {
+  const status = get("navigation-status");
+  status.textContent = message;
+  status.hidden = !message;
 }
 
 function renderChart() {
@@ -68,65 +135,65 @@ function renderRows(observations) {
     tr.cells[3].replaceChildren(reference);
     return tr;
   }));
-  options(series, [...groups.keys()].map((key, index) => {
+  options(series, [...groups.keys()].map(key => {
     const [label] = JSON.parse(key);
-    return [key, (index + 1) + " · " + label];
+    return [key, label];
   }));
   renderChart();
 }
 
-async function load() {
-  const id = ++request;
-  results.hidden = true;
-  importPanel.hidden = true;
-  const selected = catalog.cities[city.value];
-  get("axis").textContent = selected.axis;
-  if (!scope.value) {
-    get("status").textContent = "Nenhum recorte disponível para este município.";
-    period.disabled = true;
-    source.disabled = true;
-    return;
-  }
-  source.disabled = false;
-  const query = scopeQuery();
-  get("status").textContent = "Carregando observações…";
-  try {
-    const all = await api("/api/observations?" + query);
-    if (id !== request) return;
-    const year = period.value;
-    const years = [...new Set(all.map(row => row.period.slice(0, 4)))].sort().reverse();
-    options(period, [["", "Todos"], ...years.map(value => [value, value])]);
-    if (years.includes(year)) period.value = year;
-    if (period.value) query.set("period", period.value);
-    if (source.value) query.set("source", source.value);
-    const filtered = all.filter(row =>
+async function showAnalysis(query, city, scope, sources, parents) {
+  setPage(scope.label, "", parents, scope.kind);
+  get("evidencias").textContent = AXIS_CONTENT[city.axisId].evidenceTitle;
+  if (city.axisId === "auditoria-os") results.prepend(get("evidence-panel"));
+  get("analysis").hidden = false;
+  importPanel.hidden = scope.role !== "write";
+  options(source, [["", "Todas"], ...Object.entries(sources)]);
+  let observations = [];
+
+  function renderResults() {
+    const filters = new URLSearchParams(query);
+    if (period.value) filters.set("period", period.value);
+    if (source.value) filters.set("source", source.value);
+    const filtered = observations.filter(row =>
       (!period.value || row.period.startsWith(period.value)) &&
       (!source.value || row.source === source.value)
     );
-    renderRows(filtered);
-    get("export").href = "/api/export?" + query;
+    if (filtered.length) renderRows(filtered);
+    get("export").href = "/api/export?" + filters;
     results.hidden = !filtered.length;
-    importPanel.hidden = selected.scopes[scope.value].role !== "write";
-    get("status").textContent = filtered.length ? filtered.length + " observações de trabalho." : "Nenhuma observação para este recorte e filtros.";
-  } catch (error) {
-    if (id === request) get("status").textContent = error.message;
+    const count = filtered.length;
+    get("status").textContent = count
+      ? count + (count === 1 ? " observação de trabalho." : " observações de trabalho.")
+      : "Nenhuma observação para este recorte e filtros.";
   }
+
+  async function reload() {
+    results.hidden = true;
+    get("status").textContent = "Carregando observações…";
+    period.disabled = true;
+    source.disabled = true;
+    try {
+      observations = await api("/api/observations?" + query);
+      const year = period.value;
+      const years = [...new Set(observations.map(row => row.period.slice(0, 4)))].sort().reverse();
+      options(period, [["", "Todos"], ...years.map(value => [value, value])]);
+      if (years.includes(year)) period.value = year;
+      source.disabled = false;
+      renderResults();
+    } catch (error) {
+      get("status").textContent = error.message;
+    }
+  }
+
+  period.addEventListener("change", renderResults);
+  source.addEventListener("change", renderResults);
+  series.addEventListener("change", renderChart);
+  get("import-button").addEventListener("click", () => importFile(query, reload));
+  await reload();
 }
 
-function changeScope() {
-  get("import-file").value = "";
-  get("import-status").textContent = "";
-  period.value = "";
-  source.value = "";
-  load();
-}
-
-function changeCity() {
-  options(scope, Object.entries(catalog.cities[city.value].scopes).map(([id, entry]) => [id, entry.name]));
-  changeScope();
-}
-
-async function importFile() {
+async function importFile(query, reload) {
   const input = get("import-file");
   const status = get("import-status");
   const button = get("import-button");
@@ -135,7 +202,6 @@ async function importFile() {
     status.textContent = "Selecione um arquivo JSON de até 256 KiB.";
     return;
   }
-  const query = scopeQuery().toString();
   button.disabled = true;
   status.textContent = "Importando…";
   try {
@@ -144,13 +210,11 @@ async function importFile() {
       headers: { "Content-Type": "application/json", "X-AuditorES-Import": "1" },
       body: await file.text(),
     });
-    if (scopeQuery().toString() === query) {
-      input.value = "";
-      status.textContent = result.added + " incluídas. " + result.duplicates + " já registradas.";
-      await load();
-    }
+    input.value = "";
+    status.textContent = result.added + " incluídas. " + result.duplicates + " já registradas.";
+    await reload();
   } catch (error) {
-    if (scopeQuery().toString() === query) status.textContent = error.message;
+    status.textContent = error.message;
   } finally {
     button.disabled = false;
   }
@@ -158,21 +222,57 @@ async function importFile() {
 
 async function init() {
   try {
-    catalog = await api("/api/catalog");
-    const cities = Object.entries(catalog.cities);
-    options(city, cities.map(([id, entry]) => [id, entry.name]));
-    const first = cities.find(([, entry]) => Object.keys(entry.scopes).length);
-    if (first) city.value = first[0];
-    options(source, [["", "Todas"], ...Object.entries(catalog.sources)]);
-    city.addEventListener("change", changeCity);
-    scope.addEventListener("change", changeScope);
-    period.addEventListener("change", load);
-    source.addEventListener("change", load);
-    series.addEventListener("change", renderChart);
-    get("import-button").addEventListener("click", importFile);
-    changeCity();
+    const { cities, sources } = await api("/api/catalog");
+    const route = new URLSearchParams(window.location.search);
+    const cityId = route.get("city");
+    const axisId = route.get("axis");
+    const scopeId = route.get("scope");
+    showNavigationStatus("");
+
+    if (!Object.hasOwn(cities, cityId)) {
+      setPage("Municípios", "Selecione o município que você quer analisar.");
+      if (cityId) showNavigationStatus("Município indisponível. Escolha uma opção abaixo.");
+      renderDirectory(Object.entries(cities).map(([id, city]) => ({
+        title: city.name, caption: city.axis, href: pagePath({ city: id }),
+      })));
+      return;
+    }
+
+    const city = cities[cityId];
+    const parents = [["Municípios", "/"]];
+    const cityPath = pagePath({ city: cityId });
+    const axisPath = pagePath({ city: cityId, axis: city.axisId });
+    if (axisId !== city.axisId) {
+      setPage(city.name, "Eixo de análise disponível neste município.", parents);
+      if (axisId || scopeId) showNavigationStatus("Eixo ou recorte indisponível. Abra o eixo abaixo.");
+      renderDirectory([{
+        title: city.axis, caption: AXIS_CONTENT[city.axisId].description, href: axisPath,
+      }]);
+      return;
+    }
+
+    parents.push([city.name, cityPath]);
+    if (Object.hasOwn(city.scopes, scopeId)) {
+      parents.push([city.axis, axisPath]);
+      const query = new URLSearchParams({ city: cityId, scope: scopeId });
+      await showAnalysis(query, city, city.scopes[scopeId], sources, parents);
+      return;
+    }
+
+    const scopes = Object.entries(city.scopes);
+    setPage(city.axis, scopes.length ? "Selecione o recorte da análise." : "", parents, city.name);
+    if (scopeId) showNavigationStatus("Este recorte está indisponível para sua conta.");
+    else if (!scopes.length) showNavigationStatus("Nenhum recorte disponível para sua conta neste eixo.");
+    for (const kind of city.kinds) {
+      const entries = scopes.filter(([, scope]) => scope.kind === kind).map(([id, scope]) => ({
+        title: scope.label,
+        caption: scope.role === "write" ? "Consulta e importação" : "Consulta",
+        href: pagePath({ city: cityId, axis: axisId, scope: id }),
+      }));
+      if (entries.length) renderDirectory(entries, SCOPE_HEADINGS[kind]);
+    }
   } catch (error) {
-    get("status").textContent = error.message;
+    showNavigationStatus(error.message);
   }
 }
 

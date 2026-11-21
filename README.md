@@ -10,6 +10,8 @@
 
 A vitrine pública apresenta o escopo do projeto. A área de trabalho usa Município → Eixo de análise → Unidade, Contrato ou Território. Vitória, Serra e Colatina pertencem ao eixo de auditoria de OS. Marechal Floriano pertence ao eixo de inteligência territorial, com recortes municipal e ESF Victor Hugo. O catálogo inicial de Serra e Colatina aguarda documentação.
 
+A navegação começa no catálogo de municípios. A página municipal leva ao eixo, que lista os recortes autorizados por tipo. Cada recorte tem endereço próprio e links para voltar ao eixo ou ao município. A análise de OS abre pelos indicadores e evidências de auditoria. A análise territorial abre pela série temporal e permite acessar as fontes em seguida.
+
 A área de trabalho mantém observações agregadas por recorte, indicador, unidade de medida, competência, instituição, referência e método. A interface oferece filtro por ano e fonte, série com granularidade mensal ou anual, tabela de evidências e exportação JSON do filtro. O SQLite registra autor e horário da importação. Cada importação é atômica e reapresentar as mesmas chaves mantém o registro original.
 
 - [Auditoria técnica e design system](docs/auditoria.md)

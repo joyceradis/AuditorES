@@ -80,6 +80,16 @@ class WorkspaceTest(unittest.TestCase):
         self.assertEqual(json.loads(self.request("/api/export" + VITORIA + "&period=2023", "reader")[2]), [])
         catalog = json.loads(self.request("/api/catalog", "other")[2])["cities"]
         self.assertEqual(catalog["marechal-floriano"]["axis"], "Inteligência territorial")
+        self.assertEqual(catalog["marechal-floriano"]["axisId"], "inteligencia-territorial")
+        self.assertEqual(catalog["marechal-floriano"]["kinds"], ["Território", "Unidade"])
+        self.assertEqual(catalog["marechal-floriano"]["scopes"], {
+            "victor-hugo": {
+                "name": "ESF Victor Hugo · Unidade", "label": "ESF Victor Hugo",
+                "kind": "Unidade", "role": "read",
+            }
+        })
+        self.assertEqual(catalog["vitoria"]["axisId"], "auditoria-os")
+        self.assertEqual(catalog["vitoria"]["kinds"], ["Unidade", "Contrato"])
         self.assertEqual(catalog["vitoria"]["scopes"], {})
 
     def test_import_is_atomic_and_repeatable(self):
