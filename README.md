@@ -26,7 +26,7 @@ bash scripts/build-pages.sh /tmp/auditores-vitrine
 python3 -m http.server --bind 127.0.0.1 --directory /tmp/auditores-vitrine 8000
 ```
 
-Use um diretório de saída novo. O mesmo script empacota apenas as páginas públicas para o GitHub Pages, incluindo o ATLAS de consulta. A importação de observações fica na área de trabalho autenticada.
+Use um diretório de saída novo. O script empacota as páginas públicas, incluindo o ATLAS de consulta. A publicação por branch do GitHub Pages usa as exclusões em `_config.yml`. A importação de observações fica na área de trabalho autenticada.
 
 Área de trabalho, com Python 3.10+ e SQLite 3.24+:
 

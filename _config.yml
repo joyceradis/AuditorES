@@ -1,0 +1,9 @@
+# A publicação por branch do GitHub Pages usa o Jekyll na raiz.
+exclude:
+  - auditor/
+  - docs/
+  - scripts/
+  - tests/
+  - LICENSE
+  - README.md
+  - SECURITY.md
