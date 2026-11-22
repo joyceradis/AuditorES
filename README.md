@@ -1,63 +1,29 @@
 # AuditorES
 
-**Auditoria técnico-documental e inteligência operacional para contratos assistenciais em saúde pública.**
+Auditoria técnico-documental de contratos assistenciais e inteligência territorial em saúde pública no Espírito Santo.
 
-> **English:** Audit and decision-support MVP built around structured evidence, traceability and operational healthcare workflows.
+- [Vitrine pública](https://joyceradis.github.io/AuditorES/) para encontrar municípios e recortes.
+- [ATLAS de Marechal Floriano](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/) para consultar e exportar indicadores públicos do município e da ESF Victor Hugo.
+- [Área de trabalho autenticada](docs/operacao.md#área-de-trabalho) para operar localmente ou em infraestrutura própria.
 
-[**Abrir demonstração**](https://joyceradis.github.io/AuditorES/)
+## Municípios e recortes
 
-## Arquitetura
+| Município | Eixo | Escopo apresentado |
+| --- | --- | --- |
+| Vitória | Auditoria de OS | PA São Pedro como unidade de referência |
+| Serra | Auditoria de OS | Mapeamento documental em estruturação |
+| Colatina | Auditoria de OS | Mapeamento documental em estruturação |
+| Marechal Floriano | Inteligência territorial | Município e ESF Victor Hugo |
 
-A vitrine pública apresenta o escopo do projeto. A área de trabalho usa Município → Eixo de análise → Unidade, Contrato ou Território. Vitória, Serra e Colatina pertencem ao eixo de auditoria de OS. Marechal Floriano pertence ao eixo de inteligência territorial, com recortes municipal e ESF Victor Hugo. O catálogo inicial de Serra e Colatina aguarda documentação.
+## Código e documentação
 
-A navegação começa no catálogo de municípios. A página municipal leva ao eixo, que lista os recortes autorizados por tipo. Cada recorte tem endereço próprio e links para voltar ao eixo ou ao município. A análise de OS abre pelos indicadores e evidências de auditoria. A análise territorial abre pela série temporal e permite acessar as fontes em seguida.
-
-A área de trabalho mantém observações agregadas por recorte, indicador, unidade de medida, competência, instituição, referência e método. A interface oferece filtro por ano e fonte, série com granularidade mensal ou anual, tabela de evidências e exportação JSON do filtro. O SQLite registra autor e horário da importação. Cada importação é atômica e reapresentar as mesmas chaves mantém o registro original.
-
-- [Auditoria técnica e design system](docs/auditoria.md)
-- [Validação de fontes oficiais](docs/fontes.md)
-
-## Execução local
-
-Vitrine pública, a partir da raiz do repositório:
-
-```bash
-bash scripts/build-pages.sh /tmp/auditores-vitrine
-python3 -m http.server --bind 127.0.0.1 --directory /tmp/auditores-vitrine 8000
-```
-
-Use um diretório de saída novo. O script empacota as páginas públicas, incluindo o ATLAS de consulta. A publicação por branch do GitHub Pages usa as exclusões em `_config.yml`. A importação de observações fica na área de trabalho autenticada.
-
-Área de trabalho, com Python 3.10+ e SQLite 3.24+:
-
-1. Execute `python3 -m auditor.server --hash-password` para cada usuário. Guarde a configuração em um diretório privado fora da raiz publicada e do Git.
-2. Crie `accounts.private.json` com uma entrada por usuário. Use os valores gerados em `salt` e `digest` e informe os recortes concedidos. O papel `read` permite consulta e exportação. O papel `write` também permite importação.
-3. Execute `python3 -m auditor.server --accounts /caminho/privado/accounts.private.json --db /caminho/privado/auditores.sqlite3` e abra `http://127.0.0.1:8080`.
-
-```json
-{
-  "analista": {
-    "salt": "<salt gerado>",
-    "digest": "<digest gerado>",
-    "grants": {"marechal-floriano": {"municipio": "write", "victor-hugo": "read"}}
-  }
-}
-```
-
-Vitória usa inicialmente o recorte `pa-sao-pedro`. Para cadastrar novos recortes documentados, passe `--scopes /caminho/privado/recortes.private.json`. O arquivo mapeia cada município a objetos indexados pelo identificador estável de recorte e com campos `name` e `kind`. Na auditoria, `kind` aceita `Unidade` ou `Contrato`. Em Marechal Floriano, aceita `Unidade` ou `Território`. A concessão de acesso continua explícita no arquivo de contas. Reinicie o serviço ao alterar concessões ou credenciais.
-
-Para acesso remoto, hospede a aplicação em ambiente privado com proxy HTTPS, limite de requisições e timeout. O processo deve permanecer em loopback e o diretório de dados deve ter acesso restrito e backups protegidos. Use perfis individuais de navegador, pois o navegador pode manter credenciais HTTP Basic durante a sessão. Rotacione senhas por conta. A vitrine pode ser publicada de forma independente.
-
-## Formato de intercâmbio
-
-Use uma lista JSON de até 1.000 observações e 256 KiB, com os campos `indicator`, `value` (número), `unit`, `period` (AAAA ou AAAA-MM), `source`, `reference` (URL HTTPS oficial pública) e `method`. Na importação, confira o município e o recorte selecionados. A exportação mantém o mesmo formato e inclui os identificadores no nome do arquivo. Use somente agregados revisados quanto ao risco de reidentificação, incluindo os campos de texto e as referências. A validação de esquema restringe os campos, e a revisão do conteúdo cabe a quem autoriza a importação.
-
-## Testes
-
-```bash
-python3 -m unittest discover -s tests -v
-node --check auditor/workspace.js
-```
+| Caminho | Conteúdo |
+| --- | --- |
+| [index.html](index.html) e [municipios/](municipios/) | Páginas públicas e rotas de compatibilidade |
+| [auditor/](auditor/) | Servidor Python, SQLite e interface da área autenticada |
+| [docs/fontes.md](docs/fontes.md) | Fontes oficiais, recortes, competências e pendências |
+| [docs/operacao.md](docs/operacao.md) | Prévia local, configuração de contas, testes e publicação |
+| [docs/auditoria.md](docs/auditoria.md) e [SECURITY.md](SECURITY.md) | Auditoria técnica, design e segurança |
 
 ## Autoria
 

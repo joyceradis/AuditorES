@@ -17,3 +17,18 @@ Os recortes de residência, órgão pagador, estabelecimento e equipe têm abran
 ## Arquivos de importação
 
 Use os [agregados municipais](dados-publicos/marechal-floriano-municipio.json) no recorte Município e os [agregados da equipe](dados-publicos/marechal-floriano-victor-hugo.json) no recorte ESF Victor Hugo. O código CNES é mantido na documentação como referência cadastral. A área de trabalho inicia com banco vazio e recebe estes conjuntos por importação autorizada.
+
+## Trilha dos indicadores do ATLAS
+
+A tabela do painel registra o recorte, a competência e a referência de cada observação. Estas conferências usam a numeração impressa dos planos municipais.
+
+| Fonte | Escopo e competência | Conferência |
+| --- | --- | --- |
+| SEMUS, PMS 2026–2029, tabela 14, p. 38 | ESF Victor Hugo, 30/04/2025 | Leitura direta dos **1.780 cadastros individuais** na linha da equipe. |
+| SEMUS, PMS 2022–2025, tabela 45, p. 55 | ESF Victor Hugo, agosto de 2021 | A coluna Victor Hugo tem **480 famílias classificadas** pelo método Coelho-Savassi. Os estratos médio (20) e máximo (16) totalizam 36, ou **7,5% das famílias classificadas**. |
+| SEMUS, PMS 2026–2029, tabelas 38–39, p. 67–68 | Marechal Floriano, 2024 | Contagens do cadastro individual do e-SUS APS. As condições autodeclaradas são registradas com o nome usado na fonte. |
+| SEMUS, PMS 2026–2029, tabela 41, p. 69 | Rede municipal de ESF, 2024 | **626 avaliações de hemoglobina glicada para 1.606 solicitações**, aproximadamente 38,98%. |
+| SEMUS, PMS 2026–2029, tabela 50, p. 76–77 | Atenção especializada municipal, 2024 | Leitura da coluna 2024 para cardiologia (18,63%), cirurgia geral (23,26%) e cirurgia vascular (29,03%). |
+| SEMUS, PMS 2026–2029, tabela 56, p. 84–85 | Marechal Floriano, 2020 a 2024 | Leitura da linha de acidentes de trabalho no e-SUS VS, com **3, 6, 19, 240 e 313 notificações**, nessa ordem. LER/DORT e intoxicações usam suas linhas próprias. |
+
+[Plano Municipal de Saúde 2026–2029](https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf) · [Plano Municipal de Saúde 2022–2025](https://www.marechalfloriano.es.gov.br/downloads/arquivos-saude/instrumentos-gestao/PMS-2022-2025-resumo-DIGISUS.pdf)
