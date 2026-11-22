@@ -6,94 +6,58 @@
 
 [**Abrir demonstração**](https://joyceradis.github.io/AuditorES/)
 
-## O que este repositório demonstra
+## Arquitetura
 
-| Competência | Evidência no projeto |
-| --- | --- |
-| Modelagem de informação | contratos, competências, indicadores, evidências e níveis de risco representados como dados estruturados |
-| Data-driven UI | atualização dinâmica de KPIs, tabelas e contexto operacional em JavaScript |
-| Visualização | gráficos de tendência e distribuição de risco com Chart.js |
-| Regras de negócio | transformação de dados em exposição, classificação e priorização para revisão humana |
-| Product thinking | separação explícita entre evidência, alerta automatizado e conclusão técnico-administrativa |
+A vitrine pública apresenta o escopo do projeto. A área de trabalho usa Município → Eixo de análise → Unidade, Contrato ou Território. Vitória, Serra e Colatina pertencem ao eixo de auditoria de OS. Marechal Floriano pertence ao eixo de inteligência territorial, com recortes municipal e ESF Victor Hugo. O catálogo inicial de Serra e Colatina aguarda documentação.
 
-**Portfolio signal:** data modeling · decision-support UI · JavaScript · Chart.js · audit workflows · human-in-the-loop design
+A navegação começa no catálogo de municípios. A página municipal leva ao eixo, que lista os recortes autorizados por tipo. Cada recorte tem endereço próprio e links para voltar ao eixo ou ao município. A análise de OS abre pelos indicadores e evidências de auditoria. A análise territorial abre pela série temporal e permite acessar as fontes em seguida.
 
-O AuditorES é um MVP de produto voltado à transformação de dados contratuais, assistenciais e documentais em uma visão operacional mais auditável. O projeto explora como indicadores, evidências e critérios de risco podem ser organizados para apoiar análise técnica sem reduzir auditoria a um dashboard genérico.
+A área de trabalho mantém observações agregadas por recorte, indicador, unidade de medida, competência, instituição, referência e método. A interface oferece filtro por ano e fonte, série com granularidade mensal ou anual, tabela de evidências e exportação JSON do filtro. O SQLite registra autor e horário da importação. Cada importação é atômica e reapresentar as mesmas chaves mantém o registro original.
 
-## Problema
-
-Contratos assistenciais terceirizados produzem grande volume de informação, mas a tomada de decisão pode permanecer fragmentada entre planilhas, documentos, competências, metas e justificativas.
-
-O AuditorES foi concebido para aproximar três camadas que normalmente ficam separadas:
-
-```text
-DADO OPERACIONAL
-      ↓
-EVIDÊNCIA DOCUMENTAL
-      ↓
-CRITÉRIO DE AUDITORIA
-      ↓
-RISCO / NÃO CONFORMIDADE
-      ↓
-PRIORIZAÇÃO PARA ANÁLISE HUMANA
-```
-
-## O que o MVP demonstra
-
-- visão executiva por contrato e competência;
-- indicadores financeiros e assistenciais;
-- sinalização de risco e não conformidade;
-- comparação temporal;
-- organização de evidências para rastreabilidade;
-- interface orientada à leitura rápida por equipes técnicas e gestoras;
-- estrutura preparada para evolução de uma vitrine estática para um fluxo auditável de dados.
-
-## Princípios de produto
-
-**Rastreabilidade antes de automação.** Um alerta precisa ser explicável por dados e critérios verificáveis.
-
-**Separação entre evidência e conclusão.** O sistema organiza sinais e inconsistências; a conclusão técnico-administrativa permanece dependente de análise competente.
-
-**Contexto importa.** Indicadores isolados não demonstram, por si, execução inadequada, glosa devida ou descumprimento contratual.
-
-**Interface executiva sem apagar a fonte.** Síntese visual deve facilitar investigação, não substituir documentação primária.
-
-## Escopo atual
-
-A versão pública é uma **vitrine funcional / MVP**, construída para demonstrar arquitetura de informação, interação e modelo de análise. Os dados apresentados na demonstração não devem ser interpretados como auditoria oficial de contrato real.
-
-## Stack
-
-- HTML5;
-- CSS3;
-- JavaScript;
-- Chart.js para visualização de indicadores;
-- GitHub Pages para publicação da demonstração.
-
-## Estrutura
-
-```text
-AuditorES/
-├── index.html
-├── styles.css
-├── script.js
-├── README.md
-└── LICENSE
-```
+- [Auditoria técnica e design system](docs/auditoria.md)
+- [Validação de fontes oficiais](docs/fontes.md)
 
 ## Execução local
 
-Não há etapa de build obrigatória. Clone o repositório e abra a aplicação por um servidor HTTP local:
+Vitrine pública, a partir da raiz do repositório:
 
 ```bash
-python3 -m http.server 8000
+bash scripts/build-pages.sh /tmp/auditores-vitrine
+python3 -m http.server --bind 127.0.0.1 --directory /tmp/auditores-vitrine 8000
 ```
 
-Depois acesse `http://localhost:8000`.
+Use um diretório de saída novo. O script empacota as páginas públicas, incluindo o ATLAS de consulta. A publicação por branch do GitHub Pages usa as exclusões em `_config.yml`. A importação de observações fica na área de trabalho autenticada.
 
-## Próximas camadas
+Área de trabalho, com Python 3.10+ e SQLite 3.24+:
 
-A evolução natural do projeto inclui ingestão estruturada de dados, trilha de evidências, regras versionadas, gestão de achados, filtros por unidade/competência e mecanismos explícitos de revisão humana.
+1. Execute `python3 -m auditor.server --hash-password` para cada usuário. Guarde a configuração em um diretório privado fora da raiz publicada e do Git.
+2. Crie `accounts.private.json` com uma entrada por usuário. Use os valores gerados em `salt` e `digest` e informe os recortes concedidos. O papel `read` permite consulta e exportação. O papel `write` também permite importação.
+3. Execute `python3 -m auditor.server --accounts /caminho/privado/accounts.private.json --db /caminho/privado/auditores.sqlite3` e abra `http://127.0.0.1:8080`.
+
+```json
+{
+  "analista": {
+    "salt": "<salt gerado>",
+    "digest": "<digest gerado>",
+    "grants": {"marechal-floriano": {"municipio": "write", "victor-hugo": "read"}}
+  }
+}
+```
+
+Vitória usa inicialmente o recorte `pa-sao-pedro`. Para cadastrar novos recortes documentados, passe `--scopes /caminho/privado/recortes.private.json`. O arquivo mapeia cada município a objetos indexados pelo identificador estável de recorte e com campos `name` e `kind`. Na auditoria, `kind` aceita `Unidade` ou `Contrato`. Em Marechal Floriano, aceita `Unidade` ou `Território`. A concessão de acesso continua explícita no arquivo de contas. Reinicie o serviço ao alterar concessões ou credenciais.
+
+Para acesso remoto, hospede a aplicação em ambiente privado com proxy HTTPS, limite de requisições e timeout. O processo deve permanecer em loopback e o diretório de dados deve ter acesso restrito e backups protegidos. Use perfis individuais de navegador, pois o navegador pode manter credenciais HTTP Basic durante a sessão. Rotacione senhas por conta. A vitrine pode ser publicada de forma independente.
+
+## Formato de intercâmbio
+
+Use uma lista JSON de até 1.000 observações e 256 KiB, com os campos `indicator`, `value` (número), `unit`, `period` (AAAA ou AAAA-MM), `source`, `reference` (URL HTTPS oficial pública) e `method`. Na importação, confira o município e o recorte selecionados. A exportação mantém o mesmo formato e inclui os identificadores no nome do arquivo. Use somente agregados revisados quanto ao risco de reidentificação, incluindo os campos de texto e as referências. A validação de esquema restringe os campos, e a revisão do conteúdo cabe a quem autoriza a importação.
+
+## Testes
+
+```bash
+python3 -m unittest discover -s tests -v
+node --check auditor/workspace.js
+```
 
 ## Autoria
 

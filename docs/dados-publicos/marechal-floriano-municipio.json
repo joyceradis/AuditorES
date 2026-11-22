@@ -1,0 +1,47 @@
+[
+  {
+    "indicator": "População residente",
+    "value": 17641,
+    "unit": "pessoas",
+    "period": "2022",
+    "source": "IBGE",
+    "reference": "https://apisidra.ibge.gov.br/values/t/4714/n6/3203346/v/93/p/2022",
+    "method": "Censo Demográfico, tabela 4714, variável 93, Marechal Floriano 3203346."
+  },
+  {
+    "indicator": "Estabelecimentos de agricultura familiar",
+    "value": 626,
+    "unit": "estabelecimentos",
+    "period": "2017",
+    "source": "INCAPER",
+    "reference": "https://incaper.es.gov.br/media/incaper/proater/municipios/Marechal_Floriano.pdf",
+    "method": "PROATER, tabela 5, total da agricultura familiar. Fonte primária Censo Agropecuário 2017."
+  },
+  {
+    "indicator": "Óbitos por residência",
+    "value": 142,
+    "unit": "óbitos",
+    "period": "2022",
+    "source": "DATASUS",
+    "reference": "https://tabnet.datasus.gov.br/cgi/deftohtm.exe?sim/cnv/obt10es.def",
+    "method": "SIM Espírito Santo, município de residência 320334, todas as causas."
+  },
+  {
+    "indicator": "Benefícios do RGPS emitidos",
+    "value": 3810,
+    "unit": "créditos",
+    "period": "2025-12",
+    "source": "INSS",
+    "reference": "https://www.gov.br/previdencia/pt-br/assuntos/previdencia-social/arquivos/ben_municipios_clientela_2025.xlsx",
+    "method": "Emitidos_2025, coluna G, município do órgão pagador 3203346."
+  },
+  {
+    "indicator": "Benefícios rurais do RGPS emitidos",
+    "value": 2145,
+    "unit": "créditos",
+    "period": "2025-12",
+    "source": "INSS",
+    "reference": "https://www.gov.br/previdencia/pt-br/assuntos/previdencia-social/arquivos/ben_municipios_clientela_2025.xlsx",
+    "method": "Emitidos_2025, coluna I, município do órgão pagador 3203346."
+  }
+]

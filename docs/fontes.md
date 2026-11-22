@@ -1,0 +1,19 @@
+# Validação de fontes oficiais
+
+Consulta em 21/11/2026. As medidas abaixo são agregados públicos. Os resultados municipais pertencem ao recorte municipal de Marechal Floriano. Os registros de Victor Hugo trazem a escala de equipe ou unidade conforme a fonte.
+
+| Fonte | Indicador ou registro | Período | Escopo e reprodução | Referência |
+| --- | --- | --- | --- | --- |
+| IBGE | **17.641 pessoas residentes** | 2022 | Censo Demográfico, SIDRA tabela 4714, variável 93, nível municipal N6, código 3203346. Leitura direta da observação em pessoas | [Consulta SIDRA](https://apisidra.ibge.gov.br/values/t/4714/n6/3203346/v/93/p/2022) |
+| Incaper | **626 estabelecimentos de agricultura familiar**, de um total de **916 estabelecimentos** | 2017 | PROATER Marechal Floriano, tabela 5. Leitura dos totais familiar (626) e não familiar (290), cuja soma é 916. O PROATER reproduz o Censo Agropecuário do IBGE. A unidade de análise é estabelecimento agropecuário | [PROATER](https://incaper.es.gov.br/media/incaper/proater/municipios/Marechal_Floriano.pdf) |
+| SEMUS | **4 agentes comunitários de saúde** na equipe ESF Victor Hugo | 2021 | Plano Municipal de Saúde 2022–2025, tabela 23, linha ESF Victor Hugo, coluna de agentes comunitários de saúde. A competência vem da tabela, e a medida descreve a composição histórica da equipe | [Plano Municipal de Saúde](https://www.marechalfloriano.es.gov.br/downloads/arquivos-saude/instrumentos-gestao/PMS-2022-2025-resumo-DIGISUS.pdf) |
+| CNES | **2675145**, identificador da UBS Governador Mun Henrique Krohling, em Victor Hugo | Consulta em 2026 | Conferência da ficha pelo código de estabelecimento e pelo município 320334. Trata-se de um identificador cadastral, com competência histórica e quantitativos de equipes a apurar nas respectivas bases | [Ficha CNES](https://cnes2.datasus.gov.br/Mod_Conjunto.asp?VCo_Unidade=3203342675145) |
+| DATASUS | **142 óbitos por residência** | 2022 | TabNet, SIM, Mortalidade – Espírito Santo. Linha município, coluna não ativa, conteúdo óbitos por residência, ano 2022, município 320334. Todas as causas disponíveis no recorte, total bruto | [TabNet SIM/ES](https://tabnet.datasus.gov.br/cgi/deftohtm.exe?sim/cnv/obt10es.def) |
+| INSS / Ministério da Previdência Social | **3.810 benefícios do RGPS emitidos**, dos quais **2.145 rurais** | Dezembro de 2025 | Planilha por clientela, aba Emitidos_2025, código 3203346, colunas G (total) e I (rural). A fonte usa município do órgão pagador e conta créditos para pagamento. A nota da planilha registra consulta ao INSS em 22/05/2026 | [Planilha oficial por clientela](https://www.gov.br/previdencia/pt-br/assuntos/previdencia-social/arquivos/ben_municipios_clientela_2025.xlsx) |
+| MDS | Famílias beneficiárias do Bolsa Família, em verificação | Dezembro de 2025 | Consulta à MI Social por competência 202512, município 320334 e campo qtd_familias_beneficiarias_bolsa_familia_i redirecionou para a página de avisos do MDS sem retornar a observação. O valor permanece pendente | [API MI Social](https://aplicacoes.mds.gov.br/sagi/servicos/misocial) · [Ferramentas da SAGICAD](https://www.gov.br/mds/pt-br/orgaos/SAGICAD/dados-e-ferramentas-informacionais/dados-e-ferramentas-do-cadastro-unico/) |
+
+Os recortes de residência, órgão pagador, estabelecimento e equipe têm abrangências distintas. A população do Censo de 2022 e os benefícios emitidos em dezembro de 2025 aparecem como observações independentes. Nenhuma medida foi atribuída a contratos de Serra ou Colatina.
+
+## Arquivos de importação
+
+Use os [agregados municipais](dados-publicos/marechal-floriano-municipio.json) no recorte Município e os [agregados da equipe](dados-publicos/marechal-floriano-victor-hugo.json) no recorte ESF Victor Hugo. O código CNES é mantido na documentação como referência cadastral. A área de trabalho inicia com banco vazio e recebe estes conjuntos por importação autorizada.

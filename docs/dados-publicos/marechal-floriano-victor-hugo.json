@@ -1,0 +1,11 @@
+[
+  {
+    "indicator": "Agentes comunitários de saúde",
+    "value": 4,
+    "unit": "profissionais",
+    "period": "2021",
+    "source": "SEMUS",
+    "reference": "https://www.marechalfloriano.es.gov.br/downloads/arquivos-saude/instrumentos-gestao/PMS-2022-2025-resumo-DIGISUS.pdf",
+    "method": "Composição da equipe na tabela 23 do Plano Municipal de Saúde 2022 a 2025."
+  }
+]
