@@ -53,10 +53,9 @@
     .hero-copy > p:not(.geography) { margin-top: 1.15rem; color: var(--nav-muted); font-size: clamp(1rem, 2vw, 1.17rem); }
     .primary-link { display: inline-flex; gap: .8rem; align-items: center; margin-top: 1.35rem; padding: .75rem 1rem; border-radius: .35rem; background: var(--accent); color: var(--nav); text-decoration: none; font-weight: 750; }
     .primary-link:hover { background: #f6bb80; }
-    .path { list-style: none; margin: 0; padding: .25rem 1.1rem; border: 1px solid #405060; border-radius: .45rem; background: var(--nav-surface); }
-    .path li { display: flex; gap: .75rem; align-items: center; padding: .9rem 0; font-size: .95rem; font-weight: 650; }
-    .path li + li { border-top: 1px solid #405060; }
-    .path li::before { content: ""; inline-size: .55rem; block-size: .55rem; flex: none; border-radius: 50%; background: var(--accent); }
+    .atlas-card { padding: 1.4rem; border: 1px solid #405060; border-radius: .45rem; background: var(--nav-surface); }
+    .atlas-card p { margin-block: .6rem; color: var(--nav-muted); }
+    .atlas-card a { color: var(--accent); }
     .section { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
     .section-intro { margin-bottom: 1.55rem; }
     .section-intro p { margin-top: .6rem; color: var(--muted); }
@@ -88,7 +87,7 @@
     .footer { border-top: 1px solid var(--line); padding-block: 1.25rem; color: var(--muted); font-size: .875rem; }
     @media (max-width: 48rem) {
       .hero-inner { grid-template-columns: 1fr; gap: 1.65rem; }
-      .path { max-width: 28rem; }
+      .atlas-card { max-width: 32rem; }
       .method-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 36rem) {
@@ -108,8 +107,8 @@
       </a>
       <nav class="main-nav" aria-label="Navegação principal">
         <a href="#territorios">Municípios</a>
+        <a href="municipios/marechal-floriano/">ATLAS</a>
         <a href="#metodo">Metodologia</a>
-        <a href="#acesso">Acesso restrito</a>
       </nav>
     </div>
   </header>
@@ -119,14 +118,14 @@
         <div class="hero-copy">
           <p class="geography">Espírito Santo</p>
           <h1>Inteligência em saúde pública</h1>
-          <p>Explore o escopo dos estudos do AuditorES sobre contratos assistenciais, saúde no território e proteção social.</p>
+          <p>Consulte o que está disponível por município em auditoria de contratos assistenciais e inteligência territorial.</p>
           <a class="primary-link" href="#territorios">Explorar municípios <span aria-hidden="true">↓</span></a>
         </div>
-        <ol class="path" aria-label="Hierarquia da análise">
-          <li>Município</li>
-          <li>Eixo de análise</li>
-          <li>Unidade, contrato ou território</li>
-        </ol>
+        <section class="atlas-card" aria-labelledby="atlas-titulo">
+          <h2 id="atlas-titulo">ATLAS de Marechal Floriano</h2>
+          <p>Indicadores públicos do município e da ESF Victor Hugo, com filtros e fontes.</p>
+          <a class="source-link" href="municipios/marechal-floriano/">Abrir o ATLAS <span aria-hidden="true"> ↗</span></a>
+        </section>
       </div>
     </header>
 
@@ -149,7 +148,7 @@
                 <li id="pa-sao-pedro">
                   <span class="scope-type">Unidade</span>
                   <h3>PA São Pedro</h3>
-                  <p>Unidade de referência para o estudo de auditoria assistencial em Vitória.</p>
+                  <p>Unidade de referência para o estudo de auditoria assistencial em Vitória.</p><a class="source-link" href="municipios/vitoria/">Abrir página de Vitória</a>
                 </li>
               </ul>
             </div>
@@ -162,7 +161,7 @@
               <span class="disclosure" aria-hidden="true"></span>
             </summary>
             <div class="municipality-content">
-              <p>O mapeamento de unidades e contratos aguarda validação documental.</p>
+              <p>O mapeamento de unidades e contratos aguarda validação documental.</p><a class="source-link" href="municipios/serra/">Abrir página de Serra</a>
             </div>
           </details>
 
@@ -173,7 +172,7 @@
               <span class="disclosure" aria-hidden="true"></span>
             </summary>
             <div class="municipality-content">
-              <p>O mapeamento de unidades e instrumentos de gestão está em estruturação.</p>
+              <p>O mapeamento de unidades e instrumentos de gestão está em estruturação.</p><a class="source-link" href="municipios/colatina/">Abrir página de Colatina</a>
             </div>
           </details>
 
@@ -189,12 +188,12 @@
                 <li id="recorte-municipal">
                   <span class="scope-type">Território</span>
                   <h3>Recorte municipal</h3>
-                  <p>Observações cujo escopo abrange Marechal Floriano.</p>
+                  <p>Observações cujo escopo abrange Marechal Floriano.</p><a class="source-link" href="municipios/marechal-floriano/?scope=municipio#indicadores">Ver indicadores municipais</a>
                 </li>
                 <li id="victor-hugo">
                   <span class="scope-type">Equipe de Saúde da Família</span>
                   <h3>ESF Victor Hugo</h3>
-                  <p>Observações específicas da equipe e referências cadastrais da unidade.</p>
+                  <p>Observações específicas da equipe e referências cadastrais da unidade.</p><a class="source-link" href="municipios/marechal-floriano/?scope=victor-hugo#indicadores">Ver indicadores da ESF</a>
                 </li>
               </ul>
               <div class="scope-links">
@@ -222,8 +221,8 @@
     </section>
 
     <section id="acesso" class="shell section access" aria-labelledby="acesso-titulo">
-      <h2 id="acesso-titulo">Acesso restrito</h2>
-      <p>Os painéis internos e as evidências detalhadas ficam no ambiente de trabalho. A equipe acessa esse ambiente pelo endereço fornecido pelo administrador.</p>
+      <h2 id="acesso-titulo">Área de trabalho</h2>
+      <p>A consulta pública está disponível nesta vitrine e no ATLAS. A área de trabalho para equipes roda em ambiente próprio, com acesso autorizado por recorte.</p>
       <a class="source-link" href="https://github.com/joyceradis/AuditorES">Ver projeto no GitHub</a>
     </section>
   </main>

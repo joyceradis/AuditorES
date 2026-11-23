@@ -20,3 +20,17 @@ A composição usa módulos responsivos de filtros, leitura e evidência. A hier
 - Controle o acesso ao arquivo de contas, banco e backups. Permissões por recorte são aplicadas às rotas de trabalho. Arquivos exportados passam ao controle da equipe responsável.
 - A importação valida estrutura, instituição, período e referência HTTPS. A aprovação do conteúdo agregado, a distinção entre fonte publicadora e fonte primária e a revisão de reidentificação são atividades humanas.
 - Em 21/11/2026 a busca no Drive consultou apenas metadados nas duas contas disponíveis para os termos AuditorES, Victor Hugo e Marechal Floriano, sem correspondências. Uma busca posterior por nome e formato identificou três arquivos Excel de monitoramento de Victor Hugo. Seus títulos, identificadores e endereços permanecem no Drive. A leitura em memória de xl/workbook.xml e do índice dos arquivos encontrou sete abas visíveis e cinco tabelas estruturadas em cada uma das duas primeiras versões e uma aba visível sem tabela estruturada na terceira. Nenhuma célula foi consultada.
+
+## Revisão da organização do repositório e da vitrine
+
+| Ponto auditado | Evidência e encaminhamento |
+| --- | --- |
+| Entrada pública | O ATLAS ficava dentro do cartão municipal. Agora tem acesso pelo cabeçalho, pela abertura e pelo cartão de Marechal Floriano. |
+| Rotas municipais | Os endereços antigos continuam válidos. O índice municipal e as rotas de Vitória, Serra e Colatina encaminham ao mesmo catálogo. O ATLAS mantém sua página de consulta. |
+| Organização interna do ATLAS | As seções passaram a ter links que funcionam com acesso direto e histórico do navegador. Foram conferidos o recorte, o denominador e as páginas impressas dos indicadores nos planos municipais. |
+| Entrada no GitHub | O README apresenta o projeto, as três entradas e o mapa do código. A operação e a publicação têm documentação própria. |
+| Publicação | O GitHub Pages está configurado para publicar a raiz de `main` com Jekyll. O workflow manual alternativo foi removido. Os testes verificam as páginas públicas, os links locais e a correspondência entre a lista do pacote local e as exclusões do repositório. |
+| Segurança e governança | A API aplica autenticação e autorização por município, recorte e papel. O Pages entrega apenas páginas públicas. A inspeção de nomes de arquivos no histórico não encontrou planilhas, bancos SQLite nem arquivos com nome de credencial. A configuração do GitHub indicava ausência de regras ativas em `main`. |
+| Manutenção | O PR #2 continha versões anteriores do protótipo de auditoria e do ATLAS, em caminhos já substituídos na arquitetura atual. A branch histórica permite consultar essa evolução. |
+
+A área de trabalho autenticada continua documentada para ambiente próprio. A validação do MDS permanece registrada como pendente em [Fontes oficiais](fontes.md). A conformidade integral de acessibilidade e um inventário de segredos em todo o conteúdo histórico não fizeram parte desta verificação.
