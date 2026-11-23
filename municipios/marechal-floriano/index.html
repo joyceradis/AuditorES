@@ -12,6 +12,12 @@ body{background:var(--bg);color:var(--ink);font-family:"DM Sans",Inter,-apple-sy
 .crumbs{display:flex;align-items:center;gap:8px;padding:10px max(22px,calc((100vw - 1260px)/2));background:#1b2a39;border-bottom:1px solid #344151;color:#a6b9c9;font:11px "IBM Plex Mono",ui-monospace,monospace;flex-wrap:wrap}.crumbs a{color:#c7d6e4;text-decoration:none}.crumbs a:hover{text-decoration:underline}.crumbs strong{color:#e5a563;font-weight:600}
 @media(max-width:980px){.crumbs{padding:10px 16px}}
 @media print{.crumbs{display:none}}
+.scope-selector{background:#fffefa;border-bottom:1px solid var(--edge);padding:12px max(22px,calc((100vw - 1260px)/2));display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:13px}
+.scope-selector a{display:inline-flex;align-items:center;min-height:38px;border:1px solid #b5c1cb;border-radius:5px;padding:7px 11px;text-decoration:none;color:#20394f;font-weight:650}
+.scope-selector a[aria-current="page"]{background:#20394f;border-color:#20394f;color:white}
+.scope-selector p{margin:0 0 0 5px;color:#596977;font-size:12px;max-width:680px}
+@media(max-width:980px){.scope-selector{padding:12px 16px}}
+@media print{.scope-selector{display:none}}
 .sidebar a.nav{display:block;text-decoration:none}
 @media(max-width:980px){.sidebar nav{display:flex;flex-wrap:wrap;gap:.35rem}.sidebar a.nav{width:auto;margin:0}}.sidebar a.nav:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 </style>
@@ -19,6 +25,13 @@ body{background:var(--bg);color:var(--ink);font-family:"DM Sans",Inter,-apple-sy
 <body>
 <nav class="crumbs" aria-label="Você está em"><a href="../../">AuditorES</a><span>/</span><a href="../../#territorios">Municípios</a><span aria-hidden="true">/</span><a href="../../#marechal-floriano">Marechal Floriano</a><span aria-hidden="true">/</span><strong aria-current="page">ATLAS</strong></nav>
 <header><div class="logo">A·</div><div class="brand"><b>ATLAS</b><small>Saúde · Trabalho · Proteção Social</small></div><div class="header-actions"><button class="btn" onclick="exportCSV()">Exportar CSV</button><button class="btn" onclick="exportJSON()">Exportar JSON</button><button class="btn strong" onclick="window.print()">Imprimir relatório</button></div></header>
+<nav class="scope-selector" aria-label="Recorte dos indicadores">
+<strong>Recorte:</strong>
+<a href="./#indicadores" id="scope-all">Todos</a>
+<a href="?scope=municipio#indicadores" id="scope-municipio">Município</a>
+<a href="?scope=victor-hugo#indicadores" id="scope-victor-hugo">ESF Victor Hugo</a>
+<p id="scopeNote" role="status">Escolha o recorte para filtrar os indicadores. Os demais quadros apresentam contexto territorial identificado.</p>
+</nav>
 <div class="shell">
 <aside class="sidebar">
 <nav aria-label="Seções do ATLAS">
@@ -45,6 +58,7 @@ const gov22='https://www.marechalfloriano.es.gov.br/downloads/arquivos-saude/ins
 const incaper='https://incaper.es.gov.br/media/incaper/proater/municipios/Marechal_Floriano.pdf';
 const base=[
 ['População residente',17641,'Território','Município','2022','n','IBGE · Censo 2022 · SIDRA tabela 4714, variável 93','https://apisidra.ibge.gov.br/values/t/4714/n6/3203346/v/93/p/2022','Oficial'],
+['População estimada',19159,'Território','Município','2026','n','IBGE · Estimativa 2026; não é o Censo 2022','https://www.ibge.gov.br/cidades-e-estados/es/marechal-floriano.html','Oficial'],
 ['Pessoas cadastradas na ESF',1780,'Território','ESF','30/04/2025','n','PMS 2026–2029 · Tabela 14, p. 38',gov26,'Oficial'],
 ['Famílias classificadas',480,'Risco familiar','ESF','ago/2021','n','PMS 2022–2025 · Tabela 45, p. 55',gov22,'Oficial'],
 ['Famílias em risco habitual',403,'Risco familiar','ESF','ago/2021','n','PMS 2022–2025 · Tabela 45, p. 55',gov22,'Oficial'],
@@ -80,6 +94,16 @@ const get=(label,yr)=>data.find(x=>x.label===label&&(yr==null||x.year===yr));
 const value=(label,yr)=>get(label,yr)?.value??null;
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
 function vshow(n,unit='n'){return n==null?'—':unit==='%'?fmt(n,2)+'%':unit==='R$'?'R$ '+fmt(n,2):fmt(n)}
+const scopeParam=new URLSearchParams(window.location.search).get('scope');
+const scopedView=scopeParam==='municipio'?'municipio':scopeParam==='victor-hugo'?'victor-hugo':'todos';
+document.getElementById('scopeFilter').value=scopedView==='municipio'?'Município':scopedView==='victor-hugo'?'ESF':'';
+document.getElementById('scope-'+(scopedView==='todos'?'all':scopedView)).setAttribute('aria-current','page');
+document.getElementById('scopeNote').textContent=scopedView==='municipio'
+ ? 'Tabela e exportações inicialmente filtradas para dados municipais. Os quadros da visão geral contextualizam também a ESF.'
+ : scopedView==='victor-hugo'
+ ? 'Tabela e exportações inicialmente filtradas para a ESF. Os quadros da visão geral incluem informações municipais apenas como contexto.'
+ : 'Sem filtro inicial de abrangência. Use a tabela para separar indicadores do município, comunidade e ESF.';
+function selectedRows(){const cat=document.getElementById('catFilter').value,scope=document.getElementById('scopeFilter').value;return data.filter(x=>(!cat||x.cat===cat)&&(!scope||x.scope===scope));}
 function render(){renderOverview();renderTable();renderRights();renderSources();}
 function renderOverview(){let pop=value('Pessoas cadastradas na ESF'),families=value('Famílias classificadas'),mid=value('Famílias em risco médio'),max=value('Famílias em risco máximo'),agr=value('Estabelecimentos de agricultura familiar'),non=value('Estabelecimentos de agricultura não familiar'),population=value('População residente','2022');let risk=mid!=null&&max!=null?mid+max:null, pct=risk!=null&&families?risk/families*100:null,share=agr!=null&&non!=null?100*agr/(agr+non):null;
 const k=[['Pessoas cadastradas',pop,'ESF · 30/04/2025','n'],['Famílias em risco médio/máximo',risk,`${pct===null?'Sem base para %':fmt(pct,1)+'% das famílias classificadas'} · ESF 2021`,'n'],['Estabelecimentos rurais familiares',share,'Município · Censo 2017','%'],['População residente',population,'Município · Censo 2022','n']];document.getElementById('kpis').innerHTML=k.map(x=>`<div class="kpi"><div class="label">${esc(x[0])}</div><div class="value">${x[1]==null?'—':x[3]==='%'?fmt(x[1],1)+'%':fmt(x[1])}</div><div class="meta">${esc(x[2])}</div></div>`).join('');
@@ -87,7 +111,7 @@ let series=data.filter(x=>x.label==='Acidentes de trabalho notificados'&&x.scope
 let levels=[['Habitual','Famílias em risco habitual','#275f54'],['Menor','Famílias em risco menor','#6da58e'],['Médio','Famílias em risco médio','#d5a95f'],['Máximo','Famílias em risco máximo','#c37c5a']];let sum=levels.reduce((s,x)=>s+(value(x[1])||0),0);document.getElementById('riskBars').innerHTML=levels.map(x=>{let v=value(x[1]);return `<div class="riskItem"><div class="riskRow"><span>${x[0]}</span><b>${v==null?'—':fmt(v)} ${v==null?'':`(${fmt((v/sum)*100,1)}%)`}</b></div><div class="track"><div class="fill" style="width:${v!=null&&sum?((v/sum)*100):0}%;background:${x[2]}"></div></div></div>`}).join('');document.getElementById('riskText').textContent=risk==null?'Atualize as categorias da escala Coelho-Savassi para avaliar o risco familiar.':`${fmt(risk)} famílias em risco médio/máximo, classificadas em agosto de 2021. Risco familiar não significa incapacidade laboral.`;
 document.getElementById('farmText').textContent=share==null?'Informe estabelecimentos familiares e não familiares para contextualizar a economia do município.':`${fmt(agr)} dos ${fmt(agr+non)} estabelecimentos agropecuários são classificados como agricultura familiar (${fmt(share,1)}%). Estabelecimentos não equivalem a pessoas ou famílias da ESF.`;
 let mini=[['Pessoas com diabetes',value('Diabetes autodeclarado'),'Cadastro municipal · 2024'],['Insuficiência cardíaca',value('Insuficiência cardíaca autodeclarada'),'Autodeclaração municipal · 2024'],['Absenteísmo vascular',value('Absenteísmo — consulta cirurgia vascular'),'Consultas especializadas · 2024','%']];document.getElementById('secondaryStats').innerHTML=mini.map(x=>`<div class="statrow"><strong>${x[1]==null?'—':vshow(x[1],x[3])}</strong><label>${esc(x[0])}</label><div class="micro">${esc(x[2])}</div></div>`).join('');}
-function renderTable(){let cat=document.getElementById('catFilter').value,scope=document.getElementById('scopeFilter').value,filtered=data.filter(x=>(!cat||x.cat===cat)&&(!scope||x.scope===scope));let el=document.getElementById('dataTable');el.innerHTML=filtered.map(x=>`<tr><td><b>${esc(x.label)}</b><br><span class="micro">${esc(x.cat)}</span></td><td><span class="tag ${x.scope==='ESF'?'local':''}">${esc(x.scope)}</span></td><td>${esc(x.year)}</td><td class="num"><b>${vshow(x.value,x.unit)}</b></td><td><a href="${esc(x.url||'#')}" target="_blank" rel="noopener noreferrer">${esc(x.source||'Fonte não informada')}</a>${x.quality==='Secundária'?'<br><span class="tag sec">Validar fonte primária</span>':''}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">Nenhum dado para este filtro.</td></tr>'}
+function renderTable(){let filtered=selectedRows();let el=document.getElementById('dataTable');el.innerHTML=filtered.map(x=>`<tr><td><b>${esc(x.label)}</b><br><span class="micro">${esc(x.cat)}</span></td><td><span class="tag ${x.scope==='ESF'?'local':''}">${esc(x.scope)}</span></td><td>${esc(x.year)}</td><td class="num"><b>${vshow(x.value,x.unit)}</b></td><td><a href="${esc(x.url||'#')}" target="_blank" rel="noopener noreferrer">${esc(x.source||'Fonte não informada')}</a>${x.quality==='Secundária'?'<br><span class="tag sec">Validar fonte primária</span>':''}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">Nenhum dado para este filtro.</td></tr>'}
 const rights=[['Incapacidade temporária','Auxílio por incapacidade temporária','Condição incapacitante para a atividade habitual; qualidade de segurado/carência ou isenção e comprovação conforme enquadramento.','INSS / Meu INSS'],['Incapacidade permanente','Aposentadoria por incapacidade permanente','Incapacidade sem possibilidade de reabilitação para atividade que garanta subsistência, além dos demais requisitos.','INSS'],['Impedimento de longo prazo e baixa renda','BPC à pessoa com deficiência','Avaliação biopsicossocial, renda familiar e CadÚnico, conforme requisitos legais; não exige contribuição.','CRAS + INSS'],['Idade rural','Aposentadoria por idade rural','Verificar idade, atividade rural e documentos de comprovação.','INSS'],['Afastamento e sequela de acidente','Auxílio-acidente e outras proteções','Auxílio-acidente não abrange automaticamente todas as categorias de segurado especial. Avaliar categoria e requisitos.','INSS / análise especializada'],['Tratamento e cirurgia pendentes','Acesso à saúde e continuidade do cuidado','Critérios clínicos de prioridade, situação na regulação, transporte e suporte familiar.','ESF / regulação / assistência social']];
 const questions=[['Essa roça é sua, da família ou você trabalha para alguém?','Diferencia o regime de trabalho sem inferir o enquadramento automaticamente.'],['Se você precisar ficar 30 dias sem trabalhar, quem consegue cuidar da produção?','Revela dependência de trabalho pessoal e possibilidade de apoio.'],['O que a doença impede você de fazer no trabalho habitual?','Permite descrever capacidade funcional com tarefas reais.'],['Você já recebe algum benefício ou fez pedido ao INSS?','Identifica proteção existente, requerimento negado ou ausência de solicitação.'],['Quem ajuda com transporte, cuidados e renda durante o afastamento?','Identifica barreiras à continuidade do tratamento.']];
 function renderRights(){document.getElementById('rightCards').innerHTML=rights.map(x=>`<div class="right"><b>${esc(x[1])}</b><small>${esc(x[0])}</small><div class="divider"></div><p class="mini">${esc(x[2])}</p><span class="tag">${esc(x[3])}</span></div>`).join('');document.getElementById('questionSteps').innerHTML=questions.map(x=>`<div class="step"><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join('');document.getElementById('rightsTable').innerHTML=rights.map(x=>`<tr><td>${esc(x[0])}</td><td>${esc(x[1])} — ${esc(x[2])}</td><td>${esc(x[3])}</td></tr>`).join('')}
@@ -116,9 +140,9 @@ function selectSection(focusHeading = false) {
 window.addEventListener("hashchange", () => selectSection(true));
 selectSection();
 function download(name,text,type){const blob=new Blob([text],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
-function exportJSON(){download('atlas_'+slug(profile.city||'municipio')+'.json',JSON.stringify({schema:'atlas-protecao-social-v1',exported_at:new Date().toISOString(),profile,data},null,2),'application/json;charset=utf-8')}
+function exportJSON(){download('atlas_'+slug(profile.city||'municipio')+'.json',JSON.stringify({schema:'atlas-protecao-social-v1',exported_at:new Date().toISOString(),profile,filters:{category:document.getElementById('catFilter').value,scope:document.getElementById('scopeFilter').value},data:selectedRows()},null,2),'application/json;charset=utf-8')}
 function slug(x){return x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'')}
-function exportCSV(){let header=['indicador','valor','categoria','abrangencia','periodo','unidade','fonte','url','qualidade'];let rows=data.map(x=>[x.label,x.value,x.cat,x.scope,x.year,x.unit,x.source,x.url,x.quality]);let csv='\uFEFF'+[header,...rows].map(row=>row.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(';')).join('\r\n');download('indicadores_'+slug(profile.city||'municipio')+'.csv',csv,'text/csv;charset=utf-8')}
+function exportCSV(){let header=['indicador','valor','categoria','abrangencia','periodo','unidade','fonte','url','qualidade'];let rows=selectedRows().map(x=>[x.label,x.value,x.cat,x.scope,x.year,x.unit,x.source,x.url,x.quality]);let csv='\uFEFF'+[header,...rows].map(row=>row.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(';')).join('\r\n');download('indicadores_'+slug(profile.city||'municipio')+'.csv',csv,'text/csv;charset=utf-8')}
 function copyQuestions(){let txt=questions.map((x,i)=>(i+1)+'. '+x[0]).join('\n');if(navigator.clipboard){navigator.clipboard.writeText(txt).then(()=>alert('Perguntas copiadas.'),()=>prompt('Copie as perguntas:',txt))}else prompt('Copie as perguntas:',txt)}
 render();
 </script>

@@ -3,7 +3,8 @@
 Auditoria técnico-documental de contratos assistenciais e inteligência territorial em saúde pública no Espírito Santo.
 
 - [Vitrine pública](https://joyceradis.github.io/AuditorES/) para encontrar municípios e recortes.
-- [ATLAS de Marechal Floriano](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/) para consultar e exportar indicadores públicos do município e da ESF Victor Hugo.
+- [ATLAS de Marechal Floriano](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/) para navegar pelo estudo territorial.
+- [Indicadores municipais](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/?scope=municipio#indicadores) e [indicadores da ESF Victor Hugo](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/?scope=victor-hugo#indicadores), com exportação conforme filtros selecionados.
 - [Área de trabalho autenticada](docs/operacao.md#área-de-trabalho) para operar localmente ou em infraestrutura própria.
 
 ## Municípios e recortes

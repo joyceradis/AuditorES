@@ -51,6 +51,27 @@ class PublicationTest(unittest.TestCase):
         }
         self.assertEqual(visible, PUBLIC_PAGES)
 
+    def test_no_automatic_redirect_loop_in_catalog(self):
+        for page in ("municipios/index.html", "municipios/vitoria/index.html"):
+            html = (ROOT / page).read_text(encoding="utf-8").lower()
+            self.assertNotIn('http-equiv="refresh"', html)
+
+    def test_scope_links_and_matching_exports(self):
+        home = (ROOT / "index.html").read_text(encoding="utf-8")
+        atlas = (ROOT / "municipios/marechal-floriano/index.html").read_text(encoding="utf-8")
+        self.assertIn("?scope=municipio#indicadores", home)
+        self.assertIn("?scope=victor-hugo#indicadores", home)
+        self.assertIn("function selectedRows()", atlas)
+        self.assertIn("data:selectedRows()", atlas)
+        self.assertIn("let rows=selectedRows().map", atlas)
+        self.assertIn("População estimada',19159", atlas)
+        import subprocess
+        script = atlas.split("<script>", 1)[1].split("</script>", 1)[0]
+        with tempfile.TemporaryDirectory() as temp:
+            script_file = Path(temp) / "atlas.js"
+            script_file.write_text(script, encoding="utf-8")
+            subprocess.run(["node", "--check", str(script_file)], check=True)
+
     def test_links_stay_within_the_public_package(self):
         for file in PUBLIC_PAGES:
             parser = Links()
