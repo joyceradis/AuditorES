@@ -10,7 +10,7 @@
 <body>
   <a class="skip" href="#conteudo">Ir para a análise</a>
   <header class="masthead">
-    <div class="shell"><a class="brand" href="/" aria-label="AuditorES, lista de municípios"><span class="mark" aria-hidden="true">A.</span><strong>Auditor<span>ES</span></strong></a></div>
+    <div class="shell"><a class="brand" href="/"><span class="mark" aria-hidden="true">A.</span><strong>Auditor<span>ES</span></strong></a><span class="workspace-label">Área de trabalho</span></div>
   </header>
   <main id="conteudo" class="shell" tabindex="-1">
     <nav aria-label="Localização" class="breadcrumbs" id="breadcrumbs" hidden>
@@ -35,26 +35,28 @@
     <section class="panel" aria-labelledby="filtros" id="analysis" hidden>
       <h2 id="filtros">Filtros da análise</h2>
       <div class="filters">
+        <div class="field"><label for="query">Buscar na análise</label><input type="search" id="query" maxlength="120" placeholder="Indicador, método ou fonte" disabled></div>
         <div class="field"><label for="period">Ano</label><select id="period" disabled></select></div>
         <div class="field"><label for="source">Fonte</label><select id="source" disabled></select></div>
       </div>
-      <p id="status" role="status"></p>
+      <div class="section-top"><p id="status" role="status"></p><button type="button" class="secondary" id="resetFilters" disabled>Limpar filtros</button></div>
     </section>
     <div id="results" hidden>
       <section class="panel" aria-labelledby="serie">
         <h2 id="serie">Série temporal</h2>
         <div class="field"><label for="series">Indicador e fonte</label><select id="series"></select></div>
+        <p id="series-details"></p>
         <p id="series-note">As barras usam a mesma escala dentro da série. A tabela traz os valores e as referências.</p>
         <ol id="chart" class="chart" aria-label="Observações por competência"></ol>
       </section>
       <section class="panel" id="evidence-panel" aria-labelledby="evidencias">
         <div class="section-top">
           <h2 id="evidencias">Observações e fontes</h2>
-          <a id="export">Exportar JSON</a>
+          <button type="button" id="export">Exportar resultados em JSON</button>
         </div>
         <div class="table-scroll" tabindex="0" role="region" aria-labelledby="evidencias">
           <table>
-            <thead><tr><th scope="col">Indicador</th><th scope="col">Valor</th><th scope="col">Competência</th><th scope="col">Fonte</th><th scope="col">Método</th></tr></thead>
+            <thead><tr><th scope="col">Indicador</th><th scope="col">Valor</th><th scope="col">Competência</th><th scope="col">Fonte declarada</th><th scope="col">Método</th></tr></thead>
             <tbody id="rows"></tbody>
           </table>
         </div>
@@ -64,7 +66,8 @@
       <h2 id="import-title">Importar observações agregadas</h2>
       <p>Selecione um arquivo JSON de até 256 KiB. Inclua apenas indicadores agregados e referências oficiais de acesso público. A importação mantém as entradas como observações de trabalho para revisão.</p>
       <div class="field"><label for="import-file">Arquivo JSON</label><input id="import-file" type="file" accept=".json,application/json"></div>
-      <button id="import-button" type="button">Importar observações</button>
+      <p id="import-preview" role="status"></p>
+      <button id="import-button" type="button" disabled>Importar neste recorte</button>
       <p id="import-status" role="status"></p>
     </section>
   </main>

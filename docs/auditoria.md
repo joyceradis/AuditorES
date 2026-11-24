@@ -1,36 +1,28 @@
-# Auditoria técnica e design system
+# Auditoria do AuditorES · 23/11/2026
 
-| Área | Achado na versão inicial | Tratamento nesta entrega |
+Revisão da vitrine pública, do ATLAS de Marechal Floriano, dos arquivos de referência, da área de trabalho autenticada e da publicação. Os resultados descrevem o funcionamento do repositório e as evidências que ele apresenta.
+
+| Área | Achado | Correção |
 | --- | --- | --- |
-| Engenharia | A vitrine não carregava o painel legado. O JS e o CSS órfãos continuavam na raiz pública | Remoção dos arquivos órfãos do estado corrente e testes pela API HTTP real. O histórico Git foi preservado |
-| Segurança | A versão inicial tinha apenas uma vitrine estática. O build de Pages usava a raiz do repositório | Servidor com autenticação por conta, scrypt, autorização por recorte em leitura, importação e exportação, lista explícita de rotas e respostas privadas sem cache. Pages recebe apenas a vitrine |
-| Dados | A demonstração legada associava valores fictícios a contratos. Dados, acesso e apresentação não tinham fronteira operacional | Catálogo por município, escopo validado no servidor, SQLite com origem por observação e importação transacional |
-| UI | A estrutura municipal era textual e o gráfico da vitrine era ilustrativo | A vitrine abre os eixos e recortes por município. A área de trabalho tem filtros, evidência consultável e séries com escala comum por fonte, método, unidade e granularidade |
-| Acessibilidade | O menu móvel não identificava o elemento controlado, faltava salto para o conteúdo e alguns textos secundários tinham baixo contraste | A vitrine usa navegação visível, salto para o conteúdo e controles de expansão nativos. A área de trabalho usa controles nativos rotulados, foco visível, estados textuais e tabela equivalente ao gráfico |
+| Entrada pública | Os atalhos abriam páginas de apresentação antes de levar a uma consulta. Serra e Colatina redirecionavam da própria rota para a página inicial. | Busca de indicadores na entrada. Páginas municipais próprias com o estágio da análise, o escopo e as referências para consulta. Os endereços e âncoras anteriores continuam acessíveis. |
+| ATLAS | A página guardava dados, comportamento e conteúdo juntos. A leitura dependia da tabela e de buscas manuais dentro dos documentos de origem. | Base estruturada e funções de filtro testáveis. Fichas com URL própria, competência, medida, nota de leitura e referência. Links de PDF abrem na página do dado quando a paginação foi conferida. |
+| Cobertura das fontes | Quatro observações dos arquivos de trabalho não apareciam no explorador público. | Inclusão dos quatro agregados conferidos: agentes de saúde da ESF, óbitos por residência e dois totais de créditos do RGPS. A vitrine reúne 37 fichas. |
+| Governança da pessoa idosa | A resolução e a lei sustentavam atos de governança. A execução financeira ainda dependia de documentação. | O painel explicita os atos conferidos, os documentos de execução pendentes e o limite geográfico da AMDI. O resultado municipal e a meta estadual têm fichas próprias. |
+| Área de trabalho | Busca indisponível, filtros sem endereço compartilhável e exportação consultada novamente. A importação classificava valores divergentes como duplicatas. | Busca e filtros persistem no endereço. A exportação reproduz a seleção exibida. A importação mostra destino e quantidade, aceita repetições idênticas e rejeita atomicamente lotes com divergência de valor. Os dados existentes permanecem consultáveis no mesmo formato. |
+| Publicação | O modo legado publicava a raiz e dependia de exclusões. Os testes rodavam em um fluxo separado da publicação. | O fluxo de publicação depende da suíte, monta um pacote com lista explícita e exige destino vazio. A etapa de deploy recebe apenas esse pacote. O arquivo de exclusões foi mantido para compatibilidade com o modo legado. |
 
-## Sistema visual
+## Como conferir
 
-A vitrine apresenta o projeto. A área de trabalho prioriza o contexto e a evidência. O cabeçalho usa grafite `#101721`, o fundo usa papel `#F6F4EE` e os painéis usam marfim `#FFFEFA`. Âmbar `#E8A45F` marca a identidade. Azul `#155C9E` identifica foco. O texto principal usa `#152230` e o secundário `#4D6070`. A interface usa DM Sans quando disponível no navegador, com fallback para fontes do sistema. As medidas da área de trabalho usam números tabulares.
+- A suíte Python verifica acesso por conta e recorte, importação idempotente, rollback em conflito e composição do pacote público.
+- A suíte Node verifica identidade das fichas, filtros, coerência entre agregados públicos e arquivos de trabalho e separação entre resultado e meta.
+- O fluxo de navegador foi exercitado com a vitrine em desktop e celular e com a área autenticada em uma base sintética. Os testes de acessibilidade verificam regras automatizáveis e não abrangem uma avaliação manual completa com tecnologias assistivas.
+- As fontes e as formas de reprodução estão em [Fontes e limitações](fontes.md).
 
-A composição usa módulos responsivos de filtros, leitura e evidência. A hierarquia começa pelo município e explicita o eixo antes de mostrar observações. A série apresenta competência e valor em texto. A tabela mantém unidade, período, referência e método juntos. Estados de carregamento, ausência de dados e falha são anunciados por região de status. A meta de acessibilidade é WCAG 2.2 AA. A entrega cobre inspeção de semântica e controles, com conformidade integral ainda a aferir.
+## Pendências de dados e operação
 
-## Riscos operacionais
+- A produção, o denominador e o resultado de AMDI da ESF Victor Hugo precisam de uma extração da equipe. O resultado municipal, a referência censitária e a meta estadual já estão documentados.
+- A quantidade de famílias no Bolsa Família em dezembro de 2025 continua pendente. Saldo, repasses, projetos e prestação de contas do FMI precisam de documentos próprios.
+- Vitória, Serra e Colatina têm páginas de escopo e fontes de partida. A matriz contratual e a execução dos serviços requerem conferência de instrumentos, aditivos, obrigações e evidências por unidade.
+- A área autenticada requer hospedagem própria, revisão humana dos agregados, controle de contas e proteção do banco. Os passos de operação ficam em [Operação](operacao.md).
 
-- Configure HTTPS e limites de requisição no ambiente privado antes de acesso remoto. O servidor de referência usa HTTP Basic por conta e roda em loopback. Ele depende do proxy para políticas de tráfego e proteção contra tentativas repetidas.
-- Controle o acesso ao arquivo de contas, banco e backups. Permissões por recorte são aplicadas às rotas de trabalho. Arquivos exportados passam ao controle da equipe responsável.
-- A importação valida estrutura, instituição, período e referência HTTPS. A aprovação do conteúdo agregado, a distinção entre fonte publicadora e fonte primária e a revisão de reidentificação são atividades humanas.
-- Em 21/11/2026 a busca no Drive consultou apenas metadados nas duas contas disponíveis para os termos AuditorES, Victor Hugo e Marechal Floriano, sem correspondências. Uma busca posterior por nome e formato identificou três arquivos Excel de monitoramento de Victor Hugo. Seus títulos, identificadores e endereços permanecem no Drive. A leitura em memória de xl/workbook.xml e do índice dos arquivos encontrou sete abas visíveis e cinco tabelas estruturadas em cada uma das duas primeiras versões e uma aba visível sem tabela estruturada na terceira. Nenhuma célula foi consultada.
-
-## Revisão da organização do repositório e da vitrine
-
-| Ponto auditado | Evidência e encaminhamento |
-| --- | --- |
-| Entrada pública | O ATLAS ficava dentro do cartão municipal. Agora tem acesso pelo cabeçalho, pela abertura e pelo cartão de Marechal Floriano. |
-| Rotas municipais | Os endereços antigos continuam válidos. O índice municipal e as rotas de Vitória, Serra e Colatina encaminham ao mesmo catálogo. O ATLAS mantém sua página de consulta. |
-| Organização interna do ATLAS | As seções passaram a ter links que funcionam com acesso direto e histórico do navegador. Foram conferidos o recorte, o denominador e as páginas impressas dos indicadores nos planos municipais. |
-| Entrada no GitHub | O README apresenta o projeto, as três entradas e o mapa do código. A operação e a publicação têm documentação própria. |
-| Publicação | O GitHub Pages está configurado para publicar a raiz de `main` com Jekyll. O workflow manual alternativo foi removido. Os testes verificam as páginas públicas, os links locais e a correspondência entre a lista do pacote local e as exclusões do repositório. |
-| Segurança e governança | A API aplica autenticação e autorização por município, recorte e papel. O Pages entrega apenas páginas públicas. A inspeção de nomes de arquivos no histórico não encontrou planilhas, bancos SQLite nem arquivos com nome de credencial. A configuração do GitHub indicava ausência de regras ativas em `main`. |
-| Manutenção | O PR #2 continha versões anteriores do protótipo de auditoria e do ATLAS, em caminhos já substituídos na arquitetura atual. A branch histórica permite consultar essa evolução. |
-
-A área de trabalho autenticada continua documentada para ambiente próprio. A validação do MDS permanece registrada como pendente em [Fontes oficiais](fontes.md). A conformidade integral de acessibilidade e um inventário de segredos em todo o conteúdo histórico não fizeram parte desta verificação.
+A [auditoria anterior](https://github.com/joyceradis/AuditorES/blob/1bbcaa0757fd4c78b4785522b6b31435441678ad/docs/auditoria.md) registra a evolução do protótipo e as verificações anteriores do histórico.

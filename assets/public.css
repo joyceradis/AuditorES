@@ -91,3 +91,39 @@ button:disabled { opacity: .55; cursor: default; }
   .main-nav a:first-child { padding-left: 0; }
   .catalog-grid { grid-template-columns: 1fr; }
 }
+.home-hero-inner { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, .86fr); gap: clamp(1.25rem, 5vw, 5rem); align-items: center; padding-block: clamp(2.3rem, 6vw, 5rem); }
+.home-hero h1 { max-width: 12ch; font-size: clamp(2.65rem, 7vw, 5.45rem); }
+.home-hero .lead { margin-bottom: 1.15rem; }
+.home-search { background: var(--nav-surface); border: 1px solid #7594b0; border-top: 3px solid #e5a6c5; border-radius: var(--radius); padding: clamp(1rem, 3vw, 1.65rem); }
+.home-search h2 { margin: 0; font-size: 1.7rem; }
+.home-search p { margin: .35rem 0 1rem; color: var(--nav-muted); }
+.home-search label { display: block; margin-bottom: .3rem; font-weight: 690; }
+.home-search form div { display: flex; gap: .45rem; }
+.home-search input { width: 100%; min-width: 0; padding: .45rem .6rem; border: 1px solid var(--control-line); border-radius: .45rem; color: var(--ink); }
+.home-search > a { color: var(--pink); display: inline-block; margin-top: .8rem; }
+.home-section { padding-block: clamp(1.8rem, 4vw, 3.3rem); }
+.home-section h2 { margin: 0 0 .6rem; }
+.home-section-head { display: flex; justify-content: space-between; align-items: end; gap: .7rem 1rem; flex-wrap: wrap; margin-bottom: .85rem; }
+.home-section-head h2 { margin: 0; }
+.home-municipalities { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; }
+.home-atlas { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 2rem; border-inline-start: 4px solid #7eb5df; }
+.home-atlas h3 { font-size: 1.55rem; margin: .45rem 0; }
+.home-atlas .catalog-note { padding: 0; border: 0; background: none; }
+.home-atlas ul { margin: 0; padding: 0; list-style: none; }
+.home-atlas li { padding: .55rem 0; }
+.home-atlas li + li { border-top: 1px solid var(--line); }
+.home-atlas li span { display: block; font-size: .88rem; color: var(--muted); }
+.home-atlas li a, .home-territory > a { font-weight: 720; }
+.home-territory h3 { margin: .65rem 0 .4rem; }
+.home-territory p { color: var(--muted); }
+.home-method { background: var(--blue-light); }
+.home-principles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem 1.25rem; }
+.home-principles div { border-block-start: 1px solid var(--control-line); padding-top: .55rem; }
+.home-principles dt { font-weight: 760; }
+.home-principles dd { margin: .3rem 0 0; color: var(--muted); }
+.document-list { padding-inline-start: 1.2rem; }
+.document-list li { margin-block: .5rem; }
+.catalog-main > .card + .card { margin-top: .9rem; }
+@media (max-width: 45rem) {
+  .home-hero-inner, .home-municipalities, .home-atlas, .home-principles { grid-template-columns: 1fr; }
+}

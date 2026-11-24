@@ -23,8 +23,8 @@
     "unit": "óbitos",
     "period": "2022",
     "source": "DATASUS",
-    "reference": "https://tabnet.datasus.gov.br/cgi/deftohtm.exe?sim/cnv/obt10es.def",
-    "method": "SIM Espírito Santo, município de residência 320334, todas as causas."
+    "reference": "https://dadosabertos.saude.gov.br/dataset/sim/resource/9ade641a-1f25-40d9-b55b-cff7096eb5b4",
+    "method": "SIM Mortalidade Geral 2022, CODMUNRES 320334, TIPOBITO 2 e ano de DTOBITO 2022, todas as causas."
   },
   {
     "indicator": "Benefícios do RGPS emitidos",

@@ -1,9 +1,10 @@
-name: Verificar AuditorES
+name: Verificar e publicar AuditorES
 
 on:
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -12,6 +13,38 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - run: python3 -m unittest discover -s tests -v
       - run: node --check auditor/workspace.js
+      - run: node --check assets/atlas.mjs
+      - run: node --test tests/test_atlas.mjs
+
+  package:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Montar pacote público
+        run: bash scripts/build-pages.sh _site
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  publish:
+    needs: package
+    runs-on: ubuntu-latest
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

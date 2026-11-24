@@ -92,6 +92,16 @@ class WorkspaceTest(unittest.TestCase):
         self.assertEqual(catalog["vitoria"]["kinds"], ["Unidade", "Contrato"])
         self.assertEqual(catalog["vitoria"]["scopes"], {})
 
+    def test_conflict_rolls_back_batch_without_overwriting(self):
+        target = "/api/import" + VITORIA
+        self.assertEqual(self.request(target, "writer", [ROW])[0], 200)
+        extra = {**ROW, "period": "2023"}
+        different_value = {**ROW, "value": 12}
+        status, _, body = self.request(target, "writer", [extra, different_value])
+        self.assertEqual(status, 409)
+        self.assertIn("Registro 2", json.loads(body)["error"])
+        self.assertEqual(json.loads(self.request("/api/observations" + VITORIA, "reader")[2]), [ROW])
+
     def test_import_is_atomic_and_repeatable(self):
         path = "/api/import" + VITORIA
         for row in ({**ROW, "cpf": "campo proibido"}, {**ROW, "reference": "javascript:alert(1)"},

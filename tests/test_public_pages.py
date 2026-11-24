@@ -17,7 +17,9 @@ PUBLIC_PAGES = {
     "municipios/marechal-floriano/index.html",
 }
 
-PUBLIC_ASSETS = {"assets/public.css", "assets/atlas.css"}
+PUBLIC_ASSETS = {
+    "assets/public.css", "assets/atlas.css", "assets/atlas-data.mjs", "assets/atlas.mjs",
+}
 
 
 class Links(HTMLParser):
@@ -29,9 +31,15 @@ class Links(HTMLParser):
     def handle_starttag(self, tag, attributes):
         attrs = dict(attributes)
         if attrs.get("id"):
+            if attrs["id"] in self.ids:
+                raise AssertionError(f"ID repetido: {attrs['id']}")
             self.ids.add(attrs["id"])
         if tag in {"a", "link"} and attrs.get("href"):
             self.targets.append(attrs["href"])
+        if tag == "script" and attrs.get("src"):
+            self.targets.append(attrs["src"])
+        if tag == "form" and attrs.get("action"):
+            self.targets.append(attrs["action"])
         if tag == "meta" and attrs.get("http-equiv") == "refresh":
             self.targets.append(attrs["content"].split("url=", 1)[1])
 
@@ -44,8 +52,7 @@ class PublicationTest(unittest.TestCase):
             actual = {file.relative_to(output).as_posix() for file in output.rglob("*") if file.is_file()}
             self.assertEqual(actual, PUBLIC_PAGES | PUBLIC_ASSETS)
 
-        # GitHub Pages publica pela branch main. A prévia por lista explícita
-        # precisa corresponder aos arquivos visíveis na publicação por Jekyll.
+        # A configuração Jekyll fica como proteção se a publicação voltar ao modo legado.
         config = (ROOT / "_config.yml").read_text(encoding="utf-8")
         excluded = re.findall(r"^  - ([\w./-]+)$", config, flags=re.MULTILINE)
         files = subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT).decode().split("\0")
@@ -56,25 +63,24 @@ class PublicationTest(unittest.TestCase):
         }
         self.assertEqual(visible, PUBLIC_PAGES | PUBLIC_ASSETS)
 
-    def test_no_automatic_redirect_loop_in_catalog(self):
-        for page in ("municipios/index.html", "municipios/vitoria/index.html"):
-            html = (ROOT / page).read_text(encoding="utf-8").lower()
-            self.assertNotIn('http-equiv="refresh"', html)
+    def test_publication_refuses_a_nonempty_output(self):
+        with tempfile.TemporaryDirectory() as temp:
+            (Path(temp) / "existing.txt").write_text("Arquivo de outro processo.", encoding="utf-8")
+            result = subprocess.run(["bash", "scripts/build-pages.sh", temp], cwd=ROOT, capture_output=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertEqual([file.name for file in Path(temp).iterdir()], ["existing.txt"])
 
-    def test_scope_links_and_matching_exports(self):
+    def test_public_routes_open_their_own_pages(self):
+        for page in PUBLIC_PAGES:
+            html = (ROOT / page).read_text(encoding="utf-8").lower()
+            with self.subTest(page=page):
+                self.assertNotIn('http-equiv="refresh"', html)
+                self.assertEqual(html.count("<h1"), 1)
+
+    def test_home_links_to_separate_territorial_scopes(self):
         home = (ROOT / "index.html").read_text(encoding="utf-8")
-        atlas = (ROOT / "municipios/marechal-floriano/index.html").read_text(encoding="utf-8")
         self.assertIn("?scope=municipio#indicadores", home)
         self.assertIn("?scope=victor-hugo#indicadores", home)
-        self.assertIn("function selectedRows()", atlas)
-        self.assertIn("data: selectedRows()", atlas)
-        self.assertIn("const rows = selectedRows().map", atlas)
-        self.assertIn("População estimada',19159", atlas)
-        script = atlas.split("<script>", 1)[1].split("</script>", 1)[0]
-        with tempfile.TemporaryDirectory() as temp:
-            script_file = Path(temp) / "atlas.js"
-            script_file.write_text(script, encoding="utf-8")
-            subprocess.run(["node", "--check", str(script_file)], check=True)
 
     def test_links_stay_within_the_public_package(self):
         pages = {}

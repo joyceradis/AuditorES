@@ -9,7 +9,7 @@ bash scripts/build-pages.sh /tmp/auditores-vitrine
 python3 -m http.server --bind 127.0.0.1 --directory /tmp/auditores-vitrine 8000
 ```
 
-Use um diretório de saída novo. O script empacota as páginas públicas, incluindo o ATLAS de consulta. O GitHub Pages publica a partir de `main` e usa as exclusões em `_config.yml`. O script gera a prévia local com a lista explícita de arquivos públicos. A importação de observações fica na área de trabalho autenticada.
+Use um diretório de saída vazio. O script usa uma lista explícita das páginas e dos arquivos estáticos. O GitHub Pages recebe o mesmo pacote, criado pelo GitHub Actions a partir de `main` depois dos testes. A importação de observações fica na área de trabalho autenticada.
 
 ## Área de trabalho
 
@@ -35,15 +35,17 @@ Para acesso remoto, hospede a aplicação em ambiente privado com proxy HTTPS, l
 
 ## Formato de intercâmbio
 
-Use uma lista JSON de até 1.000 observações e 256 KiB, com os campos `indicator`, `value` (número), `unit`, `period` (AAAA ou AAAA-MM), `source`, `reference` (URL HTTPS oficial pública) e `method`. Na importação, confira o município e o recorte selecionados. A exportação mantém o mesmo formato e inclui os identificadores no nome do arquivo. Use somente agregados revisados quanto ao risco de reidentificação, incluindo os campos de texto e as referências. A validação de esquema restringe os campos, e a revisão do conteúdo cabe a quem autoriza a importação.
+Use uma lista JSON de até 1.000 observações e 256 KiB, com os campos `indicator`, `value` (número), `unit`, `period` (AAAA ou AAAA-MM), `source`, `reference` (URL HTTPS oficial pública) e `method`. Na importação, confira o município e o recorte selecionados. A exportação da área de trabalho mantém o formato de importação, inclui os identificadores no nome do arquivo e reflete a busca e os filtros mostrados. Uma repetição idêntica é contabilizada como duplicata. Um valor diferente para a mesma identificação documental rejeita o lote inteiro, preservando os dados já registrados. Confira a fonte antes de corrigir e reapresentar os dados. Use somente agregados revisados quanto ao risco de reidentificação, incluindo os campos de texto e as referências. A validação de esquema restringe os campos, e a revisão do conteúdo cabe a quem autoriza a importação.
 
 ## Testes
 
 ```bash
 python3 -m unittest discover -s tests -v
 node --check auditor/workspace.js
+node --check assets/atlas.mjs
+node --test tests/test_atlas.mjs
 ```
 
 ## Publicação
 
-Após integrar um PR na `main`, acompanhe o workflow **pages-build-deployment** no GitHub. Confirme o commit publicado, a página inicial e a rota do ATLAS. Confira que `auditor/workspace.html` retorna 404 no Pages. A configuração em uso é `main` na raiz, com exclusão de servidor, dados de trabalho, scripts, testes e documentação.
+Após integrar uma mudança na `main`, acompanhe o fluxo **Verificar e publicar AuditorES** no GitHub. A publicação acontece apenas após a suíte passar e o pacote público ser criado. Confirme que a revisão do fluxo corresponde ao commit publicado e que `auditor/workspace.html` retorna 404. Na configuração do GitHub Pages, a origem é **GitHub Actions**.

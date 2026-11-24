@@ -21,7 +21,9 @@ from .catalog import AXES, SCOPES, SOURCES
 
 HERE = Path(__file__).resolve().parent
 MAX_BODY = 256 * 1024
-FIELDS = {"indicator", "value", "unit", "period", "source", "reference", "method"}
+MAX_ROWS = 1000
+IDENTITY_FIELDS = ("indicator", "unit", "period", "source", "reference", "method")
+FIELDS = {*IDENTITY_FIELDS, "value"}
 TEXT_PATTERN = re.compile(r"[\wÀ-ÿ .,%()²³/·+–-]+")
 ASSETS = {
     "/": ("workspace.html", "text/html; charset=utf-8"),
@@ -91,8 +93,9 @@ def validate_row(row):
     if not isinstance(reference, str) or len(reference) > 300:
         raise ValueError("Referência inválida.")
     url = urlsplit(reference)
-    if (url.scheme != "https" or not url.hostname or not url.hostname.endswith((".gov.br", ".es.gov.br"))
-            or url.username or url.password or chr(92) in reference
+    if (url.scheme != "https" or not url.hostname or not (url.hostname == "gov.br" or url.hostname.endswith(".gov.br"))
+            or url.username is not None or url.password is not None or url.port not in {None, 443}
+            or chr(92) in reference
             or any(char.isspace() or ord(char) < 32 for char in reference)):
         raise ValueError("Informe uma referência HTTPS em domínio gov.br.")
     return row
@@ -102,6 +105,42 @@ def connect(path):
     db = sqlite3.connect(path)
     db.row_factory = sqlite3.Row
     return db
+
+
+class ObservationConflict(Exception):
+    """Valor diferente para uma evidência com a mesma identidade."""
+
+
+def json_object(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("O JSON contém um campo repetido.")
+        result[key] = value
+    return result
+
+
+def store_observations(path, scope, username, rows):
+    columns = ("city", "scope", *IDENTITY_FIELDS)
+    conditions = " AND ".join(f"{column} = ?" for column in columns)
+    fields = ", ".join((*columns, "value", "imported_by"))
+    added = 0
+    with closing(connect(path)) as db, db:
+        # Serializa a conferência da identidade e a gravação do lote.
+        db.execute("BEGIN IMMEDIATE")
+        for position, row in enumerate(rows, start=1):
+            identity = (*scope, *(row[field] for field in IDENTITY_FIELDS))
+            prior = db.execute(f"SELECT value FROM observations WHERE {conditions}", identity).fetchone()
+            if prior is not None:
+                if prior["value"] != row["value"]:
+                    raise ObservationConflict(position)
+                continue
+            db.execute(
+                f"INSERT INTO observations ({fields}) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                (*identity, row["value"], username),
+            )
+            added += 1
+    return added
 
 
 class Workspace(HTTPServer):
@@ -200,11 +239,15 @@ class Handler(BaseHTTPRequestHandler):
                 if field in query:
                     conditions.append("substr(period, 1, 4) = ?" if field == "period" else "source = ?")
                     args.append(query[field][0])
-            with closing(connect(self.server.db_path)) as db:
-                rows = db.execute(
-                    "SELECT indicator, value, unit, period, source, reference, method FROM observations "
-                    f"WHERE {' AND '.join(conditions)} ORDER BY period, indicator, source, reference", args
-                ).fetchall()
+            try:
+                with closing(connect(self.server.db_path)) as db:
+                    rows = db.execute(
+                        "SELECT indicator, value, unit, period, source, reference, method FROM observations "
+                        f"WHERE {' AND '.join(conditions)} ORDER BY period, indicator, source, reference, unit, method", args
+                    ).fetchall()
+            except sqlite3.Error:
+                self.send_payload(503, {"error": "Consulta indisponível. Tente novamente."})
+                return
             headers = {"Content-Disposition": f'attachment; filename="{scope[0]}-{scope[1]}.json"'} if url.path.endswith("/export") else None
             self.send_payload(200, [dict(row) for row in rows], headers=headers)
         else:
@@ -225,28 +268,38 @@ class Handler(BaseHTTPRequestHandler):
             self.send_payload(415, {"error": "Importação aceita apenas JSON enviado pela área de trabalho."})
             return
         try:
-            size = int(self.headers.get("Content-Length", "0"))
+            lengths = self.headers.get_all("Content-Length", [])
+            if len(lengths) != 1 or not lengths[0].isascii() or not lengths[0].isdigit() or self.headers.get("Transfer-Encoding"):
+                raise ValueError("Tamanho de arquivo inválido.")
+            size = int(lengths[0])
             if not 0 < size <= MAX_BODY:
                 self.send_payload(413, {"error": "Arquivo excede o limite de 256 KiB ou está vazio."})
                 return
-            rows = json.loads(self.rfile.read(size))
-            if not isinstance(rows, list) or not 1 <= len(rows) <= 1000:
+            payload = self.rfile.read(size)
+            if len(payload) != size:
+                raise ValueError("O arquivo chegou incompleto.")
+            rows = json.loads(payload.decode("utf-8-sig"), object_pairs_hook=json_object)
+            if not isinstance(rows, list) or not 1 <= len(rows) <= MAX_ROWS:
                 raise ValueError("Importe de 1 a 1.000 observações agregadas.")
-            rows = [validate_row(row) for row in rows]
-        except (ValueError, TimeoutError, RecursionError) as exc:
-            message = str(exc) if type(exc) is ValueError and exc.args else "Arquivo JSON inválido."
-            self.send_payload(400, {"error": message})
+            for position, row in enumerate(rows, start=1):
+                try:
+                    validate_row(row)
+                except ValueError as exc:
+                    raise ValueError(f"Registro {position}. {exc}") from None
+        except (json.JSONDecodeError, UnicodeError, TimeoutError, RecursionError):
+            self.send_payload(400, {"error": "Arquivo JSON inválido ou incompleto."})
             return
-        columns = sorted(FIELDS)
+        except ValueError as exc:
+            self.send_payload(400, {"error": str(exc)})
+            return
         try:
-            with closing(connect(self.server.db_path)) as db, db:
-                before = db.total_changes
-                db.executemany(
-                    f"INSERT INTO observations (city, scope, imported_by, {', '.join(columns)}) "
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT DO NOTHING",
-                    [(*scope, username, *(row[column] for column in columns)) for row in rows],
-                )
-                added = db.total_changes - before
+            added = store_observations(self.server.db_path, scope, username, rows)
+        except ObservationConflict as exc:
+            self.send_payload(409, {"error": (
+                f"Registro {exc.args[0]}. Já existe uma observação com a mesma referência e um valor diferente. "
+                "Confira o documento de origem. Nenhuma alteração deste lote foi aplicada."
+            )})
+            return
         except sqlite3.Error:
             self.send_payload(503, {"error": "Importação indisponível. Tente novamente."})
             return
