@@ -1,0 +1,12 @@
+{
+  "ibge": 3205002,
+  "contratos": {
+    "estado": "inventario-em-preparacao",
+    "resumo": "O inventário reúne os instrumentos aplicáveis à rede municipal de saúde e os documentos de execução associados.",
+    "pendencia": "A lista de contratos, aditivos e metas ainda está em revisão.",
+    "fonte": {
+      "titulo": "Sistema de Contratos e Licitações da Prefeitura da Serra",
+      "url": "https://www.serra.es.gov.br/site/pagina/sistema-de-contratos-e-licitacoes"
+    }
+  }
+}

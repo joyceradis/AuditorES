@@ -1,4 +1,4 @@
-# Operação do AuditorES
+# Operação do Auditar Espírito Santo
 
 ## Prévia da vitrine
 
@@ -13,13 +13,17 @@ Use um diretório de saída vazio. O script gera o catálogo e as 78 rotas munic
 
 ## Atualização das páginas municipais
 
-[O cadastro municipal](../site/municipios.json) fornece o nome, o identificador IBGE e o endereço de cada cidade. [O modelo compartilhado](../site/municipio.html) gera as páginas. Faça as atualizações editoriais em [estudos.json](../site/estudos.json), na entrada identificada pelo mesmo nome curto de cada rota, e monte o pacote novamente. Se a entrada ou a seção ainda estiver vazia, o modelo publica o estado em construção.
+O cadastro do IBGE em `site/municipios.json` define os 78 endereços. Cada carga pública fica em `site/acervo/<código IBGE>.json`. O campo numérico `ibge` precisa coincidir com o nome do arquivo. O build valida as referências e atualiza a página municipal, o catálogo e a matriz estadual na mesma publicação.
 
-- Em `indicadores`, cada registro tem `indicador`, `valor` numérico, `unidade`, `recorte`, `competencia`, `metodo` e `fonte` com `titulo` e `url` HTTPS.
-- Em `contratos.registros`, cada linha tem `obrigacao`, `previsto`, `comprovado`, `situacao` e `fonte` com `titulo` e `url` HTTPS. Use `instrumento`, `unidade` e `competencia` para identificar o recorte quando constarem na documentação.
-- Marechal Floriano inclui uma extensão com [fichas e filtros existentes](../assets/atlas-data.mjs). As abas, a estrutura da página e as fontes comuns vêm do mesmo modelo municipal.
+| Módulo | Campos do registro | Conferência |
+| --- | --- | --- |
+| `indicadores` | indicador, valor, unidade, recorte, competência, método e fonte | O período e a população de referência acompanham cada valor. O acervo 3203346 traz exemplos completos com identidade estável, categoria, tipo e qualidade. |
+| `metas` | indicador, unidade, recorte, ano_base, base, competencia, meta, realizado e fonte | A fonte documenta o plano. Use `null` para execução sem apuração. Um resultado publicado exige `fonte_execucao` própria. |
+| `contratos.registros` | entidade, instrumento, unidade, competencia, obrigacao, previsto, comprovado, situacao, fonte_instrumento e fonte | Registre a entidade signatária e a obrigação por competência. O instrumento e a evidência de execução têm referências próprias. O campo opcional `vinculo` descreve a natureza documentada da relação. |
 
-Antes de incluir uma observação pública, confira a fonte, o recorte, a competência e a pertinência do agregado para publicação. Registre zero somente quando o documento sustentar esse valor.
+As fontes têm `titulo` e `url` HTTPS. Use somente dados agregados e referências destinadas à publicação. A revisão de planilhas de trabalho acontece antes da carga. A publicação acompanha as alterações dos arquivos versionados em `main`.
+
+Para iniciar a análise de outra OS, cadastre a unidade local em `contratos.unidade`, a referência de consulta em `contratos.fonte` e a pendência documental. A mesma matriz atende instrumentos e entidades diferentes no município. Para iniciar análise territorial, registre os indicadores da localidade e suas respectivas fontes. Sem carga local, a página oferece o roteiro e informa a pendência. O dossiê histórico de Marechal mantém seus gráficos e fichas a partir do mesmo arquivo municipal.
 
 ## Área de trabalho
 
@@ -39,7 +43,7 @@ Requer Python 3.10+ e SQLite 3.24+.
 }
 ```
 
-Vitória usa inicialmente o recorte `pa-sao-pedro`. Para cadastrar novos recortes documentados, passe `--scopes /caminho/privado/recortes.private.json`. O arquivo mapeia cada município a objetos indexados pelo identificador estável de recorte e com campos `name` e `kind`. Na auditoria, `kind` aceita `Unidade` ou `Contrato`. Em Marechal Floriano, aceita `Unidade` ou `Território`. A concessão de acesso continua explícita no arquivo de contas. Reinicie o serviço ao alterar concessões ou credenciais.
+A área de trabalho oferece os eixos Auditoria de OS e Inteligência territorial nos 78 municípios. O recorte `pa-sao-pedro` identifica a unidade de Vitória. Para cadastrar novos recortes documentados, passe `--scopes /caminho/privado/recortes.private.json`. O arquivo mapeia cada município a objetos indexados pelo identificador estável de recorte e com campos `name` e `kind`. A auditoria aceita `Unidade` e `Contrato`. O eixo territorial aceita `Unidade` e `Território`. A concessão de acesso continua explícita no arquivo de contas. Reinicie o serviço ao alterar concessões ou credenciais.
 
 Para acesso remoto, hospede a aplicação em ambiente privado com proxy HTTPS, limite de requisições e timeout. O processo deve permanecer em loopback e o diretório de dados deve ter acesso restrito e backups protegidos. Use perfis individuais de navegador, pois o navegador pode manter credenciais HTTP Basic durante a sessão. Rotacione senhas por conta. A vitrine pode ser publicada de forma independente.
 

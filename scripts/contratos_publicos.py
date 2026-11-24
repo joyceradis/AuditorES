@@ -8,12 +8,12 @@ from urllib.parse import urlsplit
 ESTADOS = {
     "em-preparacao": (
         "Em preparação",
-        "Ops, esta seção ainda está em construção",
+        "Inventário documental pendente",
         "Ainda não há registros de contratos revisados para publicação.",
     ),
     "inventario-em-preparacao": (
         "Inventário em preparação",
-        "Ops, esta seção ainda está em construção",
+        "Inventário documental pendente",
         "O inventário de contratos e documentos de execução ainda está sendo preparado.",
     ),
     "validacao-documental": (
@@ -84,17 +84,24 @@ def _registros_validados(registros):
         fonte = _fonte_validada(registro.get("fonte"))
         if not all(linha.values()) or fonte is None:
             raise ValueError(f"Registro contratual {numero} incompleto ou sem fonte HTTPS válida.")
+        for campo in ("entidade", "instrumento", "unidade", "competencia"):
+            if not _texto(registro.get(campo)):
+                raise ValueError(f"Registro contratual {numero} sem {campo}.")
+        origem = _fonte_validada(registro.get("fonte_instrumento"))
+        if origem is None:
+            raise ValueError(f"Registro contratual {numero} sem fonte do instrumento.")
+        linha["origem"] = origem
         linha["fonte"] = fonte
         linha["detalhes"] = [
             (rotulo, _texto(registro.get(chave)))
-            for chave, rotulo in (("instrumento", "Instrumento"), ("unidade", "Unidade"), ("competencia", "Competência"))
+            for chave, rotulo in (("entidade", "Entidade signatária"), ("vinculo", "Tipo de vínculo"), ("instrumento", "Instrumento"), ("unidade", "Unidade"), ("competencia", "Competência"))
             if _texto(registro.get(chave))
         ]
         linhas.append(linha)
     return linhas
 
 
-def _render_roteiro_pasp(unidade):
+def _render_roteiro(unidade):
     return f"""
   <section class="contratos-followup" aria-labelledby="plataforma">
     <h3 id="plataforma">Roteiro de conferência</h3>
@@ -133,7 +140,7 @@ def _render_linha(linha):
             <th scope="row">{escape(linha['obrigacao'])}{detalhes}</th>
             <td>{escape(linha['previsto'])}</td>
             <td>{escape(linha['comprovado'])}</td>
-            <td>{_render_link(linha['fonte'])}</td>
+            <td>{_render_link(linha['origem'])}<br>{_render_link(linha['fonte'])}</td>
             <td>{escape(linha['situacao'])}</td>
           </tr>"""
 
@@ -148,11 +155,7 @@ def _render_matriz(registros):
         legenda = "Estrutura da matriz de execução, ainda sem registros conferidos"
         linhas = """
           <tr>
-            <th scope="row">A identificar no contrato</th>
-            <td>Pendente</td>
-            <td>Pendente</td>
-            <td>Documento a vincular</td>
-            <td><span class="tag context">Em conferência</span></td>
+            <td colspan="5">Nenhuma obrigação com execução documentada neste acervo.</td>
           </tr>"""
     return f"""
   <section class="contratos-followup" aria-labelledby="impacto">
@@ -186,13 +189,11 @@ def render_contratos(city, configuration=None):
         f"Este espaço é destinado à análise dos contratos de saúde de {city['nome']} "
         "e dos documentos que comprovam a execução dos serviços."
     )
-    pasp = city.get("slug") == "vitoria" and bool(unidade)
-    pa_id = ' id="pa"' if pasp else ""
     escopo = unidade or "Escopo da análise"
     referencia = '<p class="contratos-step-label">Unidade de referência</p>' if unidade else ""
-    roteiro = _render_roteiro_pasp(unidade) if pasp else ""
+    roteiro = _render_roteiro(unidade or "Unidade a identificar")
     fonte = _render_link(_fonte_validada(config.get("fonte")), "contratos-fonte")
-    matriz = _render_matriz(registros) if pasp or registros else ""
+    matriz = _render_matriz(registros)
 
     return f"""<section class="screen" id="screen-contratos" aria-labelledby="contratos">
   <header class="contratos-heading">
@@ -200,7 +201,7 @@ def render_contratos(city, configuration=None):
     <p class="lead">Contratos de saúde, organizações sociais (OS) e os documentos que permitem conferir a execução dos serviços.</p>
   </header>
   <div class="contratos-layout">
-    <section class="contratos-panel"{pa_id} aria-labelledby="escopo">
+    <section class="contratos-panel" id="pa" aria-labelledby="escopo">
       {referencia}
       <h3 id="escopo">{escape(escopo)}</h3>
       <p>{escape(resumo)}</p>{fonte}

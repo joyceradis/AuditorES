@@ -6,13 +6,13 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urljoin, urlsplit
 
-from scripts.build_municipios import indicators_panel, load_catalog
+from scripts.build_municipios import indicators_panel, load_catalog, planning_panel
 from scripts.contratos_publicos import render_contratos
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://example.org/AuditorES/"
 PUBLIC_ASSETS = {
-    "assets/public.css", "assets/home.css", "assets/home.mjs", "assets/atlas.css",
+    "assets/marca.svg", "assets/series-locales.mjs", "assets/public.css", "assets/home.css", "assets/home.mjs", "assets/atlas.css",
     "assets/atlas-data.mjs", "assets/atlas.mjs", "assets/atlas-query.mjs",
     "assets/atlas-series.mjs", "assets/inter-latin.woff2", "assets/inter-OFL.txt",
     "assets/municipios.css", "assets/municipio-nav.mjs", "assets/municipios-catalogo.mjs", "assets/contratos.css",
@@ -66,7 +66,7 @@ class PublicationTest(unittest.TestCase):
 
     def test_only_reviewed_files_enter_publication(self):
         actual = {file.relative_to(self.output).as_posix() for file in self.output.rglob("*") if file.is_file()}
-        self.assertEqual(actual, PUBLIC_PAGES | PUBLIC_ASSETS)
+        self.assertEqual(actual, PUBLIC_PAGES | PUBLIC_ASSETS | {"site/acervo/3203346.json"})
 
         # Mesmo se alguém substituir a origem do Pages, fontes de build e dados privados ficam fora.
         config = (ROOT / "_config.yml").read_text(encoding="utf-8")
@@ -109,8 +109,10 @@ class PublicationTest(unittest.TestCase):
 
     def test_home_and_existing_deep_links(self):
         home = self.pages["index.html"]
-        for scope in ("municipio", "victor-hugo"):
-            self.assertIn(f"municipios/marechal-floriano/?scope={scope}#indicadores", home.targets)
+        for city in CITIES:
+            self.assertIn(f'municipios/{city["slug"]}/', home.targets)
+            page = self.pages[f'municipios/{city["slug"]}/index.html']
+            self.assertTrue({"metas", "plataforma", "impacto"} <= page.ids)
         vitoria = self.pages["municipios/vitoria/index.html"]
         self.assertTrue({"pa", "plataforma", "impacto", "status", "documentos"} <= vitoria.ids)
         marechal = self.pages["municipios/marechal-floriano/index.html"]
@@ -141,14 +143,26 @@ class PublicationTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             indicators_panel([{**indicator, "valor": None}])
         contract = {"obrigacao": "Obrigações", "previsto": 0, "comprovado": 0,
-                    "situacao": "Conferido", "fonte": source}
+                    "situacao": "Conferido", "fonte": source, "fonte_instrumento": source,
+                    "instrumento": "A", "competencia": "2026", "unidade": "UBS", "entidade": "Exemplo"}
         city = {"nome": "Município de teste", "slug": "teste"}
-        self.assertNotIn("<table", render_contratos(city))
+        self.assertIn("ainda sem registros conferidos", render_contratos(city))
         self.assertIn("<td>0</td>", render_contratos(city, {"registros": [contract]}))
         with self.assertRaises(ValueError):
             render_contratos(city, {"registros": [{**contract, "comprovado": None}]})
         with self.assertRaises(ValueError):
             render_contratos(city, {"registros": [{**contract, "fonte": {**source, "url": "/sem-origem"}}]})
+
+    def test_meta_e_execucao_conservam_fontes_distintas(self):
+        _, studies, _ = load_catalog()
+        row = studies["marechal-floriano"]["metas"][0]
+        self.assertIn("Sem apuração", planning_panel([row]))
+        with self.assertRaises((ValueError, KeyError)):
+            planning_panel([{**row, "realizado": 0}])
+        panel = planning_panel([{**row, "realizado": 0, "fonte_execucao": {
+            "titulo": "RDQA de teste", "url": "https://example.org/rdqa"}}])
+        self.assertIn("RDQA de teste", panel)
+        self.assertNotIn("Sem apuração", panel)
 
     def test_only_marechal_loads_the_specific_historical_dataset(self):
         for city in CITIES:

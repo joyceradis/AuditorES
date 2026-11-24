@@ -6,7 +6,7 @@ import unittest
 from http.client import HTTPConnection
 from pathlib import Path
 
-from auditor.server import Workspace, load_accounts, password_digest
+from auditor.server import Workspace, load_accounts, load_scopes, password_digest
 
 
 ROW = {
@@ -65,6 +65,20 @@ class WorkspaceTest(unittest.TestCase):
         self.assertEqual(self.request("/", "unknown")[0], 401)
         self.assertEqual(self.request("/", "reader")[0], 200)
         self.assertEqual(self.request("/local-data/data.sqlite3", "reader")[0], 404)
+
+    def test_recortes_de_contrato_e_territorio_em_qualquer_municipio(self):
+        cities = ("marechal-floriano", "vitoria", "afonso-claudio")
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "recortes.json"
+            path.write_text(json.dumps({city: {
+                "instrumento-local": {"name": "Contrato de teste", "kind": "Contrato"},
+                "territorio-local": {"name": "Território de teste", "kind": "Território"}
+            } for city in cities}))
+            catalog = load_scopes(path)
+        self.assertEqual(len(catalog), 78)
+        for city in cities:
+            self.assertIn("instrumento-local", catalog[city][2])
+            self.assertIn("territorio-local", catalog[city][2])
 
     def test_read_write_and_export_are_scoped(self):
         self.assertEqual(self.request("/api/import" + VITORIA, "reader", [ROW])[0], 403)

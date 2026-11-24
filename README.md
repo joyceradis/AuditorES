@@ -1,18 +1,12 @@
-# AuditorES
+# Auditar Espírito Santo
 
-Governança de dados em saúde pública no Espírito Santo. O AuditorES reúne indicadores, fontes e acompanhamento documental de contratos assistenciais.
+[Dashboard estadual](https://joyceradis.github.io/AuditorES/) para secretarias de saúde, fiscalização contratual e controle interno. A matriz apresenta os 78 municípios em ordem alfabética, com busca por nome ou código IBGE e filtros por disponibilidade documental.
 
-- [Catálogo dos 78 municípios](https://joyceradis.github.io/AuditorES/municipios/) com uma estrutura comum de consulta.
-- [Dados e fontes de Marechal Floriano](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/) com busca, fichas de evidência e links para documentos originais.
-- [Indicadores municipais](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/?scope=municipio#indicadores) e [indicadores da ESF Victor Hugo](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/?scope=victor-hugo#indicadores), com exportação conforme filtros selecionados.
-- [Pessoa idosa, CMDI e AMDI](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/#pessoa-idosa), com o resultado municipal, a meta estadual e o que ainda requer evidência.
-- [Área de trabalho autenticada](docs/operacao.md#área-de-trabalho) para operar localmente ou em infraestrutura própria.
+Cada município dispõe de indicadores, metas da PAS, roteiro de conferência de contratos e OS e referências públicas. A área de trabalho autenticada oferece análise territorial e contratual com permissões por município e recorte.
 
-## O que está publicado
+## Atualizar o painel
 
-Todas as páginas municipais têm visão geral, Atenção Primária (APS), contratos e organizações sociais (OS), e fontes e limites. Quando uma seção ainda aguarda dados revisados, a página informa que está em construção e oferece as referências disponíveis.
-
-Marechal Floriano tem 37 fichas em recortes municipais, da ESF Victor Hugo e de contexto. Vitória tem [o roteiro de conferência do PA São Pedro](https://joyceradis.github.io/AuditorES/municipios/vitoria/#contratos), com a execução contratual pendente de documentação.
+O acervo em `site/acervo/<IBGE>.json` alimenta o dashboard, o catálogo e a página municipal. Os campos e o fluxo de publicação estão no [manual de operação](docs/operacao.md). Os números pertencem ao município, ao recorte e ao período documentados em cada ficha.
 
 ## Código e documentação
 

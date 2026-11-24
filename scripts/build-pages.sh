@@ -17,6 +17,8 @@ for page in \
   assets/contratos.css \
   assets/municipio-nav.mjs \
   assets/municipios-catalogo.mjs \
+  assets/marca.svg \
+  assets/series-locales.mjs \
   assets/home.css \
   assets/home.mjs \
   assets/atlas.css \

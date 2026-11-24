@@ -116,7 +116,7 @@ function renderOverview() {
     .sort((a, b) => Number(a.year) - Number(b.year));
   const largest = Math.max(1, ...series.map(row => row.value));
   document.getElementById('accChart').innerHTML = series.map(row =>
-    `<a class="barcol" href="${evidenceHash(row.id)}" aria-label="${fmt(row.value)} notificações em ${esc(row.year)}">
+    `<a class="barcol" href="${evidenceHash(row.id)}" aria-label="${fmt(row.value)} ${esc(row.year)} · notificações de acidentes de trabalho">
       <span class="val">${fmt(row.value)}</span>
       <span class="bar" style="height:${row.value / largest * 153}px"></span>
       <span class="x">${esc(row.year)}</span></a>`
@@ -217,7 +217,7 @@ const sources = [
   ...olderAdultSources,
   ['INSS · Serviços e benefícios', 'Orientação pública sobre segurado especial e benefícios por incapacidade.', 'https://www.gov.br/inss/pt-br', 'Referência de serviços'],
   ['MDS · Proteção social', 'BPC, Cadastro Único e orientações de assistência social.', 'https://www.gov.br/mds/pt-br', 'Referência de serviços'],
-  ['Trilha de conferência do AuditorES', 'Método de reprodução, recortes e pendências por período.', 'https://github.com/joyceradis/AuditorES/blob/main/docs/fontes.md', 'Documentação do projeto']
+  ['Critérios do Auditar Espírito Santo', 'Método de reprodução, recortes e pendências por período.', 'https://github.com/joyceradis/AuditorES/blob/main/docs/fontes.md', 'Documentação do projeto']
 ];
 function renderSourceList(id, entries) {
   document.getElementById(id).innerHTML = entries.map(([title, description, url, type]) =>

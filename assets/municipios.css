@@ -307,3 +307,23 @@
 .municipal-sources li p { margin: .24rem 0 0; font-size: .85rem; }
 @media (max-width: 52rem) { .municipal-index { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 36rem) { .municipal-index, .municipal-choices { grid-template-columns: minmax(0, 1fr); } }
+
+/* Cabeçalho dos cadernos municipais e identificação do território. */
+.atlas-hero { background: #f0f3f5; border-bottom: 3px solid #d9a1ba; }
+.municipal-code { margin: 0; font: 600 .76rem/1.4 ui-monospace, monospace; color: #475f79; letter-spacing: .05em; }
+.atlas-intro-actions:not(:has(button)) { display: none; }
+.municipal-choices { gap: 0; }
+.municipal-choices .card { border: 0; border-top: 1px solid #bdc8d4; border-radius: 0; padding-left: 0; }
+.municipal-choices h3 { color: #233f67; }
+.municipal-choices .card p { font-size: .9rem; }
+.plan-matrix { width: 100%; border-collapse: collapse; text-align: left; }
+.plan-matrix td,.plan-matrix th { border-bottom: 1px solid var(--line); padding: .75rem; }
+.plan-matrix small { display:block; font-weight:400; color:var(--muted); }
+.plan-matrix thead { background: #ebeff3; }
+.dossier-index { list-style: none; padding: 0; margin: 1rem 0; border-top: 2px solid #29476d; }
+.dossier-index li { border-bottom: 1px solid var(--line); }
+.dossier-index a { display:grid; grid-template-columns: 1.2fr 1fr auto; gap: .7rem; align-items: center; padding: 1rem .3rem; text-decoration:none; color: #243e61; }
+.dossier-index a:hover { background: #f3f5f7; }
+.dossier-index span { font-weight: 620; }
+.dossier-index small { color: var(--muted); }
+.dossier-index b { font-weight: 450; }

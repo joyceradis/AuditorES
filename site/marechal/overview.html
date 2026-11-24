@@ -33,6 +33,35 @@
     <span><strong>Pessoa idosa, CMDI e AMDI</strong><small>Resultado municipal de 2025 e atos do Conselho.</small></span>
     <span aria-hidden="true">↗</span>
   </a>
+      <section class="reading-desk" id="reading-desk" aria-labelledby="series-title" hidden>
+        <div class="reading-chart">
+          <div class="reading-tabs" aria-label="Escolher tema do gráfico">
+            <button type="button" data-series="trabalho">Saúde do trabalhador</button>
+            <button type="button" data-series="familias">Risco familiar</button>
+            <button type="button" data-series="amdi">Pessoa idosa</button>
+          </div>
+          <h3 id="series-title"></h3>
+          <p class="series-context" id="series-context"></p>
+          <div class="series-plot">
+            <div class="series-scale" id="series-scale" aria-hidden="true"></div>
+            <div class="series-marks" id="series-marks" role="group" aria-label="Selecionar dado do gráfico"></div>
+          </div>
+          <p class="series-caption" id="series-caption"></p>
+          <a class="series-jump" href="#reading-note">Ver fonte e ficha <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="reading-note" id="reading-note" tabindex="-1">
+          <div class="reading-context"><span id="reading-scope"></span><time id="reading-year"></time></div>
+          <p class="reading-number" id="reading-value"></p>
+          <p class="reading-label" id="reading-label"></p>
+          <p class="reading-explanation" id="reading-explanation"></p>
+          <p class="reading-reference"><a id="reading-source">Consultar documento original</a></p>
+          <div class="reading-links">
+            <a class="btn strong" id="reading-evidence">Abrir ficha</a>
+            <a id="reading-more"></a>
+          </div>
+          <p class="sr-only" id="reading-status" role="status"></p>
+        </div>
+      </section>
   <div class="sectionHead"><div><h3>Perguntas que os dados levantam</h3><p>Interpretação epidemiológica para o território.</p></div></div>
   <div class="grid2">
     <article class="card">

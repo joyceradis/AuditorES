@@ -42,8 +42,8 @@ def load_scopes(path):
         for city, entries in json.loads(path.read_text(encoding="utf-8")).items():
             if city not in scopes:
                 raise ValueError("Município inválido na definição de recorte.")
-            _, axis, current_scopes = scopes[city]
-            _, kinds = AXES[axis]
+            _, _, current_scopes = scopes[city]
+            kinds = {kind for _, allowed in AXES.values() for kind in allowed}
             for scope, entry in entries.items():
                 name, kind = entry["name"], entry["kind"]
                 if (scope in current_scopes or kind not in kinds
@@ -227,7 +227,8 @@ class Handler(BaseHTTPRequestHandler):
                     label, kind = scopes[scope]
                     entries[scope] = {"name": f"{label} · {kind}", "label": label, "kind": kind, "role": role}
                 cities[city] = {"name": name, "axis": axis, "axisId": axis_id, "kinds": kinds, "scopes": entries}
-            self.send_payload(200, {"cities": cities, "sources": SOURCES})
+            self.send_payload(200, {"cities": cities, "sources": SOURCES,
+                                    "axes": {key: {"name": name, "kinds": kinds} for key, (name, kinds) in AXES.items()}})
         elif url.path in {"/api/observations", "/api/export"}:
             query = parse_qs(url.query)
             scope = self.selected_scope(query, account)

@@ -66,25 +66,42 @@ def load_catalog():
         raise ValueError("Código, nome ou rota municipal inválidos.")
     if not set(studies).issubset(slugs):
         raise ValueError("Há um estudo sem município correspondente no catálogo.")
+    by_id = {city["id"]: city["slug"] for city in cities}
+    for path in sorted((SITE / "acervo").glob("*.json")):
+        record = json.loads(path.read_text(encoding="utf-8"))
+        code = record.pop("ibge")
+        if code not in by_id or str(code) != path.stem:
+            raise ValueError(f"Acervo com código IBGE inconsistente em {path.name}.")
+        if set(record) - {"indicadores", "metas", "contratos"}:
+            raise ValueError(f"Módulo de acervo desconhecido em {path.name}.")
+        studies.setdefault(by_id[code], {}).update(record)
     for slug, config in studies.items():
         if config.get("aps") and (slug != "marechal-floriano" or config["aps"] != "marechal"):
             raise ValueError(f"Extensão de APS desconhecida em {slug}. Registros comuns usam 'indicadores'.")
-        if config.get("aps") and config.get("indicadores"):
-            raise ValueError(f"As fichas de {slug} são mantidas na base de dados da extensão.")
     return sorted(cities, key=lambda city: normalize(city["nome"])), studies, catalog["fonte"]
 
 
-def overview(has_aps, has_study):
-    aps = "Indicadores com período, recorte e documento de origem." if has_aps else "Aguardando a revisão dos indicadores locais."
-    contracts = "Etapa da revisão documental e fontes para consulta." if has_study else "Aguardando o levantamento dos documentos locais."
-    return f"""<section class="screen" id="screen-overview" aria-labelledby="visao-geral">
-      <h2 id="visao-geral">Visão geral</h2>
-      <div class="municipal-choices">
-        <a class="card" href="#indicadores"><h3>Atenção Primária (APS)</h3><p>{aps}</p></a>
-        <a class="card" href="#contratos"><h3>Contratos e OS</h3><p>{contracts}</p></a>
-        <a class="card" href="#fontes"><h3>Fontes e limites</h3><p>Bases oficiais para consulta e regras de publicação.</p></a>
-      </div>
-    </section>"""
+def overview(config):
+    contracts = config.get("contratos", {})
+    records = config.get("indicadores", [])
+    plans = config.get("metas", [])
+    if contracts.get("registros"):
+        stage = "Execução publicada"
+    elif contracts.get("estado") == "validacao-documental":
+        stage = "Documentos em conferência"
+    else:
+        stage = "Inventário iniciado" if contracts else "Inventário pendente"
+    modules = [
+        ("Indicadores de saúde", f"{len(records)} fichas" if records else "Sem publicação", "#indicadores"),
+        ("Contratos e OS", stage, "#contratos"),
+        ("Planejamento anual", f"{len(plans)} metas" if plans else "Sem metas publicadas", "#metas"),
+        ("Fontes documentais", "Consultar referências", "#fontes"),
+    ]
+    links = "".join(f'<li><a href="{url}"><span>{label}</span><small>{status}</small>'
+                    '<b aria-hidden="true">→</b></a></li>' for label, status, url in modules)
+    return ('<section class="screen" id="screen-overview" aria-labelledby="visao-geral">'
+            '<h2 id="visao-geral">Visão geral</h2>'
+            f'<ul class="dossier-index" role="list">{links}</ul></section>')
 
 
 def indicators_panel(records):
@@ -93,7 +110,7 @@ def indicators_panel(records):
       <h2 id="indicadores">Atenção Primária (APS)</h2>"""
     if not records:
         return base + """<div class="card municipal-pending">
-          <h3>Ops, esta seção ainda está em construção</h3>
+          <h3>Indicadores aguardando publicação</h3>
           <p>Ainda não publicamos indicadores de atenção primária revisados para este município.</p>
           <a href="#fontes">Consultar as fontes disponíveis</a>
         </div>
@@ -105,11 +122,11 @@ def indicators_panel(records):
         if type(value) not in (int, float) or not math.isfinite(value):
             raise ValueError("Um indicador publicado precisa de valor numérico finito. Ausência de dado fica fora da tabela.")
         amount = escape(str(value).replace(".", ","))
-        unit = text(record["unidade"])
+        unit = text(record["medida"] if record["unidade"] == "n" else record["unidade"])
         detail = text(record["metodo"])
         source = record["fonte"]
         rows.append(
-            f'<tr><th scope="row">{text(record["indicador"])}</th><td>{amount} {unit}</td>'
+            f'<tr><th scope="row">{text(record["indicador"])}<small> · {text(record.get("tipo", "Resultado"))}</small></th><td>{amount} {unit}</td>'
             f'<td>{text(record["recorte"])}</td><td>{text(record["competencia"])}</td>'
             f'<td><a href="{https(source["url"])}">{text(source["titulo"])}</a><br>{detail}</td></tr>'
         )
@@ -117,6 +134,76 @@ def indicators_panel(records):
       <table><thead><tr><th scope="col">Indicador</th><th scope="col">Valor</th>
       <th scope="col">Recorte</th><th scope="col">Competência</th><th scope="col">Fonte e método</th>
       </tr></thead><tbody>""" + "".join(rows) + "</tbody></table></div></section>"
+
+
+def planning_panel(records):
+    heading = '<section class="screen" id="screen-planejamento" aria-labelledby="metas"><h2 id="metas">Metas da PAS</h2>'
+    if not records:
+        return heading + ('<p>Nenhuma meta municipal documentada neste acervo.</p>'
+                          '<p>Para iniciar o acompanhamento, localize a Programação Anual de Saúde aprovada pelo Conselho, '
+                          'registre a linha de base e confira a execução no RDQA ou no relatório de gestão.</p></section>')
+    rows = []
+    for row in records:
+        def number(field):
+            n = row[field]
+            if n is None and field != "meta":
+                return "Sem apuração" if field == "realizado" else "Sem linha de base"
+            if type(n) not in (int, float) or not math.isfinite(n):
+                raise ValueError(f"Valor inválido para {field} na meta da PAS.")
+            return escape(str(n).replace(".", ","))
+        source = row["fonte"]
+        link = f'<a href="{https(source["url"])}">{text(source["titulo"])}</a>'
+        result = number("realizado")
+        if row["realizado"] is not None:
+            evidence = row["fonte_execucao"]
+            result += f'<small><a href="{https(evidence["url"])}">{text(evidence["titulo"])}</a></small>'
+        base = number("base")
+        if row["base"] is not None:
+            base += f'<small>{text(row["ano_base"])}</small>'
+        rows.append(f'<tr><th scope="row">{text(row["indicador"])}<small>{text(row["recorte"])} · {text(row["unidade"])}</small></th>'
+                    f'<td>{base}</td><td>{number("meta")}<small>{text(row["competencia"])}</small></td>'
+                    f'<td>{result}</td><td>{link}</td></tr>')
+    return heading + ('<p>Planejamento e execução por competência. A apuração depende de documento próprio.</p>'
+                      '<div class="tableWrap" tabindex="0" role="region" aria-label="Metas e resultados da PAS">'
+                      '<table class="plan-matrix"><thead><tr><th>Indicador e recorte</th><th>Linha de base</th>'
+                      '<th>Meta</th><th>Realizado</th><th>Fonte do plano</th></tr></thead><tbody>'
+                      + "".join(rows) + '</tbody></table></div></section>')
+
+
+def render_dashboard(cities, studies):
+    groups = {"published": 0, "inventory": 0, "catalog": 0}
+    rows = []
+    for city in cities:
+        config = studies.get(city["slug"], {})
+        contract = config.get("contratos", {})
+        modules = []
+        route = f'municipios/{city["slug"]}/'
+        def cell(key, label, anchor, available, empty):
+            if available:
+                modules.append(key)
+                return f'<a href="{route}#{anchor}">{label}</a>'
+            return empty
+        indicators = cell("indicadores", "Publicados", "indicadores", config.get("indicadores"), "Sem publicação")
+        plans = cell("metas", "Consultar metas", "metas", config.get("metas"), "Sem publicação")
+        verified = contract.get("registros")
+        contract_label = "Execução publicada" if verified else ("Em conferência" if contract.get("estado") == "validacao-documental" else "Em inventário")
+        contracts = cell("contratos", contract_label, "contratos", contract, "Sem inventário")
+        if verified:
+            modules.append("execucao")
+        if not modules:
+            modules.append("cadastro")
+        stage = "catalog" if modules == ["cadastro"] else "inventory" if modules == ["contratos"] else "published"
+        groups[stage] += 1
+        rows.append(f'<tr data-city="{text(normalize(city["nome"]))} {city["id"]}" data-modules="{" ".join(modules)}">'
+                    f'<th scope="row"><a href="{route}">{text(city["nome"])}</a><small>IBGE {city["id"]}</small></th>'
+                    f'<td data-label="Indicadores">{indicators}</td><td data-label="Metas da PAS">{plans}</td>'
+                    f'<td data-label="Contratos e OS">{contracts}</td></tr>')
+    labels = {"published": "Com dados publicados", "inventory": "Somente inventário contratual", "catalog": "Somente cadastro territorial"}
+    tiles = "".join(f'<i class="{key}"></i>' * n for key, n in groups.items())
+    legend = "".join(f'<li><i class="{key}" aria-hidden="true"></i>{labels[key]}<strong>{n}</strong></li>' for key, n in groups.items())
+    coverage = f'<div class="tiles" aria-hidden="true">{tiles}</div><ul class="legend" aria-label="Distribuição dos {len(cities)} municípios">{legend}</ul>'
+    template = (ROOT / "index.html").read_text(encoding="utf-8")
+    return template.replace("<!-- total -->", str(len(cities))).replace("<!-- cobertura -->", coverage).replace("<!-- municipios -->", "\n".join(rows))
 
 
 def source_item(title, url, description=""):
@@ -141,10 +228,12 @@ def render_city(city, config, template):
     contracts = config.get("contratos", {})
     values = {
         "nome": text(city["nome"]),
+        "ibge": city["id"],
+        "planejamento": planning_panel(config.get("metas", [])),
         "resumo": "",
         "impressao": "",
         "temas": "",
-        "visao_geral": overview(bool(records), bool(contracts)),
+        "visao_geral": overview(config),
         "aps": indicators_panel(records),
         "contratos": render_contratos(city, contracts),
         "fontes": '<section class="screen" id="screen-fontes" aria-labelledby="fontes">'
@@ -169,7 +258,7 @@ def render_city(city, config, template):
             fontes=sources.replace(SOURCE_MARKER, common_sources(config, include_local=True)),
             extras=part("marechal/extras.html"),
             fichas=part("marechal/fichas.html"),
-            aplicacao='<script type="module" src="../../assets/atlas.mjs?v=20261124"></script>',
+            aplicacao='<script type="module" src="../../assets/atlas.mjs?v=20261124"></script><script type="module" src="../../assets/series-locales.mjs"></script>',
         )
     return template.substitute(values)
 
@@ -182,6 +271,8 @@ def render_catalog(cities, studies, origin, template):
         status = "Em construção"
         if configuration.get("aps") or configuration.get("indicadores"):
             status = "Indicadores publicados"
+        elif configuration.get("metas"):
+            status = "Metas da PAS publicadas"
         elif contracts.get("registros"):
             status = "Registros contratuais publicados"
         elif contracts:
@@ -196,6 +287,23 @@ def render_catalog(cities, studies, origin, template):
 
 def build(destination):
     cities, studies, origin = load_catalog()
+    # O navegador recebe apenas os indicadores agregados usados no explorador local.
+    for city in cities:
+        config = studies.get(city["slug"], {})
+        if config.get("aps"):
+            fields = ("id", "indicador", "valor", "categoria", "abrangencia", "competencia",
+                      "unidade", "qualidade", "medida", "tipo", "metodo", "recorte")
+            indicators_panel(config["indicadores"])
+            records = []
+            for row in config["indicadores"]:
+                entry = {field: row[field] for field in fields}
+                entry["fonte"] = {key: row["fonte"][key] for key in ("titulo", "url")}
+                records.append(entry)
+            path = destination / "site" / "acervo" / f'{city["id"]}.json'
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(json.dumps({"indicadores": records}, ensure_ascii=False), encoding="utf-8")
+    destination.mkdir(parents=True, exist_ok=True)
+    (destination / "index.html").write_text(render_dashboard(cities, studies), encoding="utf-8")
     place = Template(part("municipio.html"))
     listing = Template(part("municipios.html"))
     pages = {"index.html": render_catalog(cities, studies, origin, listing)}

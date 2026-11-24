@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>${nome} | AuditorES</title>
+  <title>${nome} | Auditar Espírito Santo</title>
   <meta name="description" content="Dados de saúde, contratos públicos e fontes para consulta em ${nome}.">
+  <link rel="icon" href="../../assets/marca.svg" type="image/svg+xml">
   <meta name="theme-color" content="#ffffff">
-  <link rel="stylesheet" href="../../assets/public.css?v=20261123-2">
+  <link rel="stylesheet" href="../../assets/public.css?v=20261124b">
   <link rel="stylesheet" href="../../assets/atlas.css?v=20261123-2">
   <link rel="stylesheet" href="../../assets/municipios.css?v=20261124">
   <link rel="stylesheet" href="../../assets/contratos.css">
@@ -15,9 +16,9 @@
 <a class="skip" href="#conteudo">Ir para o conteúdo</a>
 <header class="masthead">
   <div class="shell header-inner">
-    <a class="brand" href="../../"><span class="brand-mark" aria-hidden="true"></span><span>AuditorES</span></a>
+    <a class="brand" href="../../"><img class="brand-mark" src="../../assets/marca.svg" alt=""><span class="brand-name"><strong>Auditar</strong><small>Espírito Santo</small></span></a>
     <nav class="main-nav" aria-label="Navegação principal">
-      <a href="../../">Início</a><a href="../">Municípios</a><a href="../../#metodo">Metodologia</a>
+      <a href="../../">Dashboard</a><a href="../">Municípios</a><a href="../../#metodo">Metodologia</a>
     </nav>
   </div>
 </header>
@@ -25,12 +26,10 @@
   <div class="shell atlas-hero-grid">
     <div class="atlas-intro">
       <nav class="crumbs" aria-label="Você está em"><a href="../">Municípios</a><span aria-hidden="true">/</span><span aria-current="page">${nome}</span></nav>
-      <p class="atlas-kicker">Dados e fontes</p>
+      <p class="municipal-code">IBGE ${ibge}</p>
       <h1 id="hTitle">${nome}</h1>
-      <p class="lead">Atenção primária, contratos de saúde e os documentos disponíveis para conferir cada informação.</p>
+      <p class="lead">Indicadores, metas pactuadas e prestação de contas municipal.</p>
       <div class="toolbar atlas-intro-actions">
-        <a class="btn strong" href="#indicadores">Consultar APS</a>
-        <a class="btn" href="#contratos">Consultar contratos e OS</a>
         ${impressao}
       </div>
     </div>
@@ -43,6 +42,7 @@
     <a data-tab="dados" href="#indicadores">Atenção Primária (APS)</a>
     <a data-tab="contratos" href="#contratos">Contratos e OS</a>
     <a data-tab="fontes" href="#fontes">Fontes e limites</a>
+    <a data-tab="planejamento" href="#metas">Metas da PAS</a>
     ${temas}
   </div>
 </nav>
@@ -51,11 +51,12 @@
   ${aps}
   ${contratos}
   ${fontes}
+  ${planejamento}
   ${extras}
 </main>
 ${fichas}
 <footer class="site-footer">
-  <div class="shell"><span>AuditorES · Projeto independente no Espírito Santo</span><a href="../../#metodo">Metodologia</a><a href="../">Todos os municípios</a></div>
+  <div class="shell"><span>Auditar Espírito Santo · Projeto independente no Espírito Santo</span><a href="../../#metodo">Metodologia</a><a href="../">Todos os municípios</a></div>
 </footer>
 ${aplicacao}
 </body>

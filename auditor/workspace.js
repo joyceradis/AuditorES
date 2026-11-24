@@ -45,7 +45,7 @@ function pagePath(parts) {
 }
 
 function setPage(title, description, parents = [], context = "") {
-  document.title = title + " | AuditorES";
+  document.title = title + " | Auditar Espírito Santo";
   get("titulo").textContent = title;
   get("context").textContent = context;
   get("context").hidden = !context;
@@ -300,7 +300,7 @@ function setupImport(query, scope, reload) {
 
 async function init() {
   try {
-    const { cities, sources } = await api("/api/catalog");
+    const { cities, sources, axes } = await api("/api/catalog");
     const route = new URLSearchParams(window.location.search);
     const cityId = route.get("city");
     const axisId = route.get("axis");
@@ -311,7 +311,7 @@ async function init() {
       setPage("Municípios", "Escolha um município para consultar os recortes autorizados para sua conta.");
       if (cityId) showNavigationStatus("Município indisponível. Escolha uma opção abaixo.");
       renderDirectory(Object.entries(cities).map(([id, city]) => ({
-        title: city.name, caption: Object.keys(city.scopes).length ? city.axis : city.axis + " · Sem recortes autorizados", href: pagePath({ city: id }),
+        title: city.name, caption: Object.keys(city.scopes).length + " recortes autorizados", href: pagePath({ city: id }),
       })));
       return;
     }
@@ -319,29 +319,29 @@ async function init() {
     const city = cities[cityId];
     const parents = [["Municípios", "/"]];
     const cityPath = pagePath({ city: cityId });
-    const axisPath = pagePath({ city: cityId, axis: city.axisId });
-    if (axisId !== city.axisId) {
-      setPage(city.name, "Eixo de análise disponível neste município.", parents);
-      if (axisId || scopeId) showNavigationStatus("Eixo ou recorte indisponível. Abra o eixo abaixo.");
-      renderDirectory([{
-        title: city.axis, caption: AXIS_CONTENT[city.axisId].description, href: axisPath,
-      }]);
+    if (!Object.hasOwn(axes, axisId)) {
+      setPage(city.name, "Escolha o eixo de análise.", parents);
+      if (axisId || scopeId) showNavigationStatus("Eixo indisponível. Escolha uma opção abaixo.");
+      renderDirectory(Object.entries(axes).map(([id, axis]) => ({
+        title: axis.name, caption: AXIS_CONTENT[id].description, href: pagePath({ city: cityId, axis: id }),
+      })));
       return;
     }
-
+    const axis = axes[axisId];
+    const axisPath = pagePath({ city: cityId, axis: axisId });
     parents.push([city.name, cityPath]);
-    if (Object.hasOwn(city.scopes, scopeId)) {
-      parents.push([city.axis, axisPath]);
+    if (Object.hasOwn(city.scopes, scopeId) && axis.kinds.includes(city.scopes[scopeId].kind)) {
+      parents.push([axis.name, axisPath]);
       const query = new URLSearchParams({ city: cityId, scope: scopeId });
-      await showAnalysis(query, city, city.scopes[scopeId], sources, parents, route);
+      await showAnalysis(query, { ...city, axisId }, city.scopes[scopeId], sources, parents, route);
       return;
     }
 
-    const scopes = Object.entries(city.scopes);
-    setPage(city.axis, scopes.length ? "Selecione o recorte da análise." : "", parents, city.name);
+    const scopes = Object.entries(city.scopes).filter(([, scope]) => axis.kinds.includes(scope.kind));
+    setPage(axis.name, scopes.length ? "Selecione o recorte da análise." : "", parents, city.name);
     if (scopeId) showNavigationStatus("Este recorte está indisponível para sua conta.");
     else if (!scopes.length) showNavigationStatus("Nenhum recorte disponível para sua conta neste eixo.");
-    for (const kind of city.kinds) {
+    for (const kind of axis.kinds) {
       const entries = scopes.filter(([, scope]) => scope.kind === kind).map(([id, scope]) => ({
         title: scope.label,
         caption: scope.role === "write" ? "Consulta e importação" : "Consulta",

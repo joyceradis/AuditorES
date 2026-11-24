@@ -75,42 +75,29 @@ async function sansTypography(locator) {
 async function entrance(page) {
   const main = page.getByRole('main');
   const heading = main.getByRole('heading', { level: 1 });
-  const indicators = main.getByRole('link', { name: 'Explorar indicadores', exact: true });
-  const municipalities = main.getByRole('link', { name: 'Ver municípios', exact: true });
-  await heading.waitFor();
-  const normalize = text => text.replace(/\s+/g, ' ').trim();
-  assert.equal(normalize(await heading.innerText()), 'Dados de saúde do Espírito Santo');
-
-  for (const [label, element] of [['título', heading], ['entrada de indicadores', indicators], ['entrada de municípios', municipalities]]) {
-    await element.waitFor();
-    const bounds = await element.boundingBox();
-    const viewport = page.viewportSize();
-    assert(bounds && bounds.y >= 0 && bounds.y + bounds.height <= viewport.height,
-      `${label} precisa estar disponível antes da primeira rolagem em ${viewport.width} × ${viewport.height}px`);
-  }
-
+  assert.match(await heading.innerText(), /Gestão municipal\s+de saúde/);
+  await main.getByRole('heading', { name: 'Cobertura documental' }).waitFor();
+  assert.equal(await main.locator('.tiles i').count(), 78);
   await sansTypography(heading);
-
-  return { indicators, municipalities };
 }
 
-test('a abertura entrega duas rotas claras na primeira tela', async () => withPage(async page => {
+test('a matriz estadual permite consultar os 78 municípios sem seleção inicial', async () => withPage(async page => {
   await page.goto(site.url);
-  const { indicators, municipalities } = await entrance(page);
-  await screenshot(page, 'redesign-home-980.png');
-
-  await indicators.click();
-  assert.equal(page.url(), atlas + '#indicadores');
-  await page.getByText('37 registros de 37').waitFor();
-
-  await page.goBack();
-  await municipalities.click();
-  assert.equal(page.url(), site.url + 'municipios/');
-  await page.getByRole('heading', { level: 1 }).waitFor();
-}, { width: 980, height: 800 }));
-
+  await entrance(page);
+  await screenshot(page, 'dashboard-desktop.png');
+  await accessibility(page);
+  assert.equal(await page.locator('.matrix tbody tr:visible').count(), 8);
+  await page.getByRole('button', { name: /Próxima/ }).click();
+  await page.getByText('Página 2 de 10').waitFor();
+  await page.getByLabel('Disponibilidade').selectOption('contratos');
+  assert.equal(await page.locator('.matrix tbody tr:visible').count(), 4);
+  await page.getByLabel('Município ou código IBGE').fill('3203346');
+  await page.getByRole('link', { name: 'Consultar metas' }).click();
+  await page.getByRole('heading', { name: 'Metas da PAS' }).waitFor();
+  assert.equal(await page.getByRole('cell', { name: 'Sem apuração' }).count(), 4);
+}));
 test('da visualização à ficha, com as séries e fontes corretas', async () => withPage(async page => {
-  await page.goto(site.url);
+  await page.goto(atlas + '#visao-geral');
   await page.locator('#reading-desk').waitFor();
   assert.equal(await page.locator('#reading-value').innerText(), '313');
   await sansTypography(page.locator('#reading-value'));
@@ -134,12 +121,12 @@ test('da visualização à ficha, com as séries e fontes corretas', async () =>
   await accessibility(page);
   await screenshot(page, 'redesign-dossier.png');
   await page.keyboard.press('Escape');
-  await page.waitForURL('**/#indicadores');
+  await page.waitForURL('**/#visao-geral');
 }));
 
 test('busca, atalhos de recorte e exportação trabalham sobre a mesma consulta', async () => withPage(async page => {
-  await page.goto(site.url);
-  await page.getByLabel('Buscar nos dados de Marechal Floriano').fill('risco');
+  await page.goto(atlas);
+  await page.getByLabel('Buscar nos indicadores de saúde').fill('risco');
   await page.getByRole('button', { name: 'Buscar', exact: true }).click();
   await page.waitForURL('**/?q=risco#indicadores');
   await page.getByLabel('Ano', { exact: true }).selectOption('2021');
@@ -188,7 +175,7 @@ test('o relatório e o CSV incluem todos os resultados da seleção', async () =
   assert.equal(csv.split('\r\n').length, 29);
   assert.match(csv, /acidentes-de-trabalho-notificados-2024/);
   await page.emulateMedia({ media: 'print' });
-  assert.equal(await page.locator('.screen:visible').count(), 7);
+  assert.equal(await page.locator('.screen:visible').count(), 8);
   assert.equal(await page.locator('#dataTable tr:visible').count(), 28);
 }));
 
@@ -238,7 +225,7 @@ test('os municípios compartilham as mesmas seções e separam dados publicados 
       await page.getByText('37 registros de 37').waitFor();
     } else {
       await page.getByRole('heading', { name: 'Atenção Primária (APS)', exact: true }).waitFor();
-      await page.getByText(/^Ops, esta seção ainda está em construção\.?$/).filter({ visible: true }).first().waitFor();
+      await page.getByText('Indicadores aguardando publicação', { exact: true }).filter({ visible: true }).first().waitFor();
       assert.equal(await page.locator('#dataTable tr:visible').count(), 0);
     }
     await navigation.getByRole('link', { name: 'Contratos e OS', exact: true }).click();
@@ -267,7 +254,7 @@ test('as âncoras antigas de Vitória levam a conteúdo útil e o ATLAS mantém 
   const matrix = page.getByRole('table', { name: /matriz de execução.*sem registros conferidos/i });
   await matrix.getByRole('columnheader', { name: 'Previsto' }).waitFor();
   await matrix.getByRole('columnheader', { name: 'Comprovado' }).waitFor();
-  assert.equal(await matrix.getByRole('cell', { name: 'Pendente', exact: true }).count(), 2);
+  await matrix.getByRole('cell', { name: /Nenhuma obrigação/ }).waitFor();
   await page.goto(vitoria + '#documentos');
   await page.locator('a[href^="https://cartadeservicos.vitoria.es.gov.br/"]:visible').first().waitFor();
 

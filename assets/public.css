@@ -26,8 +26,8 @@
   --pink-light: #fff1f7;
   --plum: #79274d;
   --focus: #2159b4;
-  --corner: .625rem;
-  --radius: 1rem;
+  --corner: .25rem;
+  --radius: .35rem;
   font: 100%/1.55 var(--font-sans);
   color: var(--ink);
   background: var(--paper);
@@ -61,18 +61,11 @@ button:disabled { opacity: .52; cursor: default; }
   display: inline-flex; align-items: center; gap: .58rem; color: var(--ink); text-decoration: none;
   font-size: 1.14rem; font-weight: 740; letter-spacing: -.06em;
 }
-.brand-mark {
-  position: relative; display: inline-block; width: 1.75rem; height: 1.75rem; flex: 0 0 1.75rem;
-  border-radius: .5rem; background: var(--nav);
-}
-.brand-mark::before, .brand-mark::after {
-  content: ""; position: absolute; inset-block-end: .43rem; width: .27rem; border-radius: .08rem;
-}
-.brand-mark::before {
-  inset-inline-start: .42rem; height: .42rem; background: #b9d4ff; box-shadow: .35rem -.24rem 0 #e4edff;
-}
-.brand-mark::after { inset-inline-end: .42rem; height: .89rem; background: #f4c6df; }
-.brand-accent { color: var(--ink); }
+.brand-mark { width: 2.5rem; height: 2.5rem; flex: none; }
+.brand-name { display: grid; gap: .2rem; }
+.brand-name strong { font-size: 1.45rem; line-height: 1; letter-spacing: -.065em; }
+.brand-name small { font: 620 .63rem/1.1 var(--font-sans); letter-spacing: .09em; text-transform: uppercase; }
+.masthead { border-top: 3px solid #243f76; }
 .main-nav { display: flex; flex-wrap: wrap; gap: .1rem .4rem; font-size: .83rem; font-weight: 540; }
 .main-nav a {
   display: inline-flex; align-items: center; min-height: 2.75rem; padding: .3rem .65rem;

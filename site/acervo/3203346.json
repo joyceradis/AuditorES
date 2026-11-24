@@ -1,0 +1,738 @@
+{
+  "ibge": 3203346,
+  "contratos": {
+    "estado": "inventario-em-preparacao",
+    "resumo": "O levantamento começa pelos instrumentos que descrevem a prestação de serviços de saúde no município.",
+    "pendencia": "Falta conferir se há instrumento aplicável, qual unidade ou serviço ele cobre e quais documentos comprovam sua execução.",
+    "fonte": {
+      "titulo": "Acesso à informação da Prefeitura de Marechal Floriano",
+      "url": "https://www.marechalfloriano.es.gov.br/acesso-a-informacao/"
+    }
+  },
+  "metas": [
+    {
+      "indicador": "Estabelecimentos que notificam doenças e agravos relacionados ao trabalho",
+      "unidade": "estabelecimentos",
+      "recorte": "Município",
+      "ano_base": "2024",
+      "base": 3,
+      "competencia": "2026",
+      "meta": 4,
+      "realizado": null,
+      "fonte": {
+        "titulo": "PAS 2026 · objetivo 4.4, meta 1",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PAS-2026-versao-final.pdf#page=78"
+      }
+    },
+    {
+      "indicador": "Grupo de vigilância de populações expostas a agrotóxicos (VSPEA) instituído",
+      "unidade": "grupos",
+      "recorte": "Município",
+      "ano_base": "2024",
+      "base": 0,
+      "competencia": "2026",
+      "meta": 1,
+      "realizado": null,
+      "fonte": {
+        "titulo": "PAS 2026 · objetivo 4.3, meta 5",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PAS-2026-versao-final.pdf#page=77"
+      }
+    },
+    {
+      "indicador": "Preenchimento de ocupação e atividade econômica nas notificações previstas na PAS",
+      "unidade": "%",
+      "recorte": "Município",
+      "ano_base": "2024",
+      "base": 100,
+      "competencia": "2026",
+      "meta": 100,
+      "realizado": null,
+      "fonte": {
+        "titulo": "PAS 2026 · objetivo 4.4, meta 2",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PAS-2026-versao-final.pdf#page=79"
+      }
+    },
+    {
+      "indicador": "Capacitações sobre notificação de acidentes e doenças relacionados ao trabalho",
+      "unidade": "capacitações",
+      "recorte": "Município",
+      "ano_base": "2024",
+      "base": 0,
+      "competencia": "2026",
+      "meta": 1,
+      "realizado": null,
+      "fonte": {
+        "titulo": "PAS 2026 · objetivo 4.4, meta 3",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PAS-2026-versao-final.pdf#page=80"
+      }
+    }
+  ],
+  "indicadores": [
+    {
+      "id": "populacao-residente-2022",
+      "indicador": "População residente",
+      "valor": 17641,
+      "unidade": "n",
+      "medida": "Pessoas",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Território",
+      "competencia": "2022",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "IBGE · Censo 2022 · SIDRA tabela 4714, variável 93",
+        "url": "https://apisidra.ibge.gov.br/values/t/4714/n6/3203346/v/93/p/2022"
+      },
+      "metodo": "Use a unidade, o recorte e a data da própria tabela. O total censitário e o cadastro da equipe têm bases próprias."
+    },
+    {
+      "id": "obitos-por-residencia-2022",
+      "indicador": "Óbitos por residência",
+      "valor": 142,
+      "unidade": "n",
+      "medida": "Óbitos",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Território",
+      "competencia": "2022",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "Ministério da Saúde · SIM, Mortalidade Geral 2022",
+        "url": "https://dadosabertos.saude.gov.br/dataset/sim/resource/9ade641a-1f25-40d9-b55b-cff7096eb5b4"
+      },
+      "metodo": "Total de óbitos não fetais, de todas as causas, com residência em Marechal Floriano em 2022. Na base oficial, filtre CODMUNRES 320334, TIPOBITO 2 e o ano de DTOBITO. A contagem não é uma taxa."
+    },
+    {
+      "id": "populacao-estimada-2026",
+      "indicador": "População estimada",
+      "valor": 19159,
+      "unidade": "n",
+      "medida": "Pessoas",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Território",
+      "competencia": "2026",
+      "tipo": "Contexto",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "IBGE · Estimativa 2026; não é o Censo 2022",
+        "url": "https://www.ibge.gov.br/cidades-e-estados/es/marechal-floriano.html"
+      },
+      "metodo": "Estimativa exibida pelo IBGE. O ano informado segue a ficha do município. A contagem censitária de 2022 aparece em ficha própria."
+    },
+    {
+      "id": "agentes-comunitarios-de-saude-2021",
+      "indicador": "Agentes comunitários de saúde",
+      "valor": 4,
+      "unidade": "n",
+      "medida": "Profissionais",
+      "recorte": "ESF Victor Hugo",
+      "abrangencia": "ESF",
+      "categoria": "Território",
+      "competencia": "2021",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2022–2025 · Tabela 23, p. 43",
+        "url": "https://www.marechalfloriano.es.gov.br/downloads/arquivos-saude/instrumentos-gestao/PMS-2022-2025-resumo-DIGISUS.pdf#page=43"
+      },
+      "metodo": "Composição histórica da equipe Victor Hugo em 2021, conforme a coluna de agentes comunitários de saúde na tabela 23 do plano."
+    },
+    {
+      "id": "pessoas-cadastradas-na-esf-30-04-2025",
+      "indicador": "Pessoas cadastradas na ESF",
+      "valor": 1780,
+      "unidade": "n",
+      "medida": "Pessoas",
+      "recorte": "ESF Victor Hugo",
+      "abrangencia": "ESF",
+      "categoria": "Território",
+      "competencia": "30/04/2025",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2026–2029 · Tabela 14, p. 38",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf#page=40"
+      },
+      "metodo": "Use a unidade, o recorte e a data da própria tabela. O total censitário e o cadastro da equipe têm bases próprias."
+    },
+    {
+      "id": "familias-classificadas-ago-2021",
+      "indicador": "Famílias classificadas",
+      "valor": 480,
+      "unidade": "n",
+      "medida": "Famílias classificadas",
+      "recorte": "ESF Victor Hugo",
+      "abrangencia": "ESF",
+      "categoria": "Risco familiar",
+      "competencia": "ago/2021",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2022–2025 · Tabela 45, p. 55",
+        "url": "https://www.marechalfloriano.es.gov.br/downloads/arquivos-saude/instrumentos-gestao/PMS-2022-2025-resumo-DIGISUS.pdf#page=55"
+      },
+      "metodo": "Classificação pelo método Coelho-Savassi. A referência são as 480 famílias classificadas da ESF Victor Hugo em agosto de 2021."
+    },
+    {
+      "id": "familias-em-risco-habitual-ago-2021",
+      "indicador": "Famílias em risco habitual",
+      "valor": 403,
+      "unidade": "n",
+      "medida": "Famílias classificadas",
+      "recorte": "ESF Victor Hugo",
+      "abrangencia": "ESF",
+      "categoria": "Risco familiar",
+      "competencia": "ago/2021",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2022–2025 · Tabela 45, p. 55",
+        "url": "https://www.marechalfloriano.es.gov.br/downloads/arquivos-saude/instrumentos-gestao/PMS-2022-2025-resumo-DIGISUS.pdf#page=55"
+      },
+      "metodo": "Classificação pelo método Coelho-Savassi. A referência são as 480 famílias classificadas da ESF Victor Hugo em agosto de 2021."
+    },
+    {
+      "id": "familias-em-risco-menor-ago-2021",
+      "indicador": "Famílias em risco menor",
+      "valor": 41,
+      "unidade": "n",
+      "medida": "Famílias classificadas",
+      "recorte": "ESF Victor Hugo",
+      "abrangencia": "ESF",
+      "categoria": "Risco familiar",
+      "competencia": "ago/2021",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2022–2025 · Tabela 45, p. 55",
+        "url": "https://www.marechalfloriano.es.gov.br/downloads/arquivos-saude/instrumentos-gestao/PMS-2022-2025-resumo-DIGISUS.pdf#page=55"
+      },
+      "metodo": "Classificação pelo método Coelho-Savassi. A referência são as 480 famílias classificadas da ESF Victor Hugo em agosto de 2021."
+    },
+    {
+      "id": "familias-em-risco-medio-ago-2021",
+      "indicador": "Famílias em risco médio",
+      "valor": 20,
+      "unidade": "n",
+      "medida": "Famílias classificadas",
+      "recorte": "ESF Victor Hugo",
+      "abrangencia": "ESF",
+      "categoria": "Risco familiar",
+      "competencia": "ago/2021",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2022–2025 · Tabela 45, p. 55",
+        "url": "https://www.marechalfloriano.es.gov.br/downloads/arquivos-saude/instrumentos-gestao/PMS-2022-2025-resumo-DIGISUS.pdf#page=55"
+      },
+      "metodo": "Classificação pelo método Coelho-Savassi. A referência são as 480 famílias classificadas da ESF Victor Hugo em agosto de 2021."
+    },
+    {
+      "id": "familias-em-risco-maximo-ago-2021",
+      "indicador": "Famílias em risco máximo",
+      "valor": 16,
+      "unidade": "n",
+      "medida": "Famílias classificadas",
+      "recorte": "ESF Victor Hugo",
+      "abrangencia": "ESF",
+      "categoria": "Risco familiar",
+      "competencia": "ago/2021",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2022–2025 · Tabela 45, p. 55",
+        "url": "https://www.marechalfloriano.es.gov.br/downloads/arquivos-saude/instrumentos-gestao/PMS-2022-2025-resumo-DIGISUS.pdf#page=55"
+      },
+      "metodo": "Classificação pelo método Coelho-Savassi. A referência são as 480 famílias classificadas da ESF Victor Hugo em agosto de 2021."
+    },
+    {
+      "id": "estabelecimentos-de-agricultura-familiar-2017",
+      "indicador": "Estabelecimentos de agricultura familiar",
+      "valor": 626,
+      "unidade": "n",
+      "medida": "Estabelecimentos agropecuários",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Agricultura",
+      "competencia": "2017",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "Incaper / Censo Agropecuário 2017 · Tabela 5, p. 17",
+        "url": "https://incaper.es.gov.br/Media/proater/municipios/Marechal_Floriano.pdf#page=17"
+      },
+      "metodo": "Estabelecimentos agropecuários e associados são unidades diferentes. Nenhuma delas mede a população cadastrada na ESF."
+    },
+    {
+      "id": "estabelecimentos-de-agricultura-nao-familiar-2017",
+      "indicador": "Estabelecimentos de agricultura não familiar",
+      "valor": 290,
+      "unidade": "n",
+      "medida": "Estabelecimentos agropecuários",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Agricultura",
+      "competencia": "2017",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "Incaper / Censo Agropecuário 2017 · Tabela 5, p. 17",
+        "url": "https://incaper.es.gov.br/Media/proater/municipios/Marechal_Floriano.pdf#page=17"
+      },
+      "metodo": "Estabelecimentos agropecuários e associados são unidades diferentes. Nenhuma delas mede a população cadastrada na ESF."
+    },
+    {
+      "id": "associados-da-aprovh-2020",
+      "indicador": "Associados da APROVH",
+      "valor": 120,
+      "unidade": "n",
+      "medida": "Associados",
+      "recorte": "Comunidade",
+      "abrangencia": "Comunidade",
+      "categoria": "Agricultura",
+      "competencia": "2020",
+      "tipo": "Contexto",
+      "qualidade": "Contexto local",
+      "fonte": {
+        "titulo": "Incaper · Quadro 1, p. 19 (associação local; não equivale à ESF)",
+        "url": "https://incaper.es.gov.br/Media/proater/municipios/Marechal_Floriano.pdf#page=19"
+      },
+      "metodo": "Quantidade informada para a associação de produtores rurais de Victor Hugo no quadro de associações de 2020."
+    },
+    {
+      "id": "hipertensao-autodeclarada-2024",
+      "indicador": "Hipertensão autodeclarada",
+      "valor": 5514,
+      "unidade": "n",
+      "medida": "Cadastros com autodeclaração",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Doenças crônicas",
+      "competencia": "2024",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2026–2029 · Tabela 39, p. 68",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf#page=70"
+      },
+      "metodo": "Condição autodeclarada registrada no cadastro individual e-SUS APS. A contagem não estima prevalência, cobertura ou diagnóstico confirmado."
+    },
+    {
+      "id": "diabetes-autodeclarado-2024",
+      "indicador": "Diabetes autodeclarado",
+      "valor": 1716,
+      "unidade": "n",
+      "medida": "Cadastros com autodeclaração",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Doenças crônicas",
+      "competencia": "2024",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2026–2029 · Tabela 39, p. 68",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf#page=70"
+      },
+      "metodo": "Condição autodeclarada registrada no cadastro individual e-SUS APS. A contagem não estima prevalência, cobertura ou diagnóstico confirmado."
+    },
+    {
+      "id": "insuficiencia-cardiaca-autodeclarada-2024",
+      "indicador": "Insuficiência cardíaca autodeclarada",
+      "valor": 126,
+      "unidade": "n",
+      "medida": "Cadastros com autodeclaração",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Doenças crônicas",
+      "competencia": "2024",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2026–2029 · Tabela 39, p. 68",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf#page=70"
+      },
+      "metodo": "Condição autodeclarada registrada no cadastro individual e-SUS APS. A contagem não estima prevalência, cobertura ou diagnóstico confirmado."
+    },
+    {
+      "id": "insuficiencia-renal-autodeclarada-2024",
+      "indicador": "Insuficiência renal autodeclarada",
+      "valor": 60,
+      "unidade": "n",
+      "medida": "Cadastros com autodeclaração",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Doenças crônicas",
+      "competencia": "2024",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2026–2029 · Tabela 39, p. 68",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf#page=70"
+      },
+      "metodo": "Condição autodeclarada registrada no cadastro individual e-SUS APS. A contagem não estima prevalência, cobertura ou diagnóstico confirmado."
+    },
+    {
+      "id": "asma-autodeclarada-2024",
+      "indicador": "Asma autodeclarada",
+      "valor": 597,
+      "unidade": "n",
+      "medida": "Cadastros com autodeclaração",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Doenças crônicas",
+      "competencia": "2024",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2026–2029 · Tabela 39, p. 68",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf#page=70"
+      },
+      "metodo": "Condição autodeclarada registrada no cadastro individual e-SUS APS. A contagem não estima prevalência, cobertura ou diagnóstico confirmado."
+    },
+    {
+      "id": "dpoc-autodeclarada-2024",
+      "indicador": "DPOC autodeclarada",
+      "valor": 44,
+      "unidade": "n",
+      "medida": "Cadastros com autodeclaração",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Doenças crônicas",
+      "competencia": "2024",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2026–2029 · Tabela 39, p. 68",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf#page=70"
+      },
+      "metodo": "Condição autodeclarada registrada no cadastro individual e-SUS APS. A contagem não estima prevalência, cobertura ou diagnóstico confirmado."
+    },
+    {
+      "id": "deficiencia-fisica-autodeclarada-2024",
+      "indicador": "Deficiência física autodeclarada",
+      "valor": 256,
+      "unidade": "n",
+      "medida": "Cadastros com autodeclaração",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Doenças crônicas",
+      "competencia": "2024",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2026–2029 · Tabela 38, p. 67",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf#page=69"
+      },
+      "metodo": "Condição autodeclarada registrada no cadastro individual e-SUS APS. A contagem não estima prevalência, cobertura ou diagnóstico confirmado."
+    },
+    {
+      "id": "acidentes-de-trabalho-notificados-2020",
+      "indicador": "Acidentes de trabalho notificados",
+      "valor": 3,
+      "unidade": "n",
+      "medida": "Notificações",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Saúde do trabalhador",
+      "competencia": "2020",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2026–2029 · Tabela 56, p. 84–85",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf#page=86"
+      },
+      "metodo": "Contagem de notificações do e-SUS Vigilância. Mudanças na captação e no registro podem afetar a série."
+    },
+    {
+      "id": "acidentes-de-trabalho-notificados-2021",
+      "indicador": "Acidentes de trabalho notificados",
+      "valor": 6,
+      "unidade": "n",
+      "medida": "Notificações",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Saúde do trabalhador",
+      "competencia": "2021",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2026–2029 · Tabela 56, p. 84–85",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf#page=86"
+      },
+      "metodo": "Contagem de notificações do e-SUS Vigilância. Mudanças na captação e no registro podem afetar a série."
+    },
+    {
+      "id": "acidentes-de-trabalho-notificados-2022",
+      "indicador": "Acidentes de trabalho notificados",
+      "valor": 19,
+      "unidade": "n",
+      "medida": "Notificações",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Saúde do trabalhador",
+      "competencia": "2022",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2026–2029 · Tabela 56, p. 84–85",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf#page=86"
+      },
+      "metodo": "Contagem de notificações do e-SUS Vigilância. Mudanças na captação e no registro podem afetar a série."
+    },
+    {
+      "id": "acidentes-de-trabalho-notificados-2023",
+      "indicador": "Acidentes de trabalho notificados",
+      "valor": 240,
+      "unidade": "n",
+      "medida": "Notificações",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Saúde do trabalhador",
+      "competencia": "2023",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2026–2029 · Tabela 56, p. 84–85",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf#page=86"
+      },
+      "metodo": "Contagem de notificações do e-SUS Vigilância. Mudanças na captação e no registro podem afetar a série."
+    },
+    {
+      "id": "acidentes-de-trabalho-notificados-2024",
+      "indicador": "Acidentes de trabalho notificados",
+      "valor": 313,
+      "unidade": "n",
+      "medida": "Notificações",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Saúde do trabalhador",
+      "competencia": "2024",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2026–2029 · Tabela 56, p. 84–85",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf#page=86"
+      },
+      "metodo": "Contagem de notificações do e-SUS Vigilância. Mudanças na captação e no registro podem afetar a série."
+    },
+    {
+      "id": "ler-dort-notificadas-2024",
+      "indicador": "LER/DORT notificadas",
+      "valor": 12,
+      "unidade": "n",
+      "medida": "Notificações",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Saúde do trabalhador",
+      "competencia": "2024",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2026–2029 · Tabela 56, p. 84–85",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf#page=86"
+      },
+      "metodo": "Contagem de notificações do e-SUS Vigilância. Mudanças na captação e no registro podem afetar a série."
+    },
+    {
+      "id": "intoxicacoes-exogenas-relacionadas-ao-trabalho-2024",
+      "indicador": "Intoxicações exógenas relacionadas ao trabalho",
+      "valor": 13,
+      "unidade": "n",
+      "medida": "Notificações",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Saúde do trabalhador",
+      "competencia": "2024",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2026–2029 · Tabela 56, p. 84–85",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf#page=86"
+      },
+      "metodo": "Contagem de notificações do e-SUS Vigilância. Mudanças na captação e no registro podem afetar a série."
+    },
+    {
+      "id": "absenteismo-consulta-cirurgia-vascular-2024",
+      "indicador": "Absenteísmo — consulta cirurgia vascular",
+      "valor": 29.03,
+      "unidade": "%",
+      "medida": "Percentual",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Acesso",
+      "competencia": "2024",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2026–2029 · Tabela 50, p. 76–77",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf#page=78"
+      },
+      "metodo": "Percentual informado pelo plano municipal para o procedimento e período indicados. Cada procedimento tem denominador próprio."
+    },
+    {
+      "id": "absenteismo-consulta-cirurgia-geral-2024",
+      "indicador": "Absenteísmo — consulta cirurgia geral",
+      "valor": 23.26,
+      "unidade": "%",
+      "medida": "Percentual",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Acesso",
+      "competencia": "2024",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2026–2029 · Tabela 50, p. 76–77",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf#page=78"
+      },
+      "metodo": "Percentual informado pelo plano municipal para o procedimento e período indicados. Cada procedimento tem denominador próprio."
+    },
+    {
+      "id": "absenteismo-consulta-cardiologia-2024",
+      "indicador": "Absenteísmo — consulta cardiologia",
+      "valor": 18.63,
+      "unidade": "%",
+      "medida": "Percentual",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Acesso",
+      "competencia": "2024",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2026–2029 · Tabela 50, p. 76–77",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf#page=78"
+      },
+      "metodo": "Percentual informado pelo plano municipal para o procedimento e período indicados. Cada procedimento tem denominador próprio."
+    },
+    {
+      "id": "hba1c-avaliadas-solicitadas-2024",
+      "indicador": "HbA1c avaliadas / solicitadas",
+      "valor": 38.98,
+      "unidade": "%",
+      "medida": "Percentual",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Acesso",
+      "competencia": "2024",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "PMS 2026–2029 · Tabela 41, p. 69",
+        "url": "https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf#page=71"
+      },
+      "metodo": "O plano registra 626 exames avaliados entre 1.606 solicitações na rede municipal de ESF, em 2024."
+    },
+    {
+      "id": "beneficios-do-rgps-emitidos-dez-2025",
+      "indicador": "Benefícios do RGPS emitidos",
+      "valor": 3810,
+      "unidade": "n",
+      "medida": "Créditos para pagamento",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Proteção social",
+      "competencia": "dez/2025",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "Ministério da Previdência · Emitidos_2025, célula G919",
+        "url": "https://www.gov.br/previdencia/pt-br/assuntos/previdencia-social/arquivos/ben_municipios_clientela_2025.xlsx"
+      },
+      "metodo": "A planilha conta créditos no município do órgão pagador em dezembro de 2025. A contagem não mede moradores beneficiários nem pessoas únicas."
+    },
+    {
+      "id": "beneficios-rurais-do-rgps-emitidos-dez-2025",
+      "indicador": "Benefícios rurais do RGPS emitidos",
+      "valor": 2145,
+      "unidade": "n",
+      "medida": "Créditos para pagamento",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Proteção social",
+      "competencia": "dez/2025",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "Ministério da Previdência · Emitidos_2025, célula I919",
+        "url": "https://www.gov.br/previdencia/pt-br/assuntos/previdencia-social/arquivos/ben_municipios_clientela_2025.xlsx"
+      },
+      "metodo": "Os créditos rurais são parte do total de 3.810 emitidos no município do órgão pagador. Somar os dois registros contaria os créditos rurais novamente."
+    },
+    {
+      "id": "populacao-com-60-anos-ou-mais-2022",
+      "indicador": "População com 60 anos ou mais",
+      "valor": 2879,
+      "unidade": "n",
+      "medida": "Pessoas",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Pessoa idosa",
+      "competencia": "2022",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "SESA/ES · Boletim APS 2025, tabela AMDI · população IBGE 2022",
+        "url": "https://atencaoprimaria.es.gov.br/Media/AtencaoPrimaria/LinhasDeCuidados/BOLETIM%20APS%202025%20-%20validado%20%2017%20de%20abril%202026.pdf#page=22"
+      },
+      "metodo": "Referência populacional de 2.879 residentes com 60 anos ou mais no Censo 2022. A produção do SISAB corresponde a registros, incluindo a possibilidade de avaliações repetidas."
+    },
+    {
+      "id": "avaliacoes-multidimensionais-da-pessoa-idosa-producao-2025",
+      "indicador": "Avaliações multidimensionais da pessoa idosa — produção",
+      "valor": 37,
+      "unidade": "n",
+      "medida": "Registros de avaliação",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Pessoa idosa",
+      "competencia": "2025",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "SESA/ES · Boletim APS 2025, tabela AMDI; produção, não pessoas únicas",
+        "url": "https://atencaoprimaria.es.gov.br/Media/AtencaoPrimaria/LinhasDeCuidados/BOLETIM%20APS%202025%20-%20validado%20%2017%20de%20abril%202026.pdf#page=22"
+      },
+      "metodo": "Referência populacional de 2.879 residentes com 60 anos ou mais no Censo 2022. A produção do SISAB corresponde a registros, incluindo a possibilidade de avaliações repetidas."
+    },
+    {
+      "id": "indicador-amdi-2025",
+      "indicador": "Indicador AMDI",
+      "valor": 1.29,
+      "unidade": "%",
+      "medida": "Percentual",
+      "recorte": "Município",
+      "abrangencia": "Município",
+      "categoria": "Pessoa idosa",
+      "competencia": "2025",
+      "tipo": "Resultado",
+      "qualidade": "Oficial",
+      "fonte": {
+        "titulo": "SESA/ES · Boletim APS 2025, tabela AMDI; produção/população 60+",
+        "url": "https://atencaoprimaria.es.gov.br/Media/AtencaoPrimaria/LinhasDeCuidados/BOLETIM%20APS%202025%20-%20validado%20%2017%20de%20abril%202026.pdf#page=22"
+      },
+      "metodo": "Produção municipal de 37 registros dividida por 2.879 residentes com 60 anos ou mais, segundo o boletim. Extração SISAB em 11/02/2026."
+    },
+    {
+      "id": "meta-estadual-amdi-2025",
+      "indicador": "Meta estadual AMDI",
+      "valor": 20,
+      "unidade": "%",
+      "medida": "Percentual",
+      "recorte": "Espírito Santo",
+      "abrangencia": "Espírito Santo",
+      "categoria": "Pessoa idosa",
+      "competencia": "2025",
+      "tipo": "Meta",
+      "qualidade": "Meta",
+      "fonte": {
+        "titulo": "SESA/ES · Boletim APS 2025, meta de referência, não resultado",
+        "url": "https://atencaoprimaria.es.gov.br/Media/AtencaoPrimaria/LinhasDeCuidados/BOLETIM%20APS%202025%20-%20validado%20%2017%20de%20abril%202026.pdf#page=22"
+      },
+      "metodo": "Parâmetro estadual de 2025 para comparação com o resultado municipal de 1,29%. Não há resultado de AMDI da ESF Victor Hugo nesta base."
+    }
+  ]
+}

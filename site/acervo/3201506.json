@@ -1,0 +1,12 @@
+{
+  "ibge": 3201506,
+  "contratos": {
+    "estado": "inventario-em-preparacao",
+    "resumo": "O estudo começa pela identificação de unidades, serviços e instrumentos de gestão da saúde.",
+    "pendencia": "Falta confirmar quais documentos se aplicam a cada unidade ou serviço e suas competências.",
+    "fonte": {
+      "titulo": "Licitações publicadas pela Prefeitura de Colatina",
+      "url": "https://www.colatina.es.gov.br/licitacoes/"
+    }
+  }
+}
