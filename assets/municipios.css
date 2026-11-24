@@ -327,3 +327,41 @@
 .dossier-index span { font-weight: 620; }
 .dossier-index small { color: var(--muted); }
 .dossier-index b { font-weight: 450; }
+
+.municipal-index a { border-color: transparent; border-bottom-color: var(--line); border-radius: 0; }
+.municipal-index a:hover,.municipal-index a:focus-visible { background:var(--surface-muted); border-bottom-color:var(--blue); }
+.municipal-index a strong { font-size: 1rem; }
+.atlas-hero { background:var(--surface-muted); border-bottom:1px solid var(--line); }
+.atlas-hero h1,.municipal-intro h1 { color:var(--nav-surface); font-weight:630; letter-spacing:-.045em; }
+.plan-matrix tbody td { font-variant-numeric:tabular-nums; }
+@media screen and (max-width:46rem) {
+  .tableWrap:has(.plan-matrix) {border:0; overflow:visible;}
+  .plan-matrix,.plan-matrix tbody {display:block;}
+  .plan-matrix thead {position:absolute; width:1px; height:1px; clip-path:inset(50%); overflow:hidden;}
+  .plan-matrix tbody tr {display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.6rem; border:1px solid var(--line); border-radius:var(--radius); padding:.85rem; margin-bottom:.7rem;}
+  .tableWrap .plan-matrix tbody th,.tableWrap .plan-matrix tbody td {border:0; padding:0; overflow-wrap:normal; }
+  .plan-matrix th[scope=row] {grid-column:1/-1; font-size:1rem; color:var(--nav-surface);}
+  .plan-matrix small {font-size:.78rem; margin-top:.12rem;}
+  .plan-matrix td::before {display:block; content:attr(data-label); margin-bottom:.22rem; font-size:.74rem; font-weight:600; color:var(--muted);}
+  .plan-matrix td:last-child {grid-column:1/-1; display:flex; align-items:baseline; gap:.7rem;}
+  .plan-matrix td a {padding-block:.45rem;}
+  .plan-matrix tbody tr:focus-within,.plan-matrix tbody tr:hover {background:var(--surface);}
+}
+@media (max-width:40rem) {
+  .atlas-hero-grid { padding-block:1.15rem; gap:.85rem; }
+  .atlas-hero h1,.municipal-intro h1 {font-size:clamp(2.1rem,8vw,3rem);}
+  .atlas-nav a {font-weight:600;}
+  .atlas-nav a[aria-current] {background:var(--blue-light);}
+  .field input,.field select,.quick-search input {font-size:1rem;}
+}
+
+.atlas-nav .section-switch { display:none; }
+@media screen and (max-width:46rem) {
+  .atlas-nav:has(.section-switch:not([hidden])) {position:sticky; top:0; z-index:3;}
+  .atlas-nav .section-switch:not([hidden]) {display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.35fr); align-items:center; gap:.6rem; padding-block:.45rem;}
+  .section-switch:not([hidden]) + .section-links {display:none;}
+  .section-switch label {font-size:.82rem; font-weight:650; color:var(--nav-surface); line-height:1.25;}
+  .section-switch label span {display:block; color:var(--muted); font-size:.7rem; font-weight:500; margin-bottom:.13rem;}
+  .section-switch select {width:100%; min-height:2.75rem; font-size:1rem; background:var(--surface); color:var(--nav); border:1px solid var(--control-line); border-radius:var(--corner); padding-inline:.45rem;}
+  .atlas-main [id] {scroll-margin-block-start:4.8rem;}
+}

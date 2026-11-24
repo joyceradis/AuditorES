@@ -10,24 +10,24 @@
   color-scheme: light;
   --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --editorial: var(--font-sans);
-  --ink: #111518;
-  --muted: #505962;
+  --ink: #1c2b3b;
+  --muted: #4e6070;
   --paper: #fff;
   --surface: #fff;
-  --surface-muted: #f5f7fa;
+  --surface-muted: #f4f6f8;
   --line: #dce2eb;
   --control-line: #858fa0;
-  --nav: #143d7f;
-  --nav-surface: #173b72;
+  --nav: #204775;
+  --nav-surface: #203e60;
   --nav-muted: #e6efff;
-  --blue: #214e98;
+  --blue: #235894;
   --blue-light: #edf3ff;
   --pink: #f4d9e7;
   --pink-light: #fff1f7;
   --plum: #79274d;
   --focus: #2159b4;
-  --corner: .25rem;
-  --radius: .35rem;
+  --corner: .35rem;
+  --radius: .5rem;
   font: 100%/1.55 var(--font-sans);
   color: var(--ink);
   background: var(--paper);
@@ -71,7 +71,8 @@ button:disabled { opacity: .52; cursor: default; }
   display: inline-flex; align-items: center; min-height: 2.75rem; padding: .3rem .65rem;
   border-radius: var(--corner); color: #424b58; text-decoration: none;
 }
-.main-nav a:hover, .main-nav a[aria-current] { background: var(--surface-muted); color: var(--ink); }
+.main-nav a:hover { background: var(--surface-muted); color: var(--nav); }
+.main-nav a[aria-current] { color: var(--nav); box-shadow: inset 0 -3px #b56a90; border-radius: 0; }
 
 .portal-hero { background: var(--surface); border-bottom: 1px solid var(--line); }
 .eyebrow { margin: 0 0 .55rem; color: var(--nav); font-size: .8rem; font-weight: 640; }

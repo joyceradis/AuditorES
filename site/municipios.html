@@ -7,9 +7,9 @@
   <meta name="description" content="Encontre o município para consultar indicadores de atenção primária, contratos de saúde e fontes oficiais.">
   <link rel="icon" href="../assets/marca.svg" type="image/svg+xml">
   <meta name="theme-color" content="#ffffff">
-  <link rel="stylesheet" href="../assets/public.css?v=20261124b">
-  <link rel="stylesheet" href="../assets/municipios.css?v=20261124">
-  <script type="module" src="../assets/municipios-catalogo.mjs"></script>
+  <link rel="stylesheet" href="../assets/public.css?v=20261124-ui">
+  <link rel="stylesheet" href="../assets/municipios.css?v=20261124-ui">
+  <script type="module" src="../assets/municipios-catalogo.mjs?v=20261124-ui"></script>
 </head>
 <body>
   <a class="skip" href="#conteudo">Ir para o conteúdo</a>
@@ -22,12 +22,12 @@
   <main class="shell municipal-main" id="conteudo" tabindex="-1">
     <header class="municipal-intro">
       <h1>Municípios</h1>
-      <p class="lead">Escolha um dos ${total} municípios do Espírito Santo para consultar atenção primária, contratos e fontes.</p>
+      <p class="lead">Indicadores, contratos e fontes por município.</p>
     </header>
     <div class="municipal-index-bar" id="auditoria">
       <div class="municipal-search" hidden>
         <label for="municipioBusca">Buscar município</label>
-        <input id="municipioBusca" type="search" placeholder="Escreva o nome do município" autocomplete="off">
+        <input id="municipioBusca" type="search" placeholder="Nome ou código IBGE" autocomplete="off">
       </div>
       <p id="municipiosContagem" role="status">${total} municípios</p>
     </div>

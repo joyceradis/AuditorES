@@ -308,3 +308,37 @@ for (const width of [390, 320]) {
     }
   }, { width, height: 844 }));
 }
+
+test('a consulta mantém os filtros ao voltar e ao recarregar', async () => withPage(async page => {
+  await page.goto(site.url);
+  const availability = page.getByLabel('Disponibilidade');
+  await page.getByRole('button', { name: /Somente inventário contratual/ }).click();
+  assert.equal(await availability.inputValue(), 'inventory');
+  assert.equal(await page.locator('tr[data-city]:visible').count(), 3);
+  await page.getByLabel('Município ou código IBGE').fill('vitoria');
+  await page.getByRole('link', { name: 'Em conferência' }).click();
+  await page.waitForURL('**/vitoria/#contratos');
+  await page.goBack();
+  await page.reload();
+  assert.equal(await page.locator('tr[data-city]:visible').count(), 1);
+  assert.equal(await availability.inputValue(), 'inventory');
+  await page.getByLabel('Município ou código IBGE').fill('sem município correspondente');
+  await page.locator('#empty').waitFor();
+  await page.getByRole('button', { name: 'Limpar filtros' }).click();
+  assert.equal(await page.locator('tr[data-city]:visible').count(), 8);
+  assert.equal(new URL(page.url()).search, '');
+}));
+
+test('as fichas da PAS e a troca de seção funcionam na tela de 390 px', async () => withPage(async page => {
+  await page.goto(atlas + '#metas');
+  const select = page.getByRole('combobox', { name: 'Seção de Marechal Floriano' });
+  assert.equal(await select.inputValue(), '#metas');
+  const card = page.locator('.plan-matrix tbody tr').first();
+  assert.equal(await card.evaluate(row => getComputedStyle(row).display), 'grid');
+  await accessibility(page);
+  await select.selectOption('#contratos');
+  await page.getByRole('heading', { name:'Contratos e OS', exact:true }).waitFor();
+  await page.goBack();
+  await page.locator('#metas').waitFor();
+  assert.equal(await select.inputValue(), '#metas');
+}, { width:390, height:844 }));

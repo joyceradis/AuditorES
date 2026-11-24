@@ -57,7 +57,7 @@ def _render_link(fonte, classe=""):
     atributo_classe = f' class="{classe}"' if classe else ""
     return (
         f'<a{atributo_classe} href="{escape(url, quote=True)}">'
-        f'{escape(titulo)} <span aria-hidden="true">↗</span></a>'
+        f'{escape(titulo)}</a>'
     )
 
 
@@ -105,7 +105,7 @@ def _render_roteiro(unidade):
     return f"""
   <section class="contratos-followup" aria-labelledby="plataforma">
     <h3 id="plataforma">Roteiro de conferência</h3>
-    <p>Cada etapa precisa de registro documental para passar à próxima.</p>
+
     <ol class="contratos-checklist">
       <li>
         <p class="contratos-step-label">Unidade</p>
@@ -147,11 +147,9 @@ def _render_linha(linha):
 
 def _render_matriz(registros):
     if registros:
-        descricao = "Obrigações, execução documentada e evidências por registro revisado."
         legenda = "Registros contratuais com conferência documental"
         linhas = "".join(_render_linha(linha) for linha in registros)
     else:
-        descricao = "A matriz será preenchida após a conferência do contrato e da prestação de contas da competência analisada."
         legenda = "Estrutura da matriz de execução, ainda sem registros conferidos"
         linhas = """
           <tr>
@@ -160,7 +158,6 @@ def _render_matriz(registros):
     return f"""
   <section class="contratos-followup" aria-labelledby="impacto">
     <h3 id="impacto">Matriz de execução</h3>
-    <p>{descricao}</p>
     <div class="contratos-table-scroll" role="region" aria-labelledby="impacto" tabindex="0">
       <table>
         <caption class="sr-only">{legenda}</caption>
@@ -178,11 +175,11 @@ def render_contratos(city, configuration=None):
     """Gera o HTML da seção de contratos para um município."""
     config = configuration or {}
     estado = _texto(config.get("estado"))
-    rotulo, titulo, pendencia_padrao = ESTADOS.get(estado, ESTADOS["em-preparacao"])
+    _, titulo, pendencia_padrao = ESTADOS.get(estado, ESTADOS["em-preparacao"])
     unidade = _texto(config.get("unidade"))
     registros = _registros_validados(config.get("registros"))
     if registros:
-        rotulo, titulo = "Conferência documental", "Registros publicados"
+        titulo = "Registros publicados"
         pendencia_padrao = "A matriz contém os registros que já passaram por conferência documental."
     pendencia = _texto(config.get("pendencia")) or pendencia_padrao
     resumo = _texto(config.get("resumo")) or (
@@ -198,22 +195,21 @@ def render_contratos(city, configuration=None):
     return f"""<section class="screen" id="screen-contratos" aria-labelledby="contratos">
   <header class="contratos-heading">
     <h2 id="contratos">Contratos e OS</h2>
-    <p class="lead">Contratos de saúde, organizações sociais (OS) e os documentos que permitem conferir a execução dos serviços.</p>
   </header>
   <div class="contratos-layout">
+    <section class="contratos-panel contratos-status" aria-labelledby="status">
+      <p class="contratos-step-label">Situação documental</p>
+      <h3 id="status">{escape(titulo)}</h3>
+      <p>{escape(pendencia)}</p>
+      <details class="contratos-publication">
+        <summary>Critério de publicação</summary>
+        <p>{escape(REGRA_PUBLICACAO)}</p>
+      </details>
+    </section>
     <section class="contratos-panel" id="pa" aria-labelledby="escopo">
       {referencia}
       <h3 id="escopo">{escape(escopo)}</h3>
       <p>{escape(resumo)}</p>{fonte}
     </section>
-    <section class="contratos-panel contratos-status" aria-labelledby="status">
-      <p class="contratos-step-label">{escape(rotulo)}</p>
-      <h3 id="status">{escape(titulo)}</h3>
-      <p>{escape(pendencia)}</p>
-      <div class="contratos-publication">
-        <h4>Critério de publicação</h4>
-        <p>{escape(REGRA_PUBLICACAO)}</p>
-      </div>
-    </section>
-  </div>{roteiro}{matriz}
+  </div>{matriz}{roteiro}
 </section>"""

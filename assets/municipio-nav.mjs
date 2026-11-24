@@ -13,6 +13,11 @@ export function initMunicipalNavigation({ tabForHash, onNavigate } = {}) {
     .filter(({ panel }) => panel);
   if (!sections.length) return () => {};
 
+  const select = document.getElementById('section-select');
+  for (const { link } of sections) select.add(new Option(link.textContent.trim(), link.hash));
+  select.addEventListener('change', () => { location.hash = select.value; });
+  select.closest('.section-switch').hidden = false;
+
   function show({ moveFocus = false, previousHash = null } = {}) {
     const { hash } = window.location;
     const target = anchorTarget(hash);
@@ -21,6 +26,7 @@ export function initMunicipalNavigation({ tabForHash, onNavigate } = {}) {
       override ? link.dataset.tab === override : target && panel.contains(target)
     ) || sections[0];
 
+    select.value = current.link.hash;
     for (const section of sections) {
       const active = section === current;
       section.panel.hidden = !active;

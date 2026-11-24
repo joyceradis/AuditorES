@@ -8,9 +8,9 @@
   <title>Dashboard estadual | Auditar Espírito Santo</title>
   <link rel="icon" href="assets/marca.svg" type="image/svg+xml">
   <link rel="preload" href="assets/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/public.css?v=20261124b">
-  <link rel="stylesheet" href="assets/home.css?v=20261124b">
-  <script type="module" src="assets/home.mjs?v=20261124b"></script>
+  <link rel="stylesheet" href="assets/public.css?v=20261124-ui">
+  <link rel="stylesheet" href="assets/home.css?v=20261124-ui">
+  <script type="module" src="assets/home.mjs?v=20261124-ui"></script>
 </head>
 <body>
   <a class="skip" href="#conteudo">Ir para o conteúdo</a>
@@ -19,28 +19,31 @@
     <nav class="main-nav" aria-label="Navegação principal"><a aria-current="page" href="./">Dashboard</a><a href="municipios/">Municípios</a><a href="#metodo">Metodologia</a></nav>
   </div></header>
   <main id="conteudo" tabindex="-1">
-    <div class="cover"><div class="shell opening">
-      <div class="cover-copy"><p class="folio">Dashboard estadual</p><h1>Gestão municipal<br>de saúde</h1><p class="summary">Consulta para secretarias de saúde, fiscalização de contratos e controle interno no Espírito Santo.</p></div>
-      <section class="coverage" aria-labelledby="coverage-title"><h2 id="coverage-title">Cobertura documental</h2>
-        <p><!-- total --> municípios por etapa de publicação</p>
-        <!-- cobertura -->
-      </section>
-    </div></div>
-    <section class="shell directory" aria-labelledby="directory-title" id="territorios">
-      <div class="section-heading"><div><p class="folio">Consulta territorial</p><h2 id="directory-title">Matriz municipal</h2></div><a href="municipios/">Catálogo completo</a></div>
+    <header class="cover"><div class="shell opening">
+      <h1>Gestão municipal de saúde</h1>
+      <p>Indicadores, metas e contratos dos municípios do Espírito Santo.</p>
+    </div></header>
+    <div class="shell dashboard-layout">
+    <section class="directory" aria-labelledby="directory-title" id="territorios">
+      <div class="section-heading"><h2 id="directory-title">Consultar municípios</h2><a href="#cobertura">Ver cobertura</a></div>
       <div class="filters" id="filters" hidden>
-        <label for="city-search">Município ou código IBGE<input type="search" id="city-search" placeholder="Buscar por nome ou código" autocomplete="off"></label>
-        <label for="module">Disponibilidade<select id="module"><option value="">Todos os municípios</option><option value="indicadores">Com indicadores</option><option value="metas">Com metas da PAS</option><option value="contratos">Com inventário contratual iniciado</option><option value="execucao">Com execução contratual publicada</option><option value="cadastro">Somente cadastro</option></select></label>
+        <label for="city-search">Município ou código IBGE<input type="search" id="city-search" placeholder="Nome ou código" maxlength="100" autocomplete="off"></label>
+        <label for="module">Disponibilidade<select id="module"><option value="">Todos os municípios</option><option value="published">Com dados publicados</option><option value="inventory">Somente inventário contratual</option><option value="indicadores">Com indicadores</option><option value="metas">Com metas da PAS</option><option value="contratos">Com inventário contratual iniciado</option><option value="execucao">Com execução contratual publicada</option><option value="cadastro">Somente cadastro</option></select></label>
       </div>
-      <p class="count" role="status" id="count"></p>
+      <div class="results-line"><p class="count" role="status" id="count" tabindex="-1"></p>
+        <button type="button" id="reset" hidden>Limpar filtros</button></div>
       <div class="matrix-wrap"><table class="matrix"><caption class="sr-only">Acervo por município, em ordem alfabética</caption>
         <thead><tr><th scope="col">Município</th><th scope="col">Indicadores</th><th scope="col">Metas da PAS</th><th scope="col">Contratos e OS</th></tr></thead>
         <tbody><!-- municipios --></tbody>
       </table></div>
-      <p id="empty" hidden>Nenhum município corresponde aos filtros. <button type="button" id="reset">Limpar filtros</button></p>
+      <p id="empty" hidden>Nenhum município corresponde à busca. Altere o nome ou limpe os filtros.</p>
       <div class="pager" id="pager" hidden><button type="button" id="prev">← Anterior</button><span id="page"></span><button type="button" id="next">Próxima →</button></div>
     </section>
-    <section class="shell method" id="metodo"><div><p class="folio">Metodologia</p><h2>Critérios de leitura</h2></div>
+    <aside id="cobertura" class="coverage" aria-labelledby="coverage-title"><h2 id="coverage-title">Cobertura documental</h2>
+      <p class="territory-total"><strong><!-- total --></strong> municípios</p>
+      <!-- cobertura -->
+    </aside></div>
+    <section class="shell method" id="metodo"><h2>Critérios de leitura</h2>
       <dl><dt>Indicadores e metas</dt><dd>Cada medida tem recorte territorial, competência e fonte. A linha de base, a meta da PAS e o resultado apurado ocupam campos distintos.</dd>
       <dt>Contratos e OS</dt><dd>A conferência parte da unidade, do instrumento vigente e da entidade signatária. A execução de cada obrigação exige documento da competência.</dd>
       <dt>Cobertura do painel</dt><dd>O cadastro segue a lista de municípios do IBGE. Uma lacuna indica ausência de publicação neste acervo. <a href="https://servicodados.ibge.gov.br/api/v1/localidades/estados/32/municipios">Consultar cadastro do IBGE</a></dd></dl>

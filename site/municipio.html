@@ -7,10 +7,10 @@
   <meta name="description" content="Dados de saúde, contratos públicos e fontes para consulta em ${nome}.">
   <link rel="icon" href="../../assets/marca.svg" type="image/svg+xml">
   <meta name="theme-color" content="#ffffff">
-  <link rel="stylesheet" href="../../assets/public.css?v=20261124b">
-  <link rel="stylesheet" href="../../assets/atlas.css?v=20261123-2">
-  <link rel="stylesheet" href="../../assets/municipios.css?v=20261124">
-  <link rel="stylesheet" href="../../assets/contratos.css">
+  <link rel="stylesheet" href="../../assets/public.css?v=20261124-ui">
+  <link rel="stylesheet" href="../../assets/atlas.css?v=20261124-ui">
+  <link rel="stylesheet" href="../../assets/municipios.css?v=20261124-ui">
+  <link rel="stylesheet" href="../../assets/contratos.css?v=20261124-ui">
 </head>
 <body>
 <a class="skip" href="#conteudo">Ir para o conteúdo</a>
@@ -28,7 +28,6 @@
       <nav class="crumbs" aria-label="Você está em"><a href="../">Municípios</a><span aria-hidden="true">/</span><span aria-current="page">${nome}</span></nav>
       <p class="municipal-code">IBGE ${ibge}</p>
       <h1 id="hTitle">${nome}</h1>
-      <p class="lead">Indicadores, metas pactuadas e prestação de contas municipal.</p>
       <div class="toolbar atlas-intro-actions">
         ${impressao}
       </div>
@@ -37,7 +36,11 @@
   </div>
 </div>
 <nav class="atlas-nav" aria-label="Seções do município">
-  <div class="shell">
+  <div class="shell section-switch" hidden>
+    <label for="section-select"><span>Município</span>${nome}</label>
+    <select id="section-select" aria-label="Seção de ${nome}"></select>
+  </div>
+  <div class="shell section-links">
     <a data-tab="overview" href="#visao-geral">Visão geral</a>
     <a data-tab="dados" href="#indicadores">Atenção Primária (APS)</a>
     <a data-tab="contratos" href="#contratos">Contratos e OS</a>

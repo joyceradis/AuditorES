@@ -108,8 +108,8 @@ function renderOverview() {
     ['População residente', fmt(value('População residente', '2022')), 'Município · Censo 2022', '', '#evidencia-populacao-residente-2022']
   ];
   document.getElementById('kpis').innerHTML = cards.map(([label, amount, context, group, url]) =>
-    `<article class="kpi ${group}"><a class="label" href="${url.replaceAll('&', '&amp;')}">${esc(label)}</a>
-      <div class="value">${amount}</div><div class="meta">${esc(context)}</div></article>`
+    `<a class="kpi ${group}" href="${url.replaceAll('&', '&amp;')}"><span class="label">${esc(label)}</span>
+      <span class="value">${amount}</span><span class="meta">${esc(context)}</span></a>`
   ).join('');
 
   const series = data.filter(row => row.label === 'Acidentes de trabalho notificados' && row.scope === 'Município')

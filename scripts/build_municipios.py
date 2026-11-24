@@ -161,9 +161,9 @@ def planning_panel(records):
         if row["base"] is not None:
             base += f'<small>{text(row["ano_base"])}</small>'
         rows.append(f'<tr><th scope="row">{text(row["indicador"])}<small>{text(row["recorte"])} · {text(row["unidade"])}</small></th>'
-                    f'<td>{base}</td><td>{number("meta")}<small>{text(row["competencia"])}</small></td>'
-                    f'<td>{result}</td><td>{link}</td></tr>')
-    return heading + ('<p>Planejamento e execução por competência. A apuração depende de documento próprio.</p>'
+                    f'<td data-label="Linha de base">{base}</td><td data-label="Meta">{number("meta")}<small>{text(row["competencia"])}</small></td>'
+                    f'<td data-label="Realizado">{result}</td><td data-label="Fonte">{link}</td></tr>')
+    return heading + ('<p>A Programação Anual de Saúde define a meta. O realizado depende da prestação de contas do período.</p>'
                       '<div class="tableWrap" tabindex="0" role="region" aria-label="Metas e resultados da PAS">'
                       '<table class="plan-matrix"><thead><tr><th>Indicador e recorte</th><th>Linha de base</th>'
                       '<th>Meta</th><th>Realizado</th><th>Fonte do plano</th></tr></thead><tbody>'
@@ -194,13 +194,18 @@ def render_dashboard(cities, studies):
             modules.append("cadastro")
         stage = "catalog" if modules == ["cadastro"] else "inventory" if modules == ["contratos"] else "published"
         groups[stage] += 1
-        rows.append(f'<tr data-city="{text(normalize(city["nome"]))} {city["id"]}" data-modules="{" ".join(modules)}">'
+        if stage == "catalog":
+            cells = '<td colspan="3" class="catalog-only">Somente cadastro</td>'
+        else:
+            cells = (f'<td data-label="Indicadores">{indicators}</td>'
+                     f'<td data-label="Metas da PAS">{plans}</td>'
+                     f'<td data-label="Contratos e OS">{contracts}</td>')
+        rows.append(f'<tr data-city="{text(normalize(city["nome"]))} {city["id"]}" data-stage="{stage}" data-modules="{" ".join(modules)}">'
                     f'<th scope="row"><a href="{route}">{text(city["nome"])}</a><small>IBGE {city["id"]}</small></th>'
-                    f'<td data-label="Indicadores">{indicators}</td><td data-label="Metas da PAS">{plans}</td>'
-                    f'<td data-label="Contratos e OS">{contracts}</td></tr>')
-    labels = {"published": "Com dados publicados", "inventory": "Somente inventário contratual", "catalog": "Somente cadastro territorial"}
+                    f'{cells}</tr>')
+    labels = {"published": "Com dados publicados", "inventory": "Somente inventário contratual", "catalog": "Somente cadastro"}
     tiles = "".join(f'<i class="{key}"></i>' * n for key, n in groups.items())
-    legend = "".join(f'<li><i class="{key}" aria-hidden="true"></i>{labels[key]}<strong>{n}</strong></li>' for key, n in groups.items())
+    legend = "".join(f'<li data-stage-filter="{key}"><i class="{key}" aria-hidden="true"></i><span>{labels[key]}</span><strong>{n}</strong></li>' for key, n in groups.items())
     coverage = f'<div class="tiles" aria-hidden="true">{tiles}</div><ul class="legend" aria-label="Distribuição dos {len(cities)} municípios">{legend}</ul>'
     template = (ROOT / "index.html").read_text(encoding="utf-8")
     return template.replace("<!-- total -->", str(len(cities))).replace("<!-- cobertura -->", coverage).replace("<!-- municipios -->", "\n".join(rows))
@@ -208,7 +213,7 @@ def render_dashboard(cities, studies):
 
 def source_item(title, url, description=""):
     note = f"<p>{text(description)}</p>" if description else ""
-    return f'<li><a href="{https(url)}">{text(title)} <span aria-hidden="true">↗</span></a>{note}</li>'
+    return f'<li><a href="{https(url)}">{text(title)}</a>{note}</li>'
 
 
 def common_sources(config, include_local):
@@ -258,7 +263,7 @@ def render_city(city, config, template):
             fontes=sources.replace(SOURCE_MARKER, common_sources(config, include_local=True)),
             extras=part("marechal/extras.html"),
             fichas=part("marechal/fichas.html"),
-            aplicacao='<script type="module" src="../../assets/atlas.mjs?v=20261124"></script><script type="module" src="../../assets/series-locales.mjs"></script>',
+            aplicacao='<script type="module" src="../../assets/atlas.mjs?v=20261124-ui"></script><script type="module" src="../../assets/series-locales.mjs"></script>',
         )
     return template.substitute(values)
 
@@ -268,7 +273,7 @@ def render_catalog(cities, studies, origin, template):
     for city in cities:
         configuration = studies.get(city["slug"], {})
         contracts = configuration.get("contratos", {})
-        status = "Em construção"
+        status = "Somente cadastro"
         if configuration.get("aps") or configuration.get("indicadores"):
             status = "Indicadores publicados"
         elif configuration.get("metas"):
@@ -278,7 +283,7 @@ def render_catalog(cities, studies, origin, template):
         elif contracts:
             status = "Estudo de contratos em preparação"
         rows.append(
-            f'<li data-municipality="{text(normalize(city["nome"]))}">'
+            f'<li data-municipality="{text(normalize(city["nome"]))} {city["id"]}">'
             f'<a href="{city["slug"]}/"><strong>{text(city["nome"])}</strong><span>{status}</span>'
             '<span class="municipal-index-arrow" aria-hidden="true">→</span></a></li>'
         )
