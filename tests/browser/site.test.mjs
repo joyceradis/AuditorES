@@ -30,6 +30,13 @@ async function withPage(run, viewport = { width: 1280, height: 900 }) {
     page.setDefaultTimeout(8500);
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
+    page.on('response', response => {
+      const type = response.request().resourceType();
+      if (response.status() >= 400 && response.url().startsWith(site.url) &&
+          ['stylesheet', 'script', 'image', 'font'].includes(type)) {
+        errors.push(`${response.status()} ao carregar ${type}: ${response.url()}`);
+      }
+    });
     await run(page);
     assert.deepEqual(errors, []);
   } finally {
@@ -47,16 +54,65 @@ async function accessibility(page) {
 
 async function screenshot(page, filename) {
   if (process.env.AUDITORES_SCREENSHOTS) {
-    await page.screenshot({ path: join(process.env.AUDITORES_SCREENSHOTS, filename) });
+    await page.screenshot({
+      path: join(process.env.AUDITORES_SCREENSHOTS, filename),
+      animations: 'disabled'
+    });
   }
 }
+
+async function sansTypography(locator) {
+  const font = await locator.evaluate(element => getComputedStyle(element).fontFamily);
+  const families = font.split(',').map(family => family.trim().replace(/^["']|["']$/g, '').toLowerCase());
+  assert.equal(families.some(family => ['serif', 'georgia', 'cambria', 'times new roman'].includes(family)), false,
+    `a tipografia desta seção deve ser sem serifa, mas a pilha resolve para ${font}`);
+}
+
+async function entrance(page) {
+  const main = page.getByRole('main');
+  const heading = main.getByRole('heading', { level: 1 });
+  const indicators = main.getByRole('link', { name: 'Explorar indicadores', exact: true });
+  const municipalities = main.getByRole('link', { name: 'Ver municípios', exact: true });
+  await heading.waitFor();
+  const normalize = text => text.replace(/\s+/g, ' ').trim();
+  assert.equal(normalize(await heading.innerText()), 'Dados de saúde do Espírito Santo');
+
+  for (const [label, element] of [['título', heading], ['entrada de indicadores', indicators], ['entrada de municípios', municipalities]]) {
+    await element.waitFor();
+    const bounds = await element.boundingBox();
+    const viewport = page.viewportSize();
+    assert(bounds && bounds.y >= 0 && bounds.y + bounds.height <= viewport.height,
+      `${label} precisa estar disponível antes da primeira rolagem em ${viewport.width} × ${viewport.height}px`);
+  }
+
+  await sansTypography(heading);
+
+  return { indicators, municipalities };
+}
+
+test('a abertura entrega duas rotas claras na primeira tela', async () => withPage(async page => {
+  await page.goto(site.url);
+  const { indicators, municipalities } = await entrance(page);
+  await screenshot(page, 'redesign-home-980.png');
+
+  await indicators.click();
+  assert.equal(page.url(), atlas + '#indicadores');
+  await page.getByText('37 registros de 37').waitFor();
+
+  await page.goBack();
+  await municipalities.click();
+  assert.equal(page.url(), site.url + 'municipios/');
+  await page.getByRole('heading', { level: 1 }).waitFor();
+}, { width: 980, height: 800 }));
 
 test('da visualização à ficha, com as séries e fontes corretas', async () => withPage(async page => {
   await page.goto(site.url);
   await page.locator('#reading-desk').waitFor();
   assert.equal(await page.locator('#reading-value').innerText(), '313');
+  await sansTypography(page.locator('#reading-value'));
+  await sansTypography(page.locator('#reading-desk').getByRole('heading').first());
   await accessibility(page);
-  await screenshot(page, 'editorial-home.png');
+  await screenshot(page, 'redesign-home-desktop.png');
   await page.getByRole('button', { name: /2021\s*6/ }).focus();
   await page.keyboard.press('Enter');
   assert.equal(await page.locator('#reading-value').innerText(), '6');
@@ -72,7 +128,7 @@ test('da visualização à ficha, com as séries e fontes corretas', async () =>
   const dialog = page.getByRole('dialog');
   await dialog.getByRole('heading', { name: 'Meta estadual AMDI' }).waitFor();
   await accessibility(page);
-  await screenshot(page, 'editorial-dossier.png');
+  await screenshot(page, 'redesign-dossier.png');
   await page.keyboard.press('Escape');
   await page.waitForURL('**/#indicadores');
 }));
@@ -90,7 +146,7 @@ test('busca, atalhos de recorte e exportação trabalham sobre a mesma consulta'
   assert.equal(query.get('q'), 'risco');
   assert.equal(query.get('year'), '2021');
   assert.equal(query.get('scope'), 'victor-hugo');
-  await screenshot(page, 'editorial-explorer.png');
+  await screenshot(page, 'redesign-explorer.png');
   const [download] = await Promise.all([
     page.waitForEvent('download'), page.getByRole('button', { name: 'Exportar JSON' }).click()
   ]);
@@ -147,9 +203,10 @@ for (const width of [390, 320]) {
         return { width, outside };
       });
       assert(layout.width <= width, `${url} ocupou ${layout.width}px em ${width}px (${layout.outside.join(', ')})`);
-      if (width === 390 && url === site.url) {
-        await accessibility(page);
-        await screenshot(page, 'editorial-home-mobile.png');
+      if (url === site.url) {
+        await entrance(page);
+        if (width === 390) await accessibility(page);
+        await screenshot(page, `redesign-home-mobile-${width}.png`);
       }
     }
   }, { width, height: 844 }));

@@ -3,38 +3,50 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#123453">
-  <meta name="description" content="Escopo de auditoria assistencial em Vitória no AuditorES.">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Análise dos contratos de saúde vinculados ao PA São Pedro em Vitória.">
   <title>Vitória | AuditorES</title>
-  <link rel="stylesheet" href="../../assets/public.css">
+  <link rel="stylesheet" href="../../assets/public.css?v=20261123-2">
+  <link rel="stylesheet" href="../../assets/municipios.css">
 </head>
 <body>
   <a class="skip" href="#conteudo">Ir para o conteúdo</a>
   <header class="masthead">
     <div class="shell header-inner">
-      <a class="brand" href="../../"><span class="brand-mark" aria-hidden="true">A.</span><span>Auditor<span class="brand-accent">ES</span></span></a>
+      <a class="brand" href="../../"><span class="brand-mark" aria-hidden="true"></span><span>Auditor<span class="brand-accent">ES</span></span></a>
       <nav class="main-nav" aria-label="Navegação principal">
         <a href="../../">Início</a><a href="../">Municípios</a><a href="../marechal-floriano/">ATLAS</a>
       </nav>
     </div>
   </header>
-  <header class="portal-hero">
-    <div class="shell catalog-intro">
+  <main class="shell municipal-main municipal-detail" id="conteudo" tabindex="-1">
+    <header class="municipal-intro">
       <nav class="crumbs" aria-label="Você está em"><a href="../../">Início</a><span aria-hidden="true">/</span><a href="../">Municípios</a><span aria-hidden="true">/</span><span aria-current="page">Vitória</span></nav>
-      <p class="eyebrow">Auditoria assistencial</p>
       <h1>Vitória</h1>
-      <p class="lead">Matriz de análise para contratos e execução assistencial. O eixo distingue instrumento contratual, obrigação, evidência, conformidade, risco e ação proposta.</p>
+      <p class="lead">Análise dos contratos e da execução dos serviços de saúde do PA São Pedro.</p>
+    </header>
+
+    <div class="municipal-detail-grid">
+      <section class="municipal-detail-panel" aria-labelledby="pa">
+        <h2 id="pa">PA São Pedro</h2>
+        <p>O PA São Pedro é a unidade de referência. A análise compara o que os contratos preveem com os documentos que comprovam a execução de cada obrigação.</p>
+      </section>
+      <section class="municipal-detail-panel municipal-stage" aria-labelledby="status">
+        <p class="municipal-state">Validação documental</p>
+        <h2 id="status">O que falta conferir</h2>
+        <p>Contratos, vínculos com organizações sociais, metas e indicadores ainda precisam ser confirmados nas fontes. O AuditorES não publicou achados sobre a unidade.</p>
+      </section>
     </div>
-  </header>
-  <main class="shell catalog-main" id="conteudo" tabindex="-1">
-    <section class="card" aria-labelledby="pa">
-      <span class="tag context">Validação documental</span>
-      <h2 id="pa">PA São Pedro</h2>
-      <p>Unidade de referência para estudo técnico-documental. A identificação de contratos, vínculos com organizações sociais e indicadores depende da conferência das fontes.</p>
-      <p><a href="https://cartadeservicos.vitoria.es.gov.br/areas/25-Transparencia/servicos/499-Portal-de-Transparencia/" target="_blank" rel="noopener noreferrer">Acessar a Transparência pela Carta de Serviços de Vitória</a></p>
+
+    <section class="municipal-documents" aria-labelledby="documentos">
+      <h2 id="documentos">Onde consultar</h2>
+      <ul role="list">
+        <li><a href="https://cartadeservicos.vitoria.es.gov.br/areas/25-Transparencia/servicos/499-Portal-de-Transparencia/" target="_blank" rel="noopener noreferrer"><span>Portal da Transparência de Vitória</span><span aria-hidden="true">↗</span></a></li>
+      </ul>
     </section>
-    <p class="catalog-note"><strong>Estado do estudo.</strong> Inventário de instrumentos, metas e evidências pendente. O painel não atribui achados de irregularidade nem dados assistenciais à unidade.</p>
-    <a class="btn" href="../">← Selecionar outro município</a>
+    <div class="municipal-detail-actions">
+      <a class="btn" href="../">← Todos os municípios</a>
+    </div>
   </main>
   <footer class="site-footer"><div class="shell"><span>AuditorES · Inteligência pública no Espírito Santo</span><a href="../../#metodo">Metodologia</a></div></footer>
 </body>

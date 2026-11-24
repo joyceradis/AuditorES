@@ -11,6 +11,9 @@ fi
 for page in \
   index.html \
   assets/public.css \
+  assets/inter-latin.woff2 \
+  assets/inter-OFL.txt \
+  assets/municipios.css \
   assets/home.css \
   assets/home.mjs \
   assets/atlas.css \

@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Marechal Floriano | ATLAS AuditorES</title>
-<meta name="description" content="Painel territorial replicável de saúde do trabalhador, proteção previdenciária e continuidade do cuidado.">
-<meta name="theme-color" content="#123453">
-<link rel="stylesheet" href="../../assets/public.css">
-<link rel="stylesheet" href="../../assets/atlas.css">
+<meta name="description" content="Consulte indicadores de saúde de Marechal Floriano e da ESF Victor Hugo. Cada ficha mostra o período, a fonte e o que o dado permite concluir.">
+<meta name="theme-color" content="#f7f8fa">
+<link rel="stylesheet" href="../../assets/public.css?v=20261123-2">
+<link rel="stylesheet" href="../../assets/atlas.css?v=20261123-2">
 </head>
 <body>
 <a class="skip" href="#conteudo">Ir para o conteúdo</a>
 <header class="masthead">
   <div class="shell header-inner">
-    <a class="brand" href="../../"><span class="brand-mark" aria-hidden="true">A.</span><span>Auditor<span class="brand-accent">ES</span></span></a>
+    <a class="brand" href="../../"><span class="brand-mark" aria-hidden="true"></span><span>Auditor<span class="brand-accent">ES</span></span></a>
     <nav class="main-nav" aria-label="Navegação principal">
       <a href="../../">Início</a><a href="../">Municípios</a><a href="./" aria-current="page">ATLAS</a>
     </nav>
@@ -20,21 +20,29 @@
 </header>
 <div class="atlas-hero">
   <div class="shell atlas-hero-grid">
-    <div>
-      <nav class="crumbs" aria-label="Você está em"><a href="../../">Início</a><span aria-hidden="true">/</span><a href="../">Municípios</a><span aria-hidden="true">/</span><span aria-current="page">Marechal Floriano</span></nav>
-      <p class="eyebrow">ATLAS territorial · Espírito Santo</p>
+    <div class="atlas-intro">
+      <nav class="crumbs" aria-label="Você está em">
+        <a href="../">Municípios</a><span aria-hidden="true">/</span>
+        <span aria-current="page">Marechal Floriano</span>
+      </nav>
+      <span class="atlas-kicker">ATLAS de saúde municipal</span>
       <h1 id="hTitle">Marechal Floriano</h1>
-      <p class="lead">Indicadores do município e da ESF Victor Hugo, com a fonte e o período de cada medida.</p>
-      <div class="toolbar">
-        <a class="btn strong" href="#indicadores">Explorar evidências <span aria-hidden="true"> →</span></a>
-        <button type="button" class="btn" id="printReport">Imprimir relatório</button>
+      <p class="lead">Dados de saúde do município e da ESF Victor Hugo. Consulte a fonte, o período e o recorte de cada indicador.</p>
+      <div class="toolbar atlas-intro-actions">
+        <a class="btn strong" href="#indicadores">Ver indicadores <span aria-hidden="true">↗</span></a>
+        <button type="button" class="btn print-action" id="printReport">Imprimir relatório</button>
       </div>
     </div>
     <aside class="atlas-snapshot" aria-label="Recortes da base">
-      <div class="snapshot-top"><span>Registros na base</span><strong id="totalRecords">—</strong></div>
-      <div class="snapshot-row"><a href="?scope=municipio#indicadores">Município</a><span data-count-scope="Município">—</span></div>
-      <div class="snapshot-row"><a href="?scope=victor-hugo#indicadores">ESF Victor Hugo</a><span data-count-scope="ESF">—</span></div>
-      <div class="snapshot-row"><span>Comunidade e Estado</span><span id="otherRecords">—</span></div>
+      <div class="snapshot-top">
+        <div><strong id="totalRecords">—</strong><span>fichas de evidência</span></div>
+        <span class="snapshot-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+      </div>
+      <dl class="snapshot-scopes">
+        <div class="snapshot-row"><dt><a href="?scope=municipio#indicadores">Município</a></dt><dd data-count-scope="Município">—</dd></div>
+        <div class="snapshot-row"><dt><a href="?scope=victor-hugo#indicadores">ESF Victor Hugo</a></dt><dd data-count-scope="ESF">—</dd></div>
+        <div class="snapshot-row"><dt>Comunidade e Estado</dt><dd id="otherRecords">—</dd></div>
+      </dl>
       <p id="timeStamp">Base de <time datetime="2026-11-23">23 nov 2026</time></p>
     </aside>
   </div>
@@ -43,7 +51,7 @@
   <div class="shell">
     <a data-tab="overview" href="#visao-geral">Visão geral</a>
     <a data-tab="dados" href="#indicadores">Indicadores</a>
-    <a data-tab="idosos" href="#pessoa-idosa">Pessoa idosa · CMDI</a>
+    <a data-tab="idosos" href="#pessoa-idosa">Pessoa idosa</a>
     <a data-tab="fontes" href="#fontes">Fontes e limites</a>
     <a data-tab="direitos" href="#direitos">Direitos e condutas</a>
     <a data-tab="metodo" href="#metodologia">Metodologia</a>
@@ -52,35 +60,66 @@
 <main class="shell atlas-main" id="conteudo" tabindex="-1">
 <noscript><p class="info">Ative o JavaScript para carregar os indicadores, aplicar filtros e exportar os dados.</p></noscript>
 <section class="screen" id="screen-overview" aria-labelledby="visao-geral">
-<div class="overview-tools">
-  <form class="card quick-search" action="./#indicadores" method="get" role="search" aria-label="Buscar na base de Marechal Floriano">
-    <label for="overviewSearch">Buscar no ATLAS</label>
-    <div><input type="search" id="overviewSearch" name="q" placeholder="Ex.: diabetes, AMDI, risco familiar" maxlength="120" required><button class="btn strong">Buscar</button></div>
-  </form>
+  <div class="atlas-section-intro">
+    <div>
+      <h2 id="visao-geral">Visão geral</h2>
+      <p class="lead">Um ponto de partida para entender o território.</p>
+    </div>
+    <form class="quick-search" action="./#indicadores" method="get" role="search" aria-label="Buscar na base de Marechal Floriano">
+      <label class="sr-only" for="overviewSearch">Buscar no ATLAS</label>
+      <div>
+        <input type="search" id="overviewSearch" name="q" placeholder="Buscar um indicador" maxlength="120" required>
+        <button class="btn strong" type="submit">Buscar</button>
+      </div>
+    </form>
+  </div>
+  <div class="kpis" id="kpis"></div>
+  <div class="split overview-charts">
+    <article class="card">
+      <div class="between"><h3>Acidentes de trabalho notificados</h3><span class="pill" id="accTag">Município · 2020–24</span></div>
+      <p class="hint">Notificações do e-SUS Vigilância. Mudanças no registro podem explicar parte da variação.</p>
+      <div class="plot" id="accChart"></div>
+      <p class="mini">Notificações não equivalem a trabalhadores únicos nem a benefícios previdenciários devidos.</p>
+    </article>
+    <article class="card">
+      <div class="between"><h3>Estratificação familiar</h3><span class="pill pill-local">ESF · 2021</span></div>
+      <p class="hint">Escala Coelho-Savassi. Os dados são históricos e podem ser atualizados com a coordenação e os ACS.</p>
+      <div id="riskBars"></div>
+      <div class="divider"></div>
+      <p class="mini" id="riskText"></p>
+    </article>
+  </div>
+  <div class="alert"><strong>Antes de comparar.</strong> Confira o recorte de cada medida. Evite somar populações, usar dados municipais para estimar prevalência na ESF ou interpretar notificações como incidência.</div>
   <a class="overview-feature" href="#pessoa-idosa">
-    <span class="eyebrow">Acompanhamento municipal</span>
-    <strong>Pessoa idosa, CMDI e AMDI</strong>
-    <span>Resultado de 2025 e atos do Conselho. <span aria-hidden="true">→</span></span>
+    <span><strong>Pessoa idosa, CMDI e AMDI</strong><small>Resultado municipal de 2025 e atos do Conselho.</small></span>
+    <span aria-hidden="true">↗</span>
   </a>
-</div>
-<h2 id="visao-geral">Retrato do território</h2>
-<p class="lead">Município e ESF Victor Hugo têm populações e períodos de referência próprios.</p>
-<div class="alert"><b>Como comparar:</b> cada medida tem seu próprio recorte. Evite somar populações, usar dados municipais para estimar prevalência na ESF ou interpretar notificações como incidência.</div>
-<div class="kpis" id="kpis"></div>
-<div class="split"><div class="card"><div class="between"><h3>Acidentes de trabalho notificados</h3><span class="pill" id="accTag">MUNICÍPIO · 2020–24</span></div><p class="hint">Notificações do e-SUS Vigilância. Mudanças no registro podem explicar parte da variação.</p><div class="plot" id="accChart"></div><p class="mini" >O número de notificações não equivale necessariamente ao número de trabalhadores únicos nem de benefícios previdenciários devidos.</p></div><div class="card"><div class="between"><h3>Estratificação familiar</h3><span class="pill">ESF · 2021</span></div><p class="hint">Escala Coelho-Savassi. Dados históricos: atualizar com a coordenação e os ACS.</p><div id="riskBars"></div><div class="divider"></div><p class="mini" id="riskText"></p></div></div>
-<div class="sectionHead"><div><h3>Perguntas que os dados levantam</h3><p>Interpretação epidemiológica, não conclusão individual</p></div></div><div class="grid2"><div class="card"><span class="category">Estrutura produtiva</span><h3>Agricultura familiar e dependência do trabalho</h3><p class="mini" id="farmText">O predomínio da agricultura familiar no município justifica investigar como a perda de capacidade funcional interfere na renda e na continuidade do tratamento.</p></div><div class="card"><span class="category">Coordenação do cuidado</span><h3>Barreiras à consulta especializada</h3><p class="mini">Absenteísmo e avaliação de HbA1c são processos diferentes, mas ambos ajudam a formular hipóteses sobre continuidade assistencial. É preciso investigar causas locais de faltas antes de atribuí-las ao trabalho.</p></div></div>
-<div class="sectionHead"><div><h3>Acesso e condições de saúde em 2024</h3><p>Dados municipais: não extrapolar diretamente para Victor Hugo</p></div></div><div class="statrows" id="secondaryStats"></div><div class="footnote">Painel de diagnóstico situacional. Metodologia reproduzível na seção Metodologia. Dados publicados em anos diferentes e sujeitos a revisão. Não utilizar para identificação de pacientes ou prospecção comercial.</div></section>
+  <div class="sectionHead"><div><h3>Perguntas que os dados levantam</h3><p>Interpretação epidemiológica para o território.</p></div></div>
+  <div class="grid2">
+    <article class="card">
+      <span class="category">Estrutura produtiva</span><h3>Agricultura familiar e dependência do trabalho</h3>
+      <p class="mini" id="farmText">O predomínio da agricultura familiar no município justifica investigar como a perda de capacidade funcional interfere na renda e na continuidade do tratamento.</p>
+    </article>
+    <article class="card">
+      <span class="category">Coordenação do cuidado</span><h3>Barreiras à consulta especializada</h3>
+      <p class="mini">Absenteísmo e avaliação de HbA1c ajudam a formular hipóteses sobre continuidade assistencial. É preciso investigar causas locais de faltas antes de atribuí-las ao trabalho.</p>
+    </article>
+  </div>
+  <div class="sectionHead"><div><h3>Acesso e condições de saúde em 2024</h3><p>O recorte destas medidas é municipal.</p></div></div>
+  <div class="statrows" id="secondaryStats"></div>
+  <p class="footnote">Painel de diagnóstico situacional. Consulte a metodologia para reproduzir o levantamento. Dados publicados em anos diferentes e sujeitos a revisão. Não utilizar para identificação de pacientes ou prospecção comercial.</p>
+</section>
 
 <section class="screen" id="screen-dados" aria-labelledby="indicadores">
-  <h2 id="indicadores">Explorador de evidências</h2>
+  <h2 id="indicadores">Indicadores</h2>
   <p class="info" id="missingEvidence" role="status" hidden>Ficha indisponível. Use a busca abaixo para localizar o indicador.</p>
-  <p class="lead">Abra uma ficha para ver como o indicador foi obtido e consultar a fonte.</p>
+  <p class="lead">Use os filtros para encontrar um indicador. Abra a ficha para consultar a fonte e entender a medida.</p>
   <nav class="scope-selector" aria-label="Atalhos de recorte">
     <a class="btn" href="./#indicadores" data-scope="">Todos os recortes</a>
     <a class="btn" href="?scope=municipio#indicadores" data-scope="Município">Município</a>
     <a class="btn" href="?scope=victor-hugo#indicadores" data-scope="ESF">ESF Victor Hugo</a>
   </nav>
-  <form class="card filter-card" id="indicatorFilters" aria-label="Filtrar indicadores">
+  <form class="filter-card" id="indicatorFilters" aria-label="Filtrar indicadores">
     <div class="formGrid">
       <div class="field search"><label for="searchFilter">Buscar indicadores</label><input type="search" id="searchFilter" placeholder="Ex.: AMDI, risco, diabetes" maxlength="120"></div>
       <div class="field"><label for="scopeFilter">Abrangência</label><select id="scopeFilter"><option value="">Todas</option></select></div>
@@ -94,7 +133,7 @@
     <div class="toolbar">
       <button type="button" class="btn" data-clear>Limpar filtros</button>
       <button type="button" class="btn" id="exportCSV" disabled>Exportar CSV</button>
-      <button type="button" class="btn strong" id="exportJSON" disabled>Exportar JSON</button>
+      <button type="button" class="btn" id="exportJSON" disabled>Exportar JSON</button>
     </div>
   </div>
   <div class="tableWrap" id="indicatorResults" hidden>
@@ -174,7 +213,7 @@
 </main>
 <dialog class="evidence-dialog" id="evidenceDialog" aria-labelledby="evidenceTitle">
   <div class="evidence-top">
-    <p class="eyebrow">Ficha de evidência</p>
+    <p class="evidence-kicker">Ficha do indicador</p>
     <button class="btn" type="button" id="closeEvidence">Fechar</button>
   </div>
   <h2 id="evidenceTitle"></h2>

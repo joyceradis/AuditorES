@@ -79,5 +79,5 @@ if (registrations) {
   link.href = atlas + evidenceHash(registrations.id);
   link.hidden = false;
 }
-byId('atlas-summary').textContent = `${data.length} fichas · Município, ESF Victor Hugo e referências de contexto`;
+byId('atlas-summary').textContent = `Município e ESF Victor Hugo · ${data.length} fichas para consulta`;
 selectSeries('trabalho');

@@ -6,7 +6,19 @@ import { tmpdir } from 'node:os';
 import { extname, join, sep, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const types = { '.css': 'text/css', '.html': 'text/html; charset=utf-8', '.mjs': 'text/javascript' };
+const types = {
+  '.avif': 'image/avif',
+  '.css': 'text/css',
+  '.html': 'text/html; charset=utf-8',
+  '.ico': 'image/x-icon',
+  '.jpeg': 'image/jpeg',
+  '.jpg': 'image/jpeg',
+  '.mjs': 'text/javascript',
+  '.png': 'image/png',
+  '.svg': 'image/svg+xml',
+  '.webp': 'image/webp',
+  '.woff2': 'font/woff2'
+};
 const project = fileURLToPath(new URL('../../', import.meta.url));
 const prefix = '/AuditorES/';
 

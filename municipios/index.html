@@ -3,56 +3,75 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#123453">
-  <meta name="description" content="Catálogo territorial do AuditorES no Espírito Santo.">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Consulte dados de saúde e o andamento da análise de contratos por município do Espírito Santo.">
   <title>Municípios | AuditorES</title>
-  <link rel="stylesheet" href="../assets/public.css">
+  <link rel="stylesheet" href="../assets/public.css?v=20261123-2">
+  <link rel="stylesheet" href="../assets/municipios.css">
 </head>
 <body>
   <a class="skip" href="#conteudo">Ir para o conteúdo</a>
   <header class="masthead">
     <div class="shell header-inner">
-      <a class="brand" href="../"><span class="brand-mark" aria-hidden="true">A.</span><span>Auditor<span class="brand-accent">ES</span></span></a>
+      <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span>Auditor<span class="brand-accent">ES</span></span></a>
       <nav class="main-nav" aria-label="Navegação principal">
         <a href="../">Início</a><a href="./" aria-current="page">Municípios</a><a href="marechal-floriano/">ATLAS</a>
       </nav>
     </div>
   </header>
-  <header class="portal-hero">
-    <div class="shell catalog-intro">
-      <nav class="crumbs" aria-label="Você está em"><a href="../">Início</a><span aria-hidden="true">/</span><span aria-current="page">Municípios</span></nav>
-      <p class="eyebrow">Espírito Santo</p>
+  <main class="shell municipal-main" id="conteudo" tabindex="-1">
+    <header class="municipal-intro">
       <h1>Municípios</h1>
-      <p class="lead">Indicadores de saúde e andamento da conferência documental de contratos.</p>
-    </div>
-  </header>
-  <main class="shell catalog-main" id="conteudo" tabindex="-1">
-    <h2>Estudos por município</h2>
-    <ul class="catalog-ledger">
-      <li>
-        <div><span class="catalog-status">Base de indicadores disponível</span><h3><a href="marechal-floriano/">Marechal Floriano</a></h3></div>
-        <div><p>Saúde do trabalhador, atenção primária e proteção social. Indicadores do município e da ESF Victor Hugo são apresentados em separado.</p>
-          <div class="catalog-links">
-            <a href="marechal-floriano/?scope=municipio#indicadores">Município</a>
-            <a href="marechal-floriano/?scope=victor-hugo#indicadores">ESF Victor Hugo</a>
-            <a href="marechal-floriano/#pessoa-idosa">CMDI e AMDI</a>
-            <a href="marechal-floriano/#fontes">Fontes e limites</a>
-          </div>
-        </div>
-      </li>
-      <li id="auditoria">
-        <div><span class="catalog-status">Validação documental</span><h3><a href="vitoria/">Vitória</a></h3></div>
-        <p>O PA São Pedro é a unidade de referência. A vinculação de contratos e evidências de execução segue em conferência.</p>
-      </li>
-      <li>
-        <div><span class="catalog-status">Inventário em preparação</span><h3><a href="serra/">Serra</a></h3></div>
-        <p>Mapeamento dos contratos de saúde e dos documentos necessários para verificar a execução.</p>
-      </li>
-      <li>
-        <div><span class="catalog-status">Inventário em preparação</span><h3><a href="colatina/">Colatina</a></h3></div>
-        <p>Mapeamento de unidades de saúde e dos instrumentos de gestão vinculados a elas.</p>
-      </li>
-    </ul>
+      <p class="lead">Consulte os dados de saúde disponíveis e acompanhe a análise de contratos públicos no Espírito Santo.</p>
+    </header>
+
+    <section class="municipal-feature" aria-labelledby="municipal-feature-title">
+      <div class="municipal-feature-copy">
+        <p class="municipal-state municipal-state-ready">Indicadores disponíveis</p>
+        <h2 id="municipal-feature-title">Marechal Floriano</h2>
+        <p>Explore os dados da rede municipal e da ESF Victor Hugo, com o período e a fonte de cada indicador.</p>
+        <a class="btn strong" href="marechal-floriano/">Abrir o ATLAS <span aria-hidden="true">→</span></a>
+      </div>
+      <nav class="municipal-shortcuts" aria-label="Dados de Marechal Floriano">
+        <a href="marechal-floriano/?scope=municipio#indicadores">
+          <span>Indicadores do município</span><span aria-hidden="true">↗</span>
+        </a>
+        <a href="marechal-floriano/?scope=victor-hugo#indicadores">
+          <span>Indicadores da ESF Victor Hugo</span><span aria-hidden="true">↗</span>
+        </a>
+        <a href="marechal-floriano/#pessoa-idosa">
+          <span>Saúde da pessoa idosa</span><span aria-hidden="true">↗</span>
+        </a>
+        <a href="marechal-floriano/#fontes">
+          <span>Fontes e limites dos dados</span><span aria-hidden="true">↗</span>
+        </a>
+      </nav>
+    </section>
+
+    <section class="municipal-contracts" aria-labelledby="municipal-contracts-title" id="auditoria">
+      <h2 id="municipal-contracts-title">Contratos de saúde</h2>
+      <p>Veja o que está em análise e quais documentos públicos já podem ser consultados.</p>
+      <ul class="municipal-city-list" role="list">
+        <li class="municipal-city">
+          <p class="municipal-state">Validação documental</p>
+          <h3>Vitória</h3>
+          <p>Contratos e evidências de execução vinculados ao PA São Pedro.</p>
+          <a class="municipal-city-action" aria-label="Consultar análise de Vitória" href="vitoria/">Consultar análise <span aria-hidden="true">→</span></a>
+        </li>
+        <li class="municipal-city">
+          <p class="municipal-state">Inventário em preparação</p>
+          <h3>Serra</h3>
+          <p>Contratos da rede de saúde e documentos que comprovam a execução.</p>
+          <a class="municipal-city-action" aria-label="Consultar análise de Serra" href="serra/">Consultar análise <span aria-hidden="true">→</span></a>
+        </li>
+        <li class="municipal-city">
+          <p class="municipal-state">Inventário em preparação</p>
+          <h3>Colatina</h3>
+          <p>Unidades de saúde e os contratos e documentos de gestão relacionados.</p>
+          <a class="municipal-city-action" aria-label="Consultar análise de Colatina" href="colatina/">Consultar análise <span aria-hidden="true">→</span></a>
+        </li>
+      </ul>
+    </section>
   </main>
   <footer class="site-footer"><div class="shell"><span>AuditorES · Inteligência pública no Espírito Santo</span><a href="../#metodo">Metodologia</a></div></footer>
 </body>

@@ -21,6 +21,10 @@ Revisão da vitrine pública, do ATLAS de Marechal Floriano, dos arquivos de ref
 | A cópia das perguntas clínicas dependia de alertas modais. | A confirmação usa uma região de status. Sem acesso à área de transferência, as perguntas ficam disponíveis em um campo selecionável. |
 | Os testes de navegador dependiam de scripts externos ao repositório. | A suíte de navegador, suas versões e a prévia do pacote público estão versionadas e são executadas antes da publicação. |
 
+## Revisão visual da vitrine
+
+A abertura dá acesso direto aos indicadores e ao catálogo. O gráfico usa as mesmas observações do ATLAS. A página de cada território distingue os dados que já podem ser consultados dos contratos ainda em revisão. A tipografia pública usa [Inter](https://rsms.me/inter/) no próprio pacote, com [a licença da fonte](../assets/inter-OFL.txt).
+
 ## Como conferir
 
 - A suíte Python verifica acesso por conta e recorte, importação idempotente, rollback em conflito e composição do pacote público.
