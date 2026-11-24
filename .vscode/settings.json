@@ -1,0 +1,23 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
+  "html.format.wrapLineLength": 100,
+  "css.validate": true,
+  "javascript.validate.enable": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "eslint.validate": [
+    "javascript",
+    "html"
+  ],
+  "liveServer.settings.port": 5500,
+  "liveServer.settings.useLocalIp": false,
+  "liveServer.settings.donotVerifyTags": true,
+  "cSpell.language": "pt-BR,en",
+  "git.autofetch": true,
+  "workbench.editor.enablePreview": false
+}
