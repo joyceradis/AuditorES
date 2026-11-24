@@ -137,7 +137,16 @@ for (const width of [390, 320]) {
     for (const url of [site.url, site.url + 'municipios/', atlas, atlas + '?scope=victor-hugo#indicadores', atlas + '#pessoa-idosa']) {
       await page.goto(url);
       await page.waitForLoadState('load');
-      assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), url + ' ultrapassou a largura');
+      const layout = await page.evaluate(() => {
+        const width = document.documentElement.scrollWidth;
+        const outside = width > innerWidth
+          ? [...document.querySelectorAll('main *, .atlas-hero *, header *, nav *')]
+            .filter(node => node.getBoundingClientRect().right > innerWidth)
+            .slice(0, 8).map(node => node.id || String(node.className) || node.tagName)
+          : [];
+        return { width, outside };
+      });
+      assert(layout.width <= width, `${url} ocupou ${layout.width}px em ${width}px (${layout.outside.join(', ')})`);
       if (width === 390 && url === site.url) {
         await accessibility(page);
         await screenshot(page, 'editorial-home-mobile.png');

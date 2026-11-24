@@ -83,7 +83,7 @@
   .atlas-nav .shell { gap: 0; }
   .atlas-nav a { min-height: 2.75rem; padding-inline: .45rem; font-size: .84rem; }
   .kpis, .formGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .split, .grid2, .rights, .statrows { grid-template-columns: 1fr; }
+  .split, .grid2, .rights, .statrows { grid-template-columns: minmax(0, 1fr); }
   .atlas-main { padding-top: 1.5rem; }
   .indicator-table th:first-child, .indicator-table th:last-child { width: auto; }
   .indicator-table td:nth-child(2) { min-width: 0; }
@@ -127,10 +127,10 @@
 .snapshot-row span:last-child { font-weight: 740; font-variant-numeric: tabular-nums; }
 .atlas-snapshot p { margin: .25rem 0 0; color: var(--muted); font-size: .8rem; }
 .overview-tools { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 1rem; margin-bottom: 1.7rem; }
-.quick-search { display: grid; align-content: center; gap: .55rem; }
+.quick-search { display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; gap: .55rem; }
 .quick-search label { font-weight: 760; font-size: 1.08rem; }
 .quick-search div { display: flex; align-items: center; gap: .5rem; }
-.quick-search input { min-width: 0; flex: 1; min-height: 2.75rem; padding: .45rem .6rem; border: 1px solid var(--control-line); border-radius: .45rem; color: var(--ink); }
+.quick-search input { width: 0; min-width: 0; flex: 1 1 0; min-height: 2.75rem; padding: .45rem .6rem; border: 1px solid var(--control-line); border-radius: .45rem; color: var(--ink); }
 .quick-search input::placeholder { color: var(--muted); }
 .overview-feature { display: grid; align-content: center; gap: .2rem; background: var(--nav); border-radius: var(--radius); padding: 1.15rem 1.3rem; color: #fff; text-decoration: none; }
 .overview-feature .eyebrow { color: var(--pink); margin: 0; }
@@ -179,7 +179,8 @@
   .overview-tools { margin-bottom: 1.25rem; }
 }
 @media (max-width: 31rem) {
-  .governance-status { grid-template-columns: 1fr; gap: .55rem; }
+  .governance-status { grid-template-columns: minmax(0, 1fr); gap: .55rem; }
+  .atlas-main, .atlas-hero { overflow-wrap: anywhere; }
 }
 @media print {
   .atlas-snapshot, .quick-search, .pager, .evidence-dialog { display: none !important; }
