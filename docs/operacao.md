@@ -41,10 +41,13 @@ Use uma lista JSON de até 1.000 observações e 256 KiB, com os campos `indicat
 
 ```bash
 python3 -m unittest discover -s tests -v
-node --check auditor/workspace.js
-node --check assets/atlas.mjs
-node --test tests/test_atlas.mjs
+npm ci --ignore-scripts
+npm test
+npx --no-install playwright-core install chromium
+npm run test:browser
 ```
+
+O teste de navegador usa uma prévia temporária do mesmo pacote que vai ao GitHub Pages. Para usar um Chrome instalado, defina `AUDITORES_CHROME` com o caminho do executável. O alvo de Node usado na integração contínua é 24.
 
 ## Publicação
 

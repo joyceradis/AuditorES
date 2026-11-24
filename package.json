@@ -1,0 +1,13 @@
+{
+  "name": "auditores",
+  "private": true,
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test tests/test_atlas.mjs",
+    "test:browser": "node --test tests/browser/site.test.mjs"
+  },
+  "devDependencies": {
+    "axe-core": "4.14.1",
+    "playwright-core": "1.65.1"
+  }
+}

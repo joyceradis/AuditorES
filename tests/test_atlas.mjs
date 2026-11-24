@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import { data, filterRows } from '../assets/atlas-data.mjs';
+import { barScale, resolveSeries } from '../assets/atlas-series.mjs';
+import { filtersFromSearch, rowsAsCSV, urlForFilters } from '../assets/atlas-query.mjs';
 
 test('cada ficha tem identidade estável, fonte e instrução de leitura', () => {
   const ids = data.map(row => row.id);
@@ -45,14 +47,36 @@ test('base da vitrine e agregados da área de trabalho concordam quando comparti
   }
 });
 
-test('os destaques da página inicial apontam para fichas distintas na base', () => {
-  const home = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-  const highlights = [...home.matchAll(/data-record="([^"]+)"/g)].map(match => match[1]);
-  const rows = highlights.map(id => data.find(row => row.id === id));
-  assert.equal(new Set(highlights).size, 4);
-  assert.ok(rows.every(Boolean));
-  assert.deepEqual(rows.map(({ scope, type }) => [scope, type]), [
-    ['Município', 'Resultado'], ['Espírito Santo', 'Meta'],
-    ['ESF', 'Resultado'], ['Município', 'Resultado']
+test('as séries da abertura têm fichas canônicas e escalas coerentes', () => {
+  const accidents = resolveSeries('trabalho').points.map(point => point.row.value);
+  assert.deepEqual(accidents, [3, 6, 19, 240, 313]);
+  assert.deepEqual(barScale(accidents), [400, 300, 200, 100, 0]);
+  assert.equal(resolveSeries('familias').points.reduce((sum, { row }) => sum + row.value, 0), 480);
+  assert.deepEqual(resolveSeries('amdi').points.map(({ row }) => [row.scope, row.value]), [
+    ['Município', 1.29], ['Espírito Santo', 20]
   ]);
+  assert.equal(resolveSeries('inexistente'), null);
+});
+
+test('os filtros passam pelo endereço sem perder parâmetros de contexto', () => {
+  const initial = new URL('https://example.org/AuditorES/municipios/marechal-floriano/?q=risco&year=2021&scope=municipio&ref=vitrine#indicadores');
+  const filtered = filtersFromSearch(initial.search);
+  const changed = urlForFilters(initial, { ...filtered, scope: 'ESF' });
+  assert.equal(changed.searchParams.get('scope'), 'victor-hugo');
+  assert.equal(changed.searchParams.get('q'), 'risco');
+  assert.equal(changed.searchParams.get('year'), '2021');
+  assert.equal(changed.searchParams.get('ref'), 'vitrine');
+  assert.equal(initial.searchParams.get('scope'), 'municipio');
+  assert.equal(filtersFromSearch('?scope=invalido&year=2001').scope, '');
+  assert.equal(filtersFromSearch('?scope=invalido&year=2001').year, '');
+});
+
+test('a exportação CSV preserva ordem, competência e aspas', () => {
+  const row = filterRows({ query: 'acidentes trabalho', year: '2024' })[0];
+  const csv = rowsAsCSV([{ ...row, note: 'Trecho "publicado"; origem' }]);
+  assert.ok(csv.startsWith('\uFEFF"indicador";"valor"'));
+  const lines = csv.split('\r\n');
+  assert.equal(lines.length, 2);
+  assert.match(lines[1], /"313";"Saúde do trabalhador";"Município";"2024"/);
+  assert.match(lines[1], /"Trecho ""publicado""; origem"$/);
 });

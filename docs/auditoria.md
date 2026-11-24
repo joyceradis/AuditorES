@@ -11,6 +11,16 @@ Revisão da vitrine pública, do ATLAS de Marechal Floriano, dos arquivos de ref
 | Área de trabalho | Busca indisponível, filtros sem endereço compartilhável e exportação consultada novamente. A importação classificava valores divergentes como duplicatas. | Busca e filtros persistem no endereço. A exportação reproduz a seleção exibida. A importação mostra destino e quantidade, aceita repetições idênticas e rejeita atomicamente lotes com divergência de valor. Os dados existentes permanecem consultáveis no mesmo formato. |
 | Publicação | O modo legado publicava a raiz e dependia de exclusões. Os testes rodavam em um fluxo separado da publicação. | O fluxo de publicação depende da suíte, monta um pacote com lista explícita e exige destino vazio. A etapa de deploy recebe apenas esse pacote. O arquivo de exclusões foi mantido para compatibilidade com o modo legado. |
 
+## Revisão da interface e do código de consulta
+
+| Achado | Tratamento |
+| --- | --- |
+| A página inicial usava blocos estáticos e repetia a informação em cartões e chamadas. | Uma área de leitura alterna entre notificações, risco familiar e AMDI. Cada ponto leva à ficha e ao documento correspondente, com escopo e competência próprios. |
+| O endereço de cada ficha era derivado do texto do indicador. Uma correção editorial podia quebrar citações existentes. | As chaves estão explícitas na base. Os endereços anteriores resolvem as mesmas 37 observações. |
+| A troca de recorte por atalho descartava a busca e os outros filtros. A regra de URL estava acoplada à página. | Leitura e escrita dos filtros compartilham funções testadas. A troca de recorte conserva os outros parâmetros, inclusive os que não pertencem ao ATLAS. |
+| A cópia das perguntas clínicas dependia de alertas modais. | A confirmação usa uma região de status. Sem acesso à área de transferência, as perguntas ficam disponíveis em um campo selecionável. |
+| Os testes de navegador dependiam de scripts externos ao repositório. | A suíte de navegador, suas versões e a prévia do pacote público estão versionadas e são executadas antes da publicação. |
+
 ## Como conferir
 
 - A suíte Python verifica acesso por conta e recorte, importação idempotente, rollback em conflito e composição do pacote público.

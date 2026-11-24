@@ -15,6 +15,8 @@ for page in \
   assets/home.mjs \
   assets/atlas.css \
   assets/atlas-data.mjs \
+  assets/atlas-query.mjs \
+  assets/atlas-series.mjs \
   assets/atlas.mjs \
   municipios/index.html \
   municipios/vitoria/index.html \

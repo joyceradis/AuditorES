@@ -4,6 +4,8 @@ exclude:
   - docs/
   - scripts/
   - tests/
+  - package.json
+  - package-lock.json
   - LICENSE
   - README.md
   - SECURITY.md

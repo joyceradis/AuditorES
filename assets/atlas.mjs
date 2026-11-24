@@ -1,4 +1,6 @@
-import { data, normalize, gov26, gov22, incaper, amdiBulletin, rgps, mortality, calendarYear, scopeLabels, typeLabels, filterRows } from './atlas-data.mjs';
+import { data, normalize, gov26, gov22, incaper, amdiBulletin, rgps, mortality, scopeLabels, typeLabels, filterRows } from './atlas-data.mjs';
+import { categoryValues, filtersFromSearch, rowsAsCSV, scopeValues, typeValues, urlForFilters, yearValues } from './atlas-query.mjs';
+import { evidenceHash } from './atlas-series.mjs';
 
 const baseProfile={city:'Marechal Floriano',esf:'Victor Hugo',uf:'ES',date:'2026-11-23'};
 const profile = baseProfile;
@@ -7,8 +9,6 @@ const get=(label,yr)=>data.find(x=>x.label===label&&(yr==null||x.year===yr));
 const value=(label,yr)=>get(label,yr)?.value??null;
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
 function vshow(n,unit='n'){return n==null?'—':unit==='%'?fmt(n,2)+'%':unit==='R$'?'R$ '+fmt(n,2):fmt(n)}
-const scopeValues = { municipio: 'Município', 'victor-hugo': 'ESF', comunidade: 'Comunidade', estado: 'Espírito Santo' };
-const typeValues = { resultado: 'Resultado', contexto: 'Contexto', meta: 'Meta' };
 const filterForm = document.getElementById('indicatorFilters');
 const filters = {
   q: document.getElementById('searchFilter'),
@@ -29,12 +29,6 @@ let returnFocus;
 let returnHash;
 const previousPage = document.getElementById('previousPage');
 const nextPage = document.getElementById('nextPage');
-const categoryValues = Object.fromEntries(
-  [...new Set(data.map(row => row.cat))].sort((a, b) => a.localeCompare(b, 'pt-BR'))
-    .map(category => [slug(category).replaceAll('_', '-'), category])
-);
-const yearValues = [...new Set(data.map(calendarYear))].sort().reverse();
-
 function appendOptions(control, values, labels = {}) {
   for (const value of values) control.add(new Option(labels[value] || value, value));
 }
@@ -45,12 +39,12 @@ appendOptions(filters.year, yearValues);
 appendOptions(filters.type, Object.values(typeValues), typeLabels);
 
 function readFilters() {
-  const params = new URLSearchParams(location.search);
-  filters.q.value = (params.get('q') || '').slice(0, 120);
-  filters.scope.value = Object.hasOwn(scopeValues, params.get('scope')) ? scopeValues[params.get('scope')] : '';
-  filters.category.value = Object.hasOwn(categoryValues, params.get('category')) ? categoryValues[params.get('category')] : '';
-  filters.type.value = Object.hasOwn(typeValues, params.get('type')) ? typeValues[params.get('type')] : '';
-  filters.year.value = yearValues.includes(params.get('year')) ? params.get('year') : '';
+  const state = filtersFromSearch(location.search);
+  filters.q.value = state.query;
+  filters.scope.value = state.scope;
+  filters.category.value = state.category;
+  filters.type.value = state.type;
+  filters.year.value = state.year;
 }
 
 function currentFilters() {
@@ -68,20 +62,7 @@ function selectedRows() {
 }
 
 function updateFilters() {
-  const url = new URL(location.href);
-  const { category, scope, year, type, query } = currentFilters();
-  const params = {
-    q: query,
-    scope: Object.keys(scopeValues).find(key => scopeValues[key] === scope),
-    category: Object.keys(categoryValues).find(key => categoryValues[key] === category),
-    year,
-    type: Object.keys(typeValues).find(key => typeValues[key] === type)
-  };
-  for (const [key, value] of Object.entries(params)) {
-    if (value) url.searchParams.set(key, value);
-    else url.searchParams.delete(key);
-  }
-  url.hash = 'indicadores';
+  const url = urlForFilters(location.href, currentFilters());
   history.replaceState(history.state, '', url);
   filterSearch = url.search;
   currentPage = 0;
@@ -134,9 +115,10 @@ function renderOverview() {
     .sort((a, b) => Number(a.year) - Number(b.year));
   const largest = Math.max(1, ...series.map(row => row.value));
   document.getElementById('accChart').innerHTML = series.map(row =>
-    `<div class="barcol"><div class="val">${fmt(row.value)}</div>
-      <div class="bar" style="height:${Math.max(4, Math.round(row.value / largest * 153))}px"></div>
-      <div class="x">${esc(row.year)}</div></div>`
+    `<a class="barcol" href="${evidenceHash(row.id)}" aria-label="${fmt(row.value)} notificações em ${esc(row.year)}">
+      <span class="val">${fmt(row.value)}</span>
+      <span class="bar" style="height:${row.value / largest * 153}px"></span>
+      <span class="x">${esc(row.year)}</span></a>`
   ).join('') || '<p class="empty">Série municipal indisponível nesta base.</p>';
 
   const riskLevels = [
@@ -195,7 +177,9 @@ function renderTable() {
   document.getElementById('indicatorResults').hidden = count === 0;
   document.getElementById('emptyResults').hidden = count !== 0;
   csvButton.disabled = jsonButton.disabled = count === 0;
+  const applied = currentFilters();
   for (const link of shortcutLinks) {
+    link.href = urlForFilters(location.href, { ...applied, scope: link.dataset.scope });
     if (link.dataset.scope === filters.scope.value) link.setAttribute('aria-current', 'true');
     else link.removeAttribute('aria-current');
   }
@@ -203,7 +187,7 @@ function renderTable() {
     const scopeClass = row.scope === 'ESF' ? 'local' : row.scope === 'Município' ? '' : 'context';
     const typeClass = row.type === 'Meta' ? 'tag goal' : 'micro';
     return `<tr role="row">
-      <th scope="row" role="rowheader"><a class="record-link" href="#evidencia-${esc(row.id)}">${esc(row.label)}</a><br><span class="micro">${esc(row.cat)}</span></th>
+      <th scope="row" role="rowheader"><a class="record-link" href="${evidenceHash(row.id)}">${esc(row.label)}</a><br><span class="micro">${esc(row.cat)}</span></th>
       <td role="cell" data-label="Abrangência"><span class="tag ${scopeClass}">${esc(scopeLabels[row.scope])}</span></td>
       <td role="cell" data-label="Período">${esc(row.year)}</td>
       <td role="cell" class="num" data-label="Valor"><b>${vshow(row.value, row.unit)}</b><br><span class="${typeClass} row-type">${esc(typeLabels[row.type])}</span></td>
@@ -271,7 +255,7 @@ function renderEvidence(row) {
 function selectSection(moveFocus = false, previousHash = null) {
   const target = document.getElementById(location.hash.slice(1));
   const isEvidence = location.hash.startsWith('#evidencia-');
-  const row = isEvidence ? data.find(item => location.hash === '#evidencia-' + item.id) : null;
+  const row = isEvidence ? data.find(item => location.hash === evidenceHash(item.id)) : null;
   if (row && !dialog.open) {
     returnFocus = document.activeElement;
     returnHash = previousHash?.startsWith('#evidencia-') ? '#indicadores' : previousHash ?? '#indicadores';
@@ -314,7 +298,7 @@ dialog.addEventListener('close', () => {
 document.getElementById('copyEvidence').addEventListener('click', async () => {
   const url = new URL(location.href);
   url.search = '';
-  url.hash = 'evidencia-' + rowForDialog.id;
+  url.hash = evidenceHash(rowForDialog.id);
   const feedback = document.getElementById('evidenceFeedback');
   try {
     await navigator.clipboard.writeText(url.href);
@@ -360,14 +344,7 @@ function exportJSON() {
 }
 
 function exportCSV() {
-  const header = ['indicador', 'valor', 'categoria', 'abrangencia', 'periodo', 'unidade', 'fonte', 'url', 'qualidade', 'tipo', 'id', 'medida', 'nota'];
-  const rows = selectedRows().map(row => [
-    row.label, row.value, row.cat, row.scope, row.year, row.unit, row.source, row.url, row.quality, row.type, row.id, row.measure, row.note
-  ]);
-  const csv = '\uFEFF' + [header, ...rows].map(row =>
-    row.map(value => '"' + String(value ?? '').replaceAll('"', '""') + '"').join(';')
-  ).join('\r\n');
-  download('indicadores_' + slug(profile.city) + '.csv', csv, 'text/csv;charset=utf-8');
+  download('indicadores_' + slug(profile.city) + '.csv', rowsAsCSV(selectedRows()), 'text/csv;charset=utf-8');
 }
 
 csvButton.addEventListener('click', exportCSV);
@@ -375,11 +352,18 @@ jsonButton.addEventListener('click', exportJSON);
 document.getElementById('printReport').addEventListener('click', () => window.print());
 async function copyQuestions() {
   const text = questions.map(([question], index) => `${index + 1}. ${question}`).join('\n');
+  const status = document.getElementById('copyQuestionsStatus');
+  const fallback = document.getElementById('copyQuestionsFallback');
   try {
     await navigator.clipboard.writeText(text);
-    alert('Perguntas copiadas.');
+    fallback.hidden = true;
+    status.textContent = 'Perguntas copiadas.';
   } catch {
-    prompt('Copie as perguntas:', text);
+    fallback.value = text;
+    fallback.hidden = false;
+    fallback.focus();
+    fallback.select();
+    status.textContent = 'Selecione e copie as perguntas abaixo.';
   }
 }
 document.getElementById('copyQuestions').addEventListener('click', copyQuestions);

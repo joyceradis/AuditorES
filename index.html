@@ -21,12 +21,12 @@
     </div>
   </header>
   <main id="conteudo" tabindex="-1">
-    <section class="home-dashboard shell" aria-labelledby="home-title">
+    <section class="shell home-dashboard" aria-labelledby="home-title">
       <div class="home-top">
         <div>
-          <p class="eyebrow">Espírito Santo · Projeto independente</p>
-          <h1 id="home-title">Evidências em saúde pública</h1>
-          <p class="lead">Indicadores, fontes oficiais e pendências por território.</p>
+          <p class="eyebrow">Transparência em saúde · Espírito Santo</p>
+          <h1 id="home-title">Saúde pública em dados</h1>
+          <p class="lead">Indicadores, fontes e o andamento da revisão de contratos de saúde.</p>
         </div>
         <form class="home-search" action="municipios/marechal-floriano/#indicadores" method="get" role="search" aria-label="Buscar indicadores de Marechal Floriano">
           <label for="home-query">Buscar no ATLAS de Marechal Floriano</label>
@@ -34,77 +34,69 @@
         </form>
       </div>
 
-      <section class="home-atlas" id="territorios" aria-labelledby="atlas-title">
+      <section class="home-study" id="territorios" aria-labelledby="atlas-title">
         <header class="home-section-head">
           <div><h2 id="atlas-title"><span id="marechal-floriano">Marechal Floriano</span></h2><p id="atlas-summary">Indicadores do município e da ESF Victor Hugo</p></div>
-          <a class="btn strong" href="municipios/marechal-floriano/#indicadores">Abrir explorador</a>
+          <a class="home-direct" href="municipios/marechal-floriano/#indicadores">Ver todos os indicadores <span aria-hidden="true">↗</span></a>
         </header>
-        <div class="evidence-grid" id="home-evidence" hidden>
-          <article class="card home-amdi" aria-labelledby="amdi-title">
-            <h3 id="amdi-title">Avaliação da pessoa idosa (AMDI)</h3>
-            <dl class="amdi-reading">
-              <div data-record="indicador-amdi-2025">
-                <dt>Resultado municipal</dt>
-                <dd><a data-fact href="municipios/marechal-floriano/#amdi"></a><small data-period></small></dd>
-              </div>
-              <div class="amdi-goal" data-record="meta-estadual-amdi-2025">
-                <dt>Meta estadual</dt>
-                <dd><a data-fact href="municipios/marechal-floriano/#amdi"></a><small data-period></small></dd>
-              </div>
-            </dl>
-            <div class="amdi-track" aria-hidden="true"><span id="amdi-bar"></span></div>
-            <p class="home-source">Fonte <a data-source href="municipios/marechal-floriano/#fontes-cmdi">Boletim Estadual da APS</a></p>
-            <a class="home-cta" href="municipios/marechal-floriano/#pessoa-idosa">Acompanhar CMDI e AMDI <span aria-hidden="true">→</span></a>
-          </article>
-          <div class="home-observations">
-            <article class="card home-observation" data-record="pessoas-cadastradas-na-esf-30-04-2025">
-              <div><h3>Pessoas cadastradas</h3><p class="observation-meta"><span class="tag local">ESF Victor Hugo</span> <span data-period></span></p></div>
-              <a class="observation-value" data-fact href="municipios/marechal-floriano/#indicadores"></a>
-              <p class="home-source">Fonte <a data-source href="municipios/marechal-floriano/#fontes">Plano Municipal de Saúde</a></p>
-            </article>
-            <article class="card home-observation" data-record="acidentes-de-trabalho-notificados-2024">
-              <div><h3>Acidentes de trabalho notificados</h3><p class="observation-meta"><span class="tag">Município</span> <span data-period></span></p></div>
-              <a class="observation-value" data-fact href="municipios/marechal-floriano/#indicadores"></a>
-              <p class="home-source">Fonte <a data-source href="municipios/marechal-floriano/#fontes">Plano Municipal de Saúde</a></p>
-            </article>
+        <section class="reading-desk" id="reading-desk" aria-labelledby="series-title" hidden>
+          <div class="reading-chart">
+            <div class="reading-tabs" aria-label="Séries em destaque">
+              <button type="button" data-series="trabalho">Saúde do trabalhador</button>
+              <button type="button" data-series="familias">Risco familiar</button>
+              <button type="button" data-series="amdi">Pessoa idosa</button>
+            </div>
+            <h3 id="series-title"></h3>
+            <p class="series-context" id="series-context"></p>
+            <div class="series-plot">
+              <div class="series-scale" id="series-scale" aria-hidden="true"></div>
+              <div class="series-marks" id="series-marks" role="group" aria-label="Selecionar dado do gráfico"></div>
+            </div>
+            <p class="series-caption" id="series-caption"></p>
+            <a class="series-jump" href="#reading-note">Ver fonte e ficha <span aria-hidden="true">↓</span></a>
           </div>
-        </div>
+          <div class="reading-note" id="reading-note" tabindex="-1">
+            <div class="reading-context"><span id="reading-scope"></span><time id="reading-year"></time></div>
+            <p class="reading-number" id="reading-value"></p>
+            <h4 id="reading-label"></h4>
+            <p class="reading-explanation" id="reading-explanation"></p>
+            <p class="reading-reference"><a id="reading-source">Consultar documento original</a></p>
+            <div class="reading-links">
+              <a class="btn strong" id="reading-evidence">Abrir ficha</a>
+              <a id="reading-more"></a>
+            </div>
+            <p class="sr-only" id="reading-status" role="status"></p>
+          </div>
+        </section>
+        <noscript><p>Ative o JavaScript para consultar os gráficos. Os atalhos e documentos continuam disponíveis.</p></noscript>
         <nav class="home-scope-links" aria-label="Atalhos de Marechal Floriano">
-          <a id="recorte-municipal" href="municipios/marechal-floriano/?scope=municipio#indicadores">Indicadores municipais</a>
-          <a id="victor-hugo" href="municipios/marechal-floriano/?scope=victor-hugo#indicadores">Indicadores da ESF Victor Hugo</a>
-          <a href="municipios/marechal-floriano/#fontes">Fontes e limitações</a>
+          <a id="recorte-municipal" href="municipios/marechal-floriano/?scope=municipio#indicadores">Município</a>
+          <a id="victor-hugo" href="municipios/marechal-floriano/?scope=victor-hugo#indicadores">ESF Victor Hugo</a>
+          <a href="municipios/marechal-floriano/#pessoa-idosa">CMDI e AMDI</a>
+          <a href="municipios/marechal-floriano/#fontes">Fontes e limites</a>
+          <a id="registered-link" hidden></a>
         </nav>
       </section>
     </section>
 
     <section class="shell home-section home-territories" aria-labelledby="municipios-titulo">
       <div class="home-section-head">
-        <h2 id="municipios-titulo">Auditoria assistencial</h2>
-        <a href="municipios/">Ver todos os municípios <span aria-hidden="true">→</span></a>
+        <h2 id="municipios-titulo">Contratos de saúde</h2>
+        <a href="municipios/">Catálogo de municípios <span aria-hidden="true">→</span></a>
       </div>
-      <div class="home-municipalities">
-        <article class="card home-territory" id="vitoria">
-          <h3>Vitória</h3><p id="pa-sao-pedro">PA São Pedro · Validação documental</p>
-          <a href="municipios/vitoria/">Escopo e fontes <span aria-hidden="true">→</span></a>
-        </article>
-        <article class="card home-territory" id="serra">
-          <h3>Serra</h3><p>Contratos de saúde · Mapeamento em curso</p>
-          <a href="municipios/serra/">Escopo e fontes <span aria-hidden="true">→</span></a>
-        </article>
-        <article class="card home-territory" id="colatina">
-          <h3>Colatina</h3><p>Unidades e contratos · Mapeamento em curso</p>
-          <a href="municipios/colatina/">Escopo e fontes <span aria-hidden="true">→</span></a>
-        </article>
-      </div>
+      <ul class="territory-ledger">
+        <li id="vitoria"><h3>Vitória</h3><p id="pa-sao-pedro">PA São Pedro · Validação documental em curso</p><a href="municipios/vitoria/">Consultar Vitória <span aria-hidden="true">→</span></a></li>
+        <li id="serra"><h3>Serra</h3><p>Contratos de saúde · Inventário em preparação</p><a href="municipios/serra/">Consultar Serra <span aria-hidden="true">→</span></a></li>
+        <li id="colatina"><h3>Colatina</h3><p>Unidades e contratos · Inventário em preparação</p><a href="municipios/colatina/">Consultar Colatina <span aria-hidden="true">→</span></a></li>
+      </ul>
     </section>
     <section id="metodo" class="home-method" aria-labelledby="modulos">
       <div class="shell home-section">
-        <p class="eyebrow">Como conferir</p>
-        <h2 id="modulos">Do dado ao documento</h2>
+        <h2 id="modulos">Como os dados são conferidos</h2>
         <dl class="home-principles">
-          <div><dt>Confira o recorte</dt><dd>Identifique se a observação descreve um município, uma equipe ou um contrato.</dd></div>
-          <div><dt>Abra a referência</dt><dd>Leia o período, a unidade, o método e a fonte na ficha de cada indicador.</dd></div>
-          <div><dt>Veja o que está pendente</dt><dd>O estado de cada estudo indica quais documentos ainda precisam de conferência.</dd></div>
+          <div><dt>Recorte</dt><dd>Registramos a população, a equipe ou o contrato que cada fonte descreve.</dd></div>
+          <div><dt>Referência</dt><dd>A ficha indica o período, a unidade, a fonte e o método de leitura.</dd></div>
+          <div><dt>Pendências</dt><dd>Identificamos quais documentos faltam para sustentar cada conclusão.</dd></div>
         </dl>
         <a href="municipios/marechal-floriano/#metodologia">Consultar metodologia do ATLAS →</a>
       </div>
@@ -115,6 +107,6 @@
       <a href="https://github.com/joyceradis/AuditorES/blob/main/docs/operacao.md">Consultar orientações de acesso</a>
     </section>
   </main>
-  <footer class="site-footer"><div class="shell"><span>AuditorES · Inteligência pública no Espírito Santo</span><a href="https://github.com/joyceradis/AuditorES">Código e documentação</a></div></footer>
+  <footer class="site-footer"><div class="shell"><span>AuditorES · Projeto independente de Dra. Joyce Radis</span><a href="https://github.com/joyceradis/AuditorES">Código e documentação</a></div></footer>
 </body>
 </html>

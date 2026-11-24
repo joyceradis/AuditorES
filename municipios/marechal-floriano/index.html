@@ -24,7 +24,7 @@
       <nav class="crumbs" aria-label="Você está em"><a href="../../">Início</a><span aria-hidden="true">/</span><a href="../">Municípios</a><span aria-hidden="true">/</span><span aria-current="page">Marechal Floriano</span></nav>
       <p class="eyebrow">ATLAS territorial · Espírito Santo</p>
       <h1 id="hTitle">Marechal Floriano</h1>
-      <p class="lead">Evidências públicas sobre atenção primária, trabalho rural, acesso à saúde e direitos da pessoa idosa.</p>
+      <p class="lead">Indicadores do município e da ESF Victor Hugo, com a fonte e o período de cada medida.</p>
       <div class="toolbar">
         <a class="btn strong" href="#indicadores">Explorar evidências <span aria-hidden="true"> →</span></a>
         <button type="button" class="btn" id="printReport">Imprimir relatório</button>
@@ -54,27 +54,27 @@
 <section class="screen" id="screen-overview" aria-labelledby="visao-geral">
 <div class="overview-tools">
   <form class="card quick-search" action="./#indicadores" method="get" role="search" aria-label="Buscar na base de Marechal Floriano">
-    <label for="overviewSearch">O que você quer investigar?</label>
+    <label for="overviewSearch">Buscar no ATLAS</label>
     <div><input type="search" id="overviewSearch" name="q" placeholder="Ex.: diabetes, AMDI, risco familiar" maxlength="120" required><button class="btn strong">Buscar</button></div>
   </form>
   <a class="overview-feature" href="#pessoa-idosa">
     <span class="eyebrow">Acompanhamento municipal</span>
     <strong>Pessoa idosa, CMDI e AMDI</strong>
-    <span>Veja o resultado de 2025 e os documentos do Conselho. <span aria-hidden="true">→</span></span>
+    <span>Resultado de 2025 e atos do Conselho. <span aria-hidden="true">→</span></span>
   </a>
 </div>
 <h2 id="visao-geral">Retrato do território</h2>
-<p class="lead">Quatro medidas situam a leitura. Cada cartão informa de qual população e período vem o dado.</p>
+<p class="lead">Município e ESF Victor Hugo têm populações e períodos de referência próprios.</p>
 <div class="alert"><b>Como comparar:</b> cada medida tem seu próprio recorte. Evite somar populações, usar dados municipais para estimar prevalência na ESF ou interpretar notificações como incidência.</div>
 <div class="kpis" id="kpis"></div>
 <div class="split"><div class="card"><div class="between"><h3>Acidentes de trabalho notificados</h3><span class="pill" id="accTag">MUNICÍPIO · 2020–24</span></div><p class="hint">Notificações do e-SUS Vigilância. Mudanças no registro podem explicar parte da variação.</p><div class="plot" id="accChart"></div><p class="mini" >O número de notificações não equivale necessariamente ao número de trabalhadores únicos nem de benefícios previdenciários devidos.</p></div><div class="card"><div class="between"><h3>Estratificação familiar</h3><span class="pill">ESF · 2021</span></div><p class="hint">Escala Coelho-Savassi. Dados históricos: atualizar com a coordenação e os ACS.</p><div id="riskBars"></div><div class="divider"></div><p class="mini" id="riskText"></p></div></div>
-<div class="sectionHead"><div><h3>O que os números sinalizam</h3><p>Interpretação epidemiológica, não conclusão individual</p></div></div><div class="grid2"><div class="card"><span class="category">Estrutura produtiva</span><h3>Agricultura familiar e dependência do trabalho</h3><p class="mini" id="farmText">O predomínio da agricultura familiar no município justifica investigar como a perda de capacidade funcional interfere na renda e na continuidade do tratamento.</p></div><div class="card"><span class="category">Coordenação do cuidado</span><h3>Barreiras à consulta especializada</h3><p class="mini">Absenteísmo e avaliação de HbA1c são processos diferentes, mas ambos ajudam a formular hipóteses sobre continuidade assistencial. É preciso investigar causas locais de faltas antes de atribuí-las ao trabalho.</p></div></div>
-<div class="sectionHead"><div><h3>Marcos que vale monitorar</h3><p>Dados municipais: não extrapolar diretamente para Victor Hugo</p></div></div><div class="statrows" id="secondaryStats"></div><div class="footnote">Painel de diagnóstico situacional. Metodologia reproduzível na seção Metodologia. Dados publicados em anos diferentes e sujeitos a revisão. Não utilizar para identificação de pacientes ou prospecção comercial.</div></section>
+<div class="sectionHead"><div><h3>Perguntas que os dados levantam</h3><p>Interpretação epidemiológica, não conclusão individual</p></div></div><div class="grid2"><div class="card"><span class="category">Estrutura produtiva</span><h3>Agricultura familiar e dependência do trabalho</h3><p class="mini" id="farmText">O predomínio da agricultura familiar no município justifica investigar como a perda de capacidade funcional interfere na renda e na continuidade do tratamento.</p></div><div class="card"><span class="category">Coordenação do cuidado</span><h3>Barreiras à consulta especializada</h3><p class="mini">Absenteísmo e avaliação de HbA1c são processos diferentes, mas ambos ajudam a formular hipóteses sobre continuidade assistencial. É preciso investigar causas locais de faltas antes de atribuí-las ao trabalho.</p></div></div>
+<div class="sectionHead"><div><h3>Acesso e condições de saúde em 2024</h3><p>Dados municipais: não extrapolar diretamente para Victor Hugo</p></div></div><div class="statrows" id="secondaryStats"></div><div class="footnote">Painel de diagnóstico situacional. Metodologia reproduzível na seção Metodologia. Dados publicados em anos diferentes e sujeitos a revisão. Não utilizar para identificação de pacientes ou prospecção comercial.</div></section>
 
 <section class="screen" id="screen-dados" aria-labelledby="indicadores">
   <h2 id="indicadores">Explorador de evidências</h2>
   <p class="info" id="missingEvidence" role="status" hidden>Ficha indisponível. Use a busca abaixo para localizar o indicador.</p>
-  <p class="lead">Marechal Floriano · Abra uma ficha para conferir o que o número mede, a competência e o documento original.</p>
+  <p class="lead">Abra uma ficha para ver como o indicador foi obtido e consultar a fonte.</p>
   <nav class="scope-selector" aria-label="Atalhos de recorte">
     <a class="btn" href="./#indicadores" data-scope="">Todos os recortes</a>
     <a class="btn" href="?scope=municipio#indicadores" data-scope="Município">Município</a>
@@ -117,7 +117,7 @@
   <p class="footnote">Os arquivos CSV e JSON incluem todos os registros que correspondem aos filtros, em todas as páginas. Cada indicador tem seu próprio denominador. <a href="#fontes">Consulte as fontes e os limites.</a></p>
 </section>
 <section class="screen" id="screen-direitos" aria-labelledby="direitos">
-<h2 id="direitos">Da incapacidade ao suporte</h2><p class="lead">Roteiro assistencial para reconhecer impedimentos ao tratamento e à subsistência. A decisão de concessão dos benefícios pertence aos órgãos competentes.</p><div class="info" style="margin:18px 0">O quadro clínico orienta o afastamento e o cuidado. O direito previdenciário requer comprovação própria de enquadramento, qualidade de segurado, incapacidade e demais requisitos. Evitar confundir indicação médica com benefício concedido.</div><div class="rights" id="rightCards"></div><div class="sectionHead"><div><h3>Cinco perguntas úteis na consulta</h3><p>Para anamnese ocupacional quando há repercussão clínica</p></div><button class="btn" id="copyQuestions" type="button">Copiar perguntas</button></div><div class="steps" id="questionSteps"></div><div class="sectionHead"><div><h3>Roteiro de decisão</h3></div></div><div class="tableWrap"><table><thead><tr><th>Situação clínica/social</th><th>Investigar</th><th>Via usual</th></tr></thead><tbody id="rightsTable"></tbody></table></div><p class="mini" style="margin-top:14px">Urgências clínicas, suspeita de infecção/isquemia grave e descompensação cardiológica exigem avaliação assistencial imediata; o processo previdenciário não deve atrasar o tratamento.</p></section>
+<h2 id="direitos">Da incapacidade ao suporte</h2><p class="lead">Roteiro assistencial para reconhecer impedimentos ao tratamento e à subsistência. A decisão de concessão dos benefícios pertence aos órgãos competentes.</p><div class="info" style="margin:18px 0">O quadro clínico orienta o afastamento e o cuidado. O direito previdenciário requer comprovação própria de enquadramento, qualidade de segurado, incapacidade e demais requisitos. Evitar confundir indicação médica com benefício concedido.</div><div class="rights" id="rightCards"></div><div class="sectionHead"><div><h3>Cinco perguntas úteis na consulta</h3><p>Para anamnese ocupacional quando há repercussão clínica</p></div><button class="btn" id="copyQuestions" type="button">Copiar perguntas</button></div><p id="copyQuestionsStatus" class="copy-feedback" role="status"></p><textarea id="copyQuestionsFallback" class="copy-fallback" aria-label="Perguntas para copiar" readonly hidden></textarea><div class="steps" id="questionSteps"></div><div class="sectionHead"><div><h3>Roteiro de decisão</h3></div></div><div class="tableWrap"><table><thead><tr><th>Situação clínica/social</th><th>Investigar</th><th>Via usual</th></tr></thead><tbody id="rightsTable"></tbody></table></div><p class="mini" style="margin-top:14px">Urgências clínicas, suspeita de infecção/isquemia grave e descompensação cardiológica exigem avaliação assistencial imediata; o processo previdenciário não deve atrasar o tratamento.</p></section>
 <section class="screen" id="screen-idosos" aria-labelledby="pessoa-idosa">
 <h2 id="pessoa-idosa">Pessoa idosa, saúde e proteção</h2>
 <p class="lead">Integração entre avaliação multidimensional na APS, direitos da pessoa idosa e governança municipal. Dados municipais não representam automaticamente a ESF Victor Hugo.</p>
@@ -162,7 +162,7 @@
 <div class="footnote">Recorte de atualização: <time datetime="2026-11-23">23 nov 2026</time>. Atos administrativos, dados da APS e execução financeira têm evidências próprias.</div>
 </section>
 <section class="screen" id="screen-metodo" aria-labelledby="metodologia">
-<h2 id="metodologia">Aplicar a outro município</h2><p class="lead">O roteiro orienta a coleta e a conferência de indicadores agregados para outros municípios.</p><div class="sectionHead"><h3>Caminho das pedras</h3></div><div class="steps" id="replicationSteps"></div></section>
+<h2 id="metodologia">Aplicar a outro município</h2><p class="lead">O roteiro orienta a coleta e a conferência de indicadores agregados para outros municípios.</p><div class="sectionHead"><h3>Roteiro de conferência</h3></div><div class="steps" id="replicationSteps"></div></section>
 <section class="screen" id="screen-fontes" aria-labelledby="fontes">
 <h2 id="fontes">Fontes e transparência</h2><p class="lead">Cada indicador deve ser rastreável ao documento e ao ano-base. As fontes abaixo correspondem aos agregados publicados e ao roteiro metodológico.</p><div class="sources" id="sourceList"></div>
 <div class="sectionHead"><h3>Dados que ainda precisam de conferência</h3></div>

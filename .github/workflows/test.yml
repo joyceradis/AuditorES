@@ -15,10 +15,17 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - run: python3 -m unittest discover -s tests -v
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
       - run: node --check auditor/workspace.js
       - run: node --check assets/atlas.mjs
       - run: node --check assets/home.mjs
-      - run: node --test tests/test_atlas.mjs
+      - run: npm ci --ignore-scripts
+      - run: npm test
+      - run: npx --no-install playwright-core install --with-deps --only-shell chromium
+      - run: npm run test:browser
 
   package:
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
