@@ -18,7 +18,7 @@ PUBLIC_PAGES = {
 }
 
 PUBLIC_ASSETS = {
-    "assets/public.css", "assets/atlas.css", "assets/atlas-data.mjs", "assets/atlas.mjs",
+    "assets/public.css", "assets/home.css", "assets/home.mjs", "assets/atlas.css", "assets/atlas-data.mjs", "assets/atlas.mjs",
 }
 
 

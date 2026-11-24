@@ -44,3 +44,15 @@ test('base da vitrine e agregados da área de trabalho concordam quando comparti
     }
   }
 });
+
+test('os destaques da página inicial apontam para fichas distintas na base', () => {
+  const home = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+  const highlights = [...home.matchAll(/data-record="([^"]+)"/g)].map(match => match[1]);
+  const rows = highlights.map(id => data.find(row => row.id === id));
+  assert.equal(new Set(highlights).size, 4);
+  assert.ok(rows.every(Boolean));
+  assert.deepEqual(rows.map(({ scope, type }) => [scope, type]), [
+    ['Município', 'Resultado'], ['Espírito Santo', 'Meta'],
+    ['ESF', 'Resultado'], ['Município', 'Resultado']
+  ]);
+});

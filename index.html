@@ -7,6 +7,8 @@
   <meta name="description" content="Consulte evidências de saúde pública e o andamento de auditorias assistenciais no Espírito Santo.">
   <title>AuditorES | Evidências em saúde pública</title>
   <link rel="stylesheet" href="assets/public.css">
+  <link rel="stylesheet" href="assets/home.css">
+  <script type="module" src="assets/home.mjs"></script>
 </head>
 <body>
   <a class="skip" href="#conteudo">Ir para o conteúdo</a>
@@ -19,58 +21,79 @@
     </div>
   </header>
   <main id="conteudo" tabindex="-1">
-    <section class="portal-hero home-hero" aria-labelledby="home-title">
-      <div class="shell home-hero-inner">
+    <section class="home-dashboard shell" aria-labelledby="home-title">
+      <div class="home-top">
         <div>
-          <p class="eyebrow">Projeto independente · Espírito Santo</p>
+          <p class="eyebrow">Espírito Santo · Projeto independente</p>
           <h1 id="home-title">Evidências em saúde pública</h1>
-          <p class="lead">Encontre dados do território, consulte documentos originais e acompanhe o que falta comprovar em cada estudo.</p>
-          <a class="btn accent" href="municipios/">Explorar municípios <span aria-hidden="true"> →</span></a>
+          <p class="lead">Indicadores, fontes oficiais e pendências por território.</p>
         </div>
-        <section class="home-search" aria-labelledby="home-search-title">
-          <h2 id="home-search-title">Consultar o ATLAS</h2>
-          <p>Marechal Floriano e ESF Victor Hugo</p>
-          <form action="municipios/marechal-floriano/#indicadores" method="get" role="search" aria-label="Buscar indicadores de Marechal Floriano">
-            <label for="home-query">Buscar na base</label>
-            <div><input type="search" id="home-query" name="q" placeholder="Ex.: AMDI, acidentes" maxlength="120" required><button class="btn accent">Buscar</button></div>
-          </form>
-          <a href="municipios/marechal-floriano/#pessoa-idosa">Acompanhar CMDI e AMDI <span aria-hidden="true">→</span></a>
-        </section>
+        <form class="home-search" action="municipios/marechal-floriano/#indicadores" method="get" role="search" aria-label="Buscar indicadores de Marechal Floriano">
+          <label for="home-query">Buscar no ATLAS de Marechal Floriano</label>
+          <div><input type="search" id="home-query" name="q" placeholder="Ex.: diabetes, AMDI, acidentes" maxlength="120" required><button class="btn strong">Buscar</button></div>
+        </form>
       </div>
+
+      <section class="home-atlas" id="territorios" aria-labelledby="atlas-title">
+        <header class="home-section-head">
+          <div><h2 id="atlas-title"><span id="marechal-floriano">Marechal Floriano</span></h2><p id="atlas-summary">Indicadores do município e da ESF Victor Hugo</p></div>
+          <a class="btn strong" href="municipios/marechal-floriano/#indicadores">Abrir explorador</a>
+        </header>
+        <div class="evidence-grid" id="home-evidence" hidden>
+          <article class="card home-amdi" aria-labelledby="amdi-title">
+            <h3 id="amdi-title">Avaliação da pessoa idosa (AMDI)</h3>
+            <dl class="amdi-reading">
+              <div data-record="indicador-amdi-2025">
+                <dt>Resultado municipal</dt>
+                <dd><a data-fact href="municipios/marechal-floriano/#amdi"></a><small data-period></small></dd>
+              </div>
+              <div class="amdi-goal" data-record="meta-estadual-amdi-2025">
+                <dt>Meta estadual</dt>
+                <dd><a data-fact href="municipios/marechal-floriano/#amdi"></a><small data-period></small></dd>
+              </div>
+            </dl>
+            <div class="amdi-track" aria-hidden="true"><span id="amdi-bar"></span></div>
+            <p class="home-source">Fonte <a data-source href="municipios/marechal-floriano/#fontes-cmdi">Boletim Estadual da APS</a></p>
+            <a class="home-cta" href="municipios/marechal-floriano/#pessoa-idosa">Acompanhar CMDI e AMDI <span aria-hidden="true">→</span></a>
+          </article>
+          <div class="home-observations">
+            <article class="card home-observation" data-record="pessoas-cadastradas-na-esf-30-04-2025">
+              <div><h3>Pessoas cadastradas</h3><p class="observation-meta"><span class="tag local">ESF Victor Hugo</span> <span data-period></span></p></div>
+              <a class="observation-value" data-fact href="municipios/marechal-floriano/#indicadores"></a>
+              <p class="home-source">Fonte <a data-source href="municipios/marechal-floriano/#fontes">Plano Municipal de Saúde</a></p>
+            </article>
+            <article class="card home-observation" data-record="acidentes-de-trabalho-notificados-2024">
+              <div><h3>Acidentes de trabalho notificados</h3><p class="observation-meta"><span class="tag">Município</span> <span data-period></span></p></div>
+              <a class="observation-value" data-fact href="municipios/marechal-floriano/#indicadores"></a>
+              <p class="home-source">Fonte <a data-source href="municipios/marechal-floriano/#fontes">Plano Municipal de Saúde</a></p>
+            </article>
+          </div>
+        </div>
+        <nav class="home-scope-links" aria-label="Atalhos de Marechal Floriano">
+          <a id="recorte-municipal" href="municipios/marechal-floriano/?scope=municipio#indicadores">Indicadores municipais</a>
+          <a id="victor-hugo" href="municipios/marechal-floriano/?scope=victor-hugo#indicadores">Indicadores da ESF Victor Hugo</a>
+          <a href="municipios/marechal-floriano/#fontes">Fontes e limitações</a>
+        </nav>
+      </section>
     </section>
-    <section id="territorios" class="shell home-section" aria-labelledby="municipios-titulo">
+
+    <section class="shell home-section home-territories" aria-labelledby="municipios-titulo">
       <div class="home-section-head">
-        <div><p class="eyebrow">Estudos por território</p><h2 id="municipios-titulo">Municípios</h2></div>
-        <a class="btn" href="municipios/">Abrir catálogo</a>
+        <h2 id="municipios-titulo">Auditoria assistencial</h2>
+        <a href="municipios/">Ver todos os municípios <span aria-hidden="true">→</span></a>
       </div>
       <div class="home-municipalities">
-        <article class="card home-atlas" id="marechal-floriano">
-          <div>
-            <span class="tag">Dados disponíveis</span>
-            <h3>Marechal Floriano</h3>
-            <p class="catalog-note">Saúde do trabalhador, atenção primária, acesso, proteção social e pessoa idosa.</p>
-            <a class="btn strong" href="municipios/marechal-floriano/">Abrir painel territorial</a>
-          </div>
-          <ul>
-            <li id="recorte-municipal"><a href="municipios/marechal-floriano/?scope=municipio#indicadores">Indicadores municipais</a><span>Medidas com abrangência municipal.</span></li>
-            <li id="victor-hugo"><a href="municipios/marechal-floriano/?scope=victor-hugo#indicadores">Indicadores da ESF Victor Hugo</a><span>Registros específicos da equipe.</span></li>
-            <li><a href="municipios/marechal-floriano/#fontes">Fontes e limitações</a><span>Trilha de conferência dos dados.</span></li>
-          </ul>
-        </article>
         <article class="card home-territory" id="vitoria">
-          <span class="tag context">Validação documental</span>
-          <h3>Vitória</h3><p id="pa-sao-pedro">Auditoria assistencial com o PA São Pedro como unidade de referência.</p>
-          <a href="municipios/vitoria/">Consultar escopo e fontes →</a>
+          <h3>Vitória</h3><p id="pa-sao-pedro">PA São Pedro · Validação documental</p>
+          <a href="municipios/vitoria/">Escopo e fontes <span aria-hidden="true">→</span></a>
         </article>
         <article class="card home-territory" id="serra">
-          <span class="tag context">Mapeamento em curso</span>
-          <h3>Serra</h3><p>Acompanhamento de contratos e documentos da saúde.</p>
-          <a href="municipios/serra/">Consultar escopo e fontes →</a>
+          <h3>Serra</h3><p>Contratos de saúde · Mapeamento em curso</p>
+          <a href="municipios/serra/">Escopo e fontes <span aria-hidden="true">→</span></a>
         </article>
         <article class="card home-territory" id="colatina">
-          <span class="tag context">Mapeamento em curso</span>
-          <h3>Colatina</h3><p>Mapeamento de unidades, contratos e instrumentos de gestão.</p>
-          <a href="municipios/colatina/">Consultar escopo e fontes →</a>
+          <h3>Colatina</h3><p>Unidades e contratos · Mapeamento em curso</p>
+          <a href="municipios/colatina/">Escopo e fontes <span aria-hidden="true">→</span></a>
         </article>
       </div>
     </section>
