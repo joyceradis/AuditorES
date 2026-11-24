@@ -6,7 +6,7 @@ Consulta em 21/11/2026. As medidas abaixo são agregados públicos. Os resultado
 | --- | --- | --- | --- | --- |
 | IBGE | **17.641 pessoas residentes** | 2022 | Censo Demográfico, SIDRA tabela 4714, variável 93, nível municipal N6, código 3203346. Leitura direta da observação em pessoas | [Consulta SIDRA](https://apisidra.ibge.gov.br/values/t/4714/n6/3203346/v/93/p/2022) |
 | IBGE | **19.159 pessoas (estimativa populacional)** | 2026 | Estimativa municipal publicada pelo IBGE em Cidades e Estados. Série distinta do Censo de 2022; não utilizar como se fosse observação censitária | [IBGE Marechal Floriano](https://www.ibge.gov.br/cidades-e-estados/es/marechal-floriano.html) |
-| Incaper | **626 estabelecimentos de agricultura familiar**, de um total de **916 estabelecimentos** | 2017 | PROATER Marechal Floriano, tabela 5. Leitura dos totais familiar (626) e não familiar (290), cuja soma é 916. O PROATER reproduz o Censo Agropecuário do IBGE. A unidade de análise é estabelecimento agropecuário | [PROATER](https://incaper.es.gov.br/media/incaper/proater/municipios/Marechal_Floriano.pdf) |
+| Incaper | **626 estabelecimentos de agricultura familiar**, de um total de **916 estabelecimentos** | 2017 | PROATER Marechal Floriano, tabela 5. Leitura dos totais familiar (626) e não familiar (290), cuja soma é 916. O PROATER reproduz o Censo Agropecuário do IBGE. A unidade de análise é estabelecimento agropecuário | [PROATER](https://incaper.es.gov.br/Media/proater/municipios/Marechal_Floriano.pdf) |
 | SEMUS | **4 agentes comunitários de saúde** na equipe ESF Victor Hugo | 2021 | Plano Municipal de Saúde 2022–2025, tabela 23, linha ESF Victor Hugo, coluna de agentes comunitários de saúde. A competência vem da tabela, e a medida descreve a composição histórica da equipe | [Plano Municipal de Saúde](https://www.marechalfloriano.es.gov.br/downloads/arquivos-saude/instrumentos-gestao/PMS-2022-2025-resumo-DIGISUS.pdf) |
 | CNES | **2675145**, identificador da UBS Governador Mun Henrique Krohling, em Victor Hugo | Consulta em 2026 | Conferência da ficha pelo código de estabelecimento e pelo município 320334. Trata-se de um identificador cadastral, com competência histórica e quantitativos de equipes a apurar nas respectivas bases | [Ficha CNES](https://cnes2.datasus.gov.br/Mod_Conjunto.asp?VCo_Unidade=3203342675145) |
 | DATASUS | **142 óbitos por residência** | 2022 | TabNet, SIM, Mortalidade – Espírito Santo. Linha município, coluna não ativa, conteúdo óbitos por residência, ano 2022, município 320334. Todas as causas disponíveis no recorte, total bruto | [TabNet SIM/ES](https://tabnet.datasus.gov.br/cgi/deftohtm.exe?sim/cnv/obt10es.def) |
@@ -37,3 +37,15 @@ A tabela do painel registra o recorte, a competência e a referência de cada ob
 ## Recortes navegáveis e exportação
 
 O ATLAS tem links diretos para [indicadores municipais](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/?scope=municipio#indicadores) e [indicadores da ESF Victor Hugo](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/?scope=victor-hugo#indicadores). O filtro inicial aplica-se à tabela e aos arquivos CSV/JSON exportados; a visão geral oferece contextualização com escopos explicitamente identificados. A estimativa IBGE de 2026 e a população censitária de 2022 são indicadores diferentes.
+
+## Pessoa idosa, CMDI e Fundo Municipal do Idoso
+
+Conferência em 23/11/2026. A tabela de AMDI do [Boletim Estadual da APS 2025, p. 22](https://atencaoprimaria.es.gov.br/Media/AtencaoPrimaria/LinhasDeCuidados/BOLETIM%20APS%202025%20-%20validado%20%2017%20de%20abril%202026.pdf#page=22) registra **37** avaliações para Marechal Floriano, com referência de **2.879** residentes com 60 anos ou mais (Censo 2022). O resultado de **1,29%** é municipal. A **meta de 20%** é estadual. A produção do SISAB foi extraída em 11/02/2026. A tabela agrega registros e não identifica pessoas distintas nem discrimina a produção da equipe de Victor Hugo.
+
+| Ato | Referência | Evidência |
+| --- | --- | --- |
+| Lei nº 2.937/2026 | [SAPL da Câmara Municipal](https://sapl.marechalfloriano.es.leg.br/norma/2982) | Disciplina o CMDI e institui o Fundo Municipal do Idoso. |
+| Decreto Normativo nº 446/2026 | [DOM/ES, edição 3.124, p. 148](https://ioes.dio.es.gov.br/portal/edicoes/download/11618#page=148) | Regulamenta o Fundo e sua gestão. |
+| Resolução CMDI nº 031/2026 | [DOM/ES, edição 3.132, p. 200](https://ioes.dio.es.gov.br/portal/edicoes/download/11656#page=200) | Aprova o calendário ordinário de reuniões para 2027. |
+
+A execução financeira requer documentos próprios, como plano de aplicação, saldo, repasses, aprovações de projetos e prestação de contas.

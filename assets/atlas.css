@@ -1,0 +1,115 @@
+.atlas-hero { padding-block: 1.35rem 1.95rem; }
+.atlas-hero h1 { font-size: clamp(2.45rem, 5.4vw, 4.25rem); }
+.atlas-hero .lead { margin: .62rem 0 0; }
+.hero-row, .between, .result-bar, .sectionHead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .6rem 1.2rem; }
+.stamp { margin: 0; padding: .4rem .65rem; border: 1px solid #7393b0; border-radius: .42rem; color: var(--nav-muted); font-size: .8rem; }
+.atlas-nav { background: var(--surface); border-bottom: 1px solid var(--line); }
+.atlas-nav .shell { display: flex; flex-wrap: wrap; gap: .05rem .65rem; }
+.atlas-nav a { display: inline-flex; align-items: center; min-height: 3rem; padding: .35rem .55rem; border-bottom: 3px solid transparent; color: var(--muted); text-decoration: none; font-size: .92rem; font-weight: 700; }
+.atlas-nav a:hover, .atlas-nav a[aria-current] { border-color: var(--blue); color: var(--nav); background: var(--blue-light); }
+.atlas-main { min-height: 57vh; padding-block: 1.9rem 3.2rem; }
+.screen > h2 { margin: 0 0 .55rem; }
+.screen > .lead { margin: 0 0 1.3rem; }
+.alert, .info { padding: .8rem 1rem; border-radius: .4rem; border-left: 3px solid #cb77a0; background: var(--pink-light); color: #593149; }
+.info { border-color: var(--blue); background: var(--blue-light); color: var(--nav); }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .85rem; margin-block: 1rem; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-top: 3px solid #73abd7; border-radius: var(--radius); padding: 1rem; }
+.kpi.local { border-top-color: #d594b5; }
+.kpi.goal { background: var(--pink-light); border-top-color: #bf759b; }
+.kpi .label, .kpi .meta, .hint, .mini, .micro { color: var(--muted); }
+.kpi .label { font-size: .88rem; font-weight: 670; }
+.kpi .meta, .hint, .mini, .micro { font-size: .875rem; }
+.kpi .value { margin: .35rem 0; font-size: clamp(1.65rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -.05em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.split, .grid2, .rights { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-block: 1rem; }
+.card h3, .sectionHead h3 { margin: 0; }
+.card p:last-child { margin-bottom: 0; }
+.between { align-items: start; }
+.pill, .category { color: var(--blue); font-weight: 740; font-size: .78rem; }
+.category { display: block; margin-bottom: .4rem; }
+.plot { display: flex; align-items: end; gap: .4rem; }
+.barcol { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: .25rem; font-size: .8rem; }
+.barcol .val { font-weight: 750; }
+.bar { width: min(70%, 3.25rem); background: var(--blue); border-radius: 4px 4px 0 0; }
+.barcol .x { color: var(--muted); }
+.riskItem { margin-block: .6rem; }
+.riskRow { display: flex; justify-content: space-between; gap: .5rem; font-size: .86rem; }
+.track { background: var(--blue-light); height: .55rem; border-radius: .5rem; overflow: hidden; }
+.fill { height: 100%; border-radius: inherit; }
+.divider { border-top: 1px solid var(--line); margin-block: 1rem; }
+.sectionHead { margin: 1.6rem 0 .65rem; }
+.sectionHead p { margin: .3rem 0 0; color: var(--muted); }
+.statrows { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .85rem; }
+.statrow, .right, .step, .source { padding: 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.statrow strong { display: block; font-size: 1.5rem; }
+.statrow .stat-label, .right small, .step span, .source small { display: block; color: var(--muted); }
+.steps { counter-reset: steps; }
+.step { margin-bottom: .55rem; }
+.steps .step::before { counter-increment: steps; content: counter(steps) ". "; color: var(--blue); font-weight: 780; }
+.sources { display: grid; gap: .65rem; }
+.source { display: flex; align-items: start; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; }
+.source .tag { margin-top: .5rem; }
+.source a { max-width: 100%; font-weight: 660; }
+.footnote { color: var(--muted); font-size: .86rem; border-top: 1px solid var(--line); margin: 1.6rem 0 0; padding-top: .8rem; }
+.scope-selector, .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.scope-selector { margin-bottom: 1rem; }
+.scope-selector a[aria-current] { background: var(--nav); color: #fff; border-color: var(--nav); }
+.scope-selector a[aria-current]:hover { background: var(--blue); }
+.filter-card { margin-bottom: 1rem; }
+.formGrid { display: grid; grid-template-columns: minmax(13rem, 1.5fr) repeat(4, minmax(0, 1fr)); gap: .85rem; }
+.field { min-width: 0; }
+.field label { display: block; margin-bottom: .3rem; color: var(--ink); font-size: .84rem; font-weight: 700; }
+.field input, .field select { width: 100%; min-height: 2.75rem; padding: .45rem .55rem; border: 1px solid var(--control-line); border-radius: .4rem; background: var(--surface); color: var(--ink); font-size: .88rem; }
+.field input::placeholder { color: var(--muted); }
+.result-bar { margin: .65rem 0; }
+.result-bar p { margin: 0; }
+.tableWrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.tableWrap table { width: 100%; border-collapse: collapse; text-align: left; }
+.tableWrap th, .tableWrap td { padding: .72rem .85rem; border-bottom: 1px solid var(--line); vertical-align: top; overflow-wrap: anywhere; }
+.tableWrap thead th { font-size: .8rem; background: var(--blue-light); color: var(--nav); }
+.tableWrap tbody tr:nth-child(even) { background: #f6f9fc; }
+.tableWrap tbody tr:last-child > * { border-bottom: 0; }
+.tableWrap tbody td, .tableWrap tbody th { font-size: .88rem; }
+.indicator-table tbody th .micro { font-weight: 450; }
+.tableWrap .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.indicator-table th:first-child { width: 34%; }
+.indicator-table td:nth-child(2) { min-width: 8.25rem; }
+.indicator-table th:last-child { width: 27%; }
+.row-type { display: block; margin-top: .3rem; }
+.empty { padding: 1.65rem 1rem; text-align: center; color: var(--muted); background: var(--surface); border: 1px dashed var(--control-line); border-radius: var(--radius); }
+.empty p { margin: .3rem 0 .8rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 63rem) {
+  .formGrid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .field.search { grid-column: 1 / -1; }
+}
+@media (max-width: 40rem) {
+  .atlas-nav .shell { gap: 0; }
+  .atlas-nav a { min-height: 2.75rem; padding-inline: .45rem; font-size: .84rem; }
+  .kpis, .formGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .split, .grid2, .rights, .statrows { grid-template-columns: 1fr; }
+  .atlas-main { padding-top: 1.5rem; }
+  .indicator-table th:first-child, .indicator-table th:last-child { width: auto; }
+  .indicator-table td:nth-child(2) { min-width: 0; }
+  .indicator-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .indicator-table tbody, .indicator-table tr { display: block; }
+  .indicator-table tbody tr { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1fr); gap: .5rem; padding: .9rem; border-bottom: 1px solid var(--line); }
+  .indicator-table td, .indicator-table tbody th { display: block; padding: 0; border: 0; }
+  .indicator-table tbody th, .indicator-table td:last-child { grid-column: 1 / -1; }
+  .indicator-table td::before { display: block; content: attr(data-label); font-size: .74rem; font-weight: 720; color: var(--muted); margin-bottom: .2rem; }
+  .indicator-table .num { text-align: left; white-space: normal; }
+}
+@media print {
+  .masthead, .atlas-nav, .site-footer, .crumbs, .skip, .btn, .filter-card, .scope-selector { display: none !important; }
+  .atlas-hero { background: #fff; color: #000; padding: 0; }
+  .atlas-hero .eyebrow, .atlas-hero .lead, .stamp { color: #111; }
+  .atlas-main { width: 100%; padding: 1rem 0 0; }
+  .screen[hidden] { display: block !important; }
+  .screen + .screen { break-before: page; }
+  .card, .kpi, tr { break-inside: avoid; }
+  .tableWrap { overflow: visible; }
+  .tableWrap th, .tableWrap td { padding: .3rem; }
+}
+@media screen and (min-width: 41rem) {
+  .atlas-nav { position: sticky; top: 0; z-index: 2; }
+  .atlas-main [id] { scroll-margin-block-start: 4.5rem; }
+}

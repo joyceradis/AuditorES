@@ -2,95 +2,151 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Victor Hugo · Marechal Floriano | AuditorES ATLAS</title>
+<title>Marechal Floriano | ATLAS AuditorES</title>
 <meta name="description" content="Painel territorial replicável de saúde do trabalhador, proteção previdenciária e continuidade do cuidado.">
-<style>
-:root{--bg:#f4f6f4;--panel:#fff;--ink:#172825;--sub:#61716b;--edge:#dfe7e1;--pine:#164d43;--mid:#287768;--aqua:#b8ddd1;--mint:#edf6f1;--amber:#a26723;--amberbg:#fff7e9;--blue:#426e8b;--shadow:0 18px 50px rgba(15,51,41,.06)}*{box-sizing:border-box}body{margin:0;background:var(--bg);font:15px/1.48 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;color:var(--ink)}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:var(--mid)}header{height:74px;background:#fff;border-bottom:1px solid var(--edge);display:flex;align-items:center;padding:0 max(22px,calc((100vw - 1260px)/2));gap:16px;position:sticky;top:0;z-index:5}.logo{width:40px;height:40px;background:var(--pine);display:grid;place-items:center;border-radius:11px;color:#fff;font-weight:800;font-size:20px;letter-spacing:-2px}.brand b{display:block;letter-spacing:.13em;font-size:12px}.brand small{color:var(--sub)}.header-actions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--edge);color:var(--ink);background:#fff;border-radius:10px;padding:9px 13px;font-size:13px;font-weight:650;transition:.15s}.btn:hover{border-color:var(--mid);color:var(--pine)}.btn.strong{background:var(--pine);color:#fff;border-color:var(--pine)}.btn.strong:hover{background:#0a392f;color:#fff}.shell{max-width:1260px;margin:auto;display:grid;grid-template-columns:225px minmax(0,1fr);gap:26px;padding:30px 20px 90px}.sidebar{position:sticky;top:98px;align-self:start}.sidebar .eyebrow{font-size:10px;letter-spacing:.16em;color:#7b8b83;text-transform:uppercase;font-weight:800;padding:10px 12px}.nav{width:100%;text-align:left;border:0;background:transparent;color:#50635a;border-radius:10px;padding:12px 13px;font-size:14px;display:flex;gap:10px;align-items:center;margin:3px 0}.nav.active{background:#e2efe8;color:var(--pine);font-weight:750}.nav:hover{background:#e9f0ec}.sideNote{border:1px solid var(--edge);border-radius:14px;background:#fff;padding:15px;font-size:12px;color:var(--sub);margin-top:26px}.sideNote b{color:var(--ink)}main{min-width:0}.screen{display:none;animation:rise .22s ease}.screen.active{display:block}@keyframes rise{from{opacity:.55;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);font-weight:800}.hero{display:flex;align-items:start;justify-content:space-between;gap:18px;margin:6px 0 18px}h1{font-size:clamp(28px,3vw,40px);line-height:1.15;letter-spacing:-.04em;margin:8px 0 10px}h2{font-size:22px;letter-spacing:-.025em;margin:0 0 10px}h3{font-size:16px;margin:0 0 8px;letter-spacing:-.01em}p{margin:0 0 12px}.lead{font-size:15px;color:var(--sub);max-width:720px}.stamp{border:1px solid var(--edge);padding:8px 10px;border-radius:9px;white-space:nowrap;font-size:11px;color:var(--sub);background:#fff}.alert{border:1px solid #e9dabb;background:var(--amberbg);padding:13px 16px;border-radius:12px;font-size:13px;color:#765123;margin-bottom:18px}.alert b{color:#694210}.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.kpi,.card{background:#fff;border:1px solid var(--edge);border-radius:16px;box-shadow:var(--shadow)}.kpi{padding:19px 20px;min-height:146px}.kpi .label{color:var(--sub);font-size:12px;min-height:34px}.kpi .value{font-size:30px;font-weight:760;letter-spacing:-.05em;line-height:1.12;margin:9px 0}.kpi .meta{font-size:11px;color:var(--sub)}.split{display:grid;grid-template-columns:1.17fr .83fr;gap:14px;margin-top:16px}.card{padding:21px}.card .hint{font-size:12px;color:var(--sub);margin-top:-3px;margin-bottom:20px}.between{display:flex;align-items:center;justify-content:space-between;gap:12px}.pill{font-size:10px;padding:4px 7px;background:var(--mint);color:var(--pine);border-radius:7px;text-transform:uppercase;font-weight:750;letter-spacing:.05em}.pill.yellow{color:#896019;background:var(--amberbg)}.plot{min-height:218px;display:flex;align-items:end;gap:12px;padding:14px 5px 24px;border-bottom:1px solid #e9efeb}.barcol{flex:1;height:190px;display:flex;flex-direction:column;align-items:center;justify-content:end;min-width:0;position:relative;gap:5px}.barcol .val{font-size:11px;font-weight:750;color:#425a50}.bar{width:min(65%,55px);min-height:3px;background:#3e917d;border-radius:6px 6px 0 0;transition:height .5s}.barcol .x{position:absolute;bottom:-25px;font-size:11px;color:var(--sub);white-space:nowrap}.riskItem{margin:13px 0}.riskRow{display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px}.track{background:#eff3f0;height:10px;border-radius:8px;overflow:hidden}.fill{height:100%;border-radius:8px;background:#245e50}.point{color:var(--mid);font-weight:720}.mini{font-size:12px;color:var(--sub)}.sectionHead{display:flex;justify-content:space-between;align-items:center;margin:26px 0 12px}.sectionHead p{font-size:12px;color:var(--sub);margin:0}.statrows{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.statrow{padding:15px;background:#fff;border:1px solid var(--edge);border-radius:12px}.statrow strong{font-size:25px;letter-spacing:-.03em}.statrow label{display:block;font-size:12px;color:var(--sub);margin-top:5px}.tableWrap{overflow-x:auto;background:#fff;border:1px solid var(--edge);border-radius:14px}table{width:100%;border-collapse:collapse;text-align:left}th{font-size:11px;letter-spacing:.05em;text-transform:uppercase;background:#f8faf8;color:#657870}th,td{padding:12px 14px;border-bottom:1px solid #e8ede8;vertical-align:top}td{font-size:13px}tr:last-child td{border-bottom:0}td b{color:#17382e}.num{text-align:right;font-variant-numeric:tabular-nums}.tag{font-size:10px;padding:3px 6px;border-radius:6px;background:#edf2f0;color:#436457;white-space:nowrap}.tag.local{background:#d9eee4;color:#1c604c}.tag.sec{background:#fff3dc;color:#8a5f28}.category{display:inline-block;font-size:11px;color:#637c71;border:1px solid #dce8e0;border-radius:7px;padding:3px 7px;margin-bottom:9px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.rights{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.right{padding:17px 18px;border:1px solid var(--edge);border-radius:12px;background:#fff}.right small{display:block;color:var(--sub);font-size:12px;margin-top:7px}.right b{font-size:14px}.steps{counter-reset:steps}.step{position:relative;padding:15px 18px 15px 56px;border:1px solid var(--edge);border-radius:12px;background:#fff;margin-bottom:9px}.step:before{counter-increment:steps;content:counter(steps);position:absolute;left:15px;top:15px;width:29px;height:29px;display:grid;place-items:center;border-radius:50%;background:#e5f1e9;color:var(--pine);font-weight:800}.step b{display:block;margin-bottom:4px}.step span{font-size:12px;color:var(--sub)}.sources{display:grid;gap:10px}.source{padding:15px 17px;border:1px solid var(--edge);border-radius:12px;background:#fff;display:flex;justify-content:space-between;align-items:start;gap:20px}.source small{display:block;color:var(--sub);margin-top:5px}.source a{white-space:nowrap;font-size:12px}.formGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field label{display:block;font-size:12px;color:var(--sub);margin-bottom:5px}.field input,.field select{width:100%;padding:10px 12px;border:1px solid #cfded5;border-radius:9px;background:#fff;color:#1f3b31}.field input:focus{outline:2px solid #b4d7ca}.editorRows{display:grid;grid-template-columns:1.5fr .6fr .7fr .7fr .7fr 30px;gap:8px;align-items:end;margin:8px 0}.editorRows input,.editorRows select{width:100%;padding:8px;border-radius:8px;border:1px solid var(--edge);font-size:12px}.editorRows label{font-size:10px;color:var(--sub)}.editorRows .rm{border:0;background:#fbecec;color:#924d46;padding:8px;border-radius:8px}.footer{color:var(--sub);font-size:11px;margin-top:28px;border-top:1px solid var(--edge);padding-top:16px}.micro{font-size:11px;color:var(--sub)}.info{padding:15px 17px;background:var(--mint);border-left:3px solid var(--mid);font-size:13px;border-radius:10px;color:#355c4d}.toolbar{display:flex;gap:9px;flex-wrap:wrap}.divider{height:1px;background:var(--edge);margin:17px 0}.empty{padding:36px;text-align:center;color:var(--sub)}.hidden{display:none!important}@media(max-width:980px){.shell{grid-template-columns:1fr;padding:16px}.sidebar{display:flex;position:static;overflow-x:auto;gap:6px}.sidebar .eyebrow,.sideNote{display:none}.nav{width:auto;white-space:nowrap}.kpis{grid-template-columns:repeat(2,1fr)}.split,.grid2{grid-template-columns:1fr}header{padding:12px 16px;flex-wrap:wrap;height:auto}.header-actions{margin-left:0;width:100%}}@media(max-width:600px){.kpis,.statrows,.rights,.formGrid{grid-template-columns:1fr}.kpi{min-height:0}.hero{flex-direction:column}.stamp{white-space:normal}.editorRows{grid-template-columns:1fr 1fr}.source{flex-direction:column}}@media print{header,.sidebar,.toolbar,.btn,.field,.noPrint{display:none!important}.shell{display:block;padding:0}body{background:#fff}.screen{display:block!important;break-before:page}#screen-overview{break-before:auto}.card,.kpi{box-shadow:none;break-inside:avoid}.alert{border-color:#ccc}}
-/* Identidade visual AuditorES · inteligência territorial */
-:root{--bg:#f6f4ee;--panel:#fffefa;--ink:#152230;--sub:#667583;--edge:#dce0de;--pine:#20394f;--mid:#476d92;--aqua:#d9e2ef;--mint:#e8edf3;--amber:#99683e;--amberbg:#faf0e4;--blue:#507bad;--shadow:0 14px 36px rgba(19,37,54,.05)}
-body{background:var(--bg);color:var(--ink);font-family:"DM Sans",Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}header{background:#111b27;color:#f6f4ee;border-color:#344151}header .brand small{color:#a0b0c0}header .logo{background:#e5a563;color:#111b27;border-radius:6px}header .brand b{color:#f6f4ee}.btn{border-radius:5px}.btn.strong{background:#e5a563;color:#172330;border-color:#e5a563}.btn.strong:hover{background:#f4bc7d;color:#172330}.sidebar .nav{border-radius:5px}.nav.active{background:#e1e8ef;color:#20394f}.nav:hover{background:#e9edf1}.kpi,.card,.sideNote,.statrow,.right,.step,.source,.tableWrap{border-radius:7px}.bar{background:#476f96}.track .fill{background:#476f96}.pill{background:#e7edf4;color:#314f73}.tag.local{background:#e3eaf2;color:#35577b}.point{color:#476d92}.field input:focus{outline-color:#a3bbd5}.shell{max-width:1380px}
-.crumbs{display:flex;align-items:center;gap:8px;padding:10px max(22px,calc((100vw - 1260px)/2));background:#1b2a39;border-bottom:1px solid #344151;color:#a6b9c9;font:11px "IBM Plex Mono",ui-monospace,monospace;flex-wrap:wrap}.crumbs a{color:#c7d6e4;text-decoration:none}.crumbs a:hover{text-decoration:underline}.crumbs strong{color:#e5a563;font-weight:600}
-@media(max-width:980px){.crumbs{padding:10px 16px}}
-@media print{.crumbs{display:none}}
-.scope-selector{background:#fffefa;border-bottom:1px solid var(--edge);padding:12px max(22px,calc((100vw - 1260px)/2));display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:13px}
-.scope-selector a{display:inline-flex;align-items:center;min-height:38px;border:1px solid #b5c1cb;border-radius:5px;padding:7px 11px;text-decoration:none;color:#20394f;font-weight:650}
-.scope-selector a[aria-current="page"]{background:#20394f;border-color:#20394f;color:white}
-.scope-selector p{margin:0 0 0 5px;color:#596977;font-size:12px;max-width:680px}
-@media(max-width:980px){.scope-selector{padding:12px 16px}}
-@media print{.scope-selector{display:none}}
-.sidebar a.nav{display:block;text-decoration:none}
-@media(max-width:980px){.sidebar nav{display:flex;flex-wrap:wrap;gap:.35rem}.sidebar a.nav{width:auto;margin:0}}.sidebar a.nav:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-</style>
+<meta name="theme-color" content="#123453">
+<link rel="stylesheet" href="../../assets/public.css">
+<link rel="stylesheet" href="../../assets/atlas.css">
 </head>
 <body>
-<nav class="crumbs" aria-label="Você está em"><a href="../../">AuditorES</a><span>/</span><a href="../../#territorios">Municípios</a><span aria-hidden="true">/</span><a href="../../#marechal-floriano">Marechal Floriano</a><span aria-hidden="true">/</span><strong aria-current="page">ATLAS</strong></nav>
-<header><div class="logo">A·</div><div class="brand"><b>ATLAS</b><small>Saúde · Trabalho · Proteção Social</small></div><div class="header-actions"><button class="btn" onclick="exportCSV()">Exportar CSV</button><button class="btn" onclick="exportJSON()">Exportar JSON</button><button class="btn strong" onclick="window.print()">Imprimir relatório</button></div></header>
-<nav class="scope-selector" aria-label="Recorte dos indicadores">
-<strong>Recorte:</strong>
-<a href="./#indicadores" id="scope-all">Todos</a>
-<a href="?scope=municipio#indicadores" id="scope-municipio">Município</a>
-<a href="?scope=victor-hugo#indicadores" id="scope-victor-hugo">ESF Victor Hugo</a>
-<p id="scopeNote" role="status">Escolha o recorte para filtrar os indicadores. Os demais quadros apresentam contexto territorial identificado.</p>
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+<header class="masthead">
+  <div class="shell header-inner">
+    <a class="brand" href="../../"><span class="brand-mark" aria-hidden="true">A.</span><span>Auditor<span class="brand-accent">ES</span></span></a>
+    <nav class="main-nav" aria-label="Navegação principal">
+      <a href="../../">Início</a><a href="../">Municípios</a><a href="./" aria-current="page">ATLAS</a>
+    </nav>
+  </div>
+</header>
+<div class="portal-hero atlas-hero">
+  <div class="shell">
+    <nav class="crumbs" aria-label="Você está em"><a href="../../">Início</a><span aria-hidden="true">/</span><a href="../">Municípios</a><span aria-hidden="true">/</span><span aria-current="page">Marechal Floriano</span></nav>
+    <p class="eyebrow">ATLAS · Espírito Santo</p>
+    <h1 id="hTitle">Marechal Floriano</h1>
+    <div class="hero-row">
+      <p class="lead">Saúde pública, trabalho rural e proteção social no município e na ESF Victor Hugo.</p>
+      <div class="toolbar"><p class="stamp" id="timeStamp">Base de <time datetime="2026-11-23">23 nov 2026</time></p><button type="button" class="btn" id="printReport">Imprimir relatório</button></div>
+    </div>
+  </div>
+</div>
+<nav class="atlas-nav" aria-label="Seções do ATLAS">
+  <div class="shell">
+    <a data-tab="overview" href="#visao-geral">Visão geral</a>
+    <a data-tab="dados" href="#indicadores">Indicadores</a>
+    <a data-tab="idosos" href="#pessoa-idosa">Pessoa idosa · CMDI</a>
+    <a data-tab="fontes" href="#fontes">Fontes e limites</a>
+    <a data-tab="direitos" href="#direitos">Direitos e condutas</a>
+    <a data-tab="metodo" href="#metodologia">Metodologia</a>
+  </div>
 </nav>
-<div class="shell">
-<aside class="sidebar">
-<nav aria-label="Seções do ATLAS">
-  <a class="nav active" data-tab="overview" href="#visao-geral" aria-current="page">Visão geral</a>
-  <a class="nav" data-tab="dados" href="#indicadores">Indicadores</a>
-  <a class="nav" data-tab="fontes" href="#fontes">Fontes e limites</a>
-  <a class="nav" data-tab="direitos" href="#direitos">Direitos e condutas</a>
-  <a class="nav" data-tab="idosos" href="#pessoa-idosa">Pessoa idosa · CMDI</a>
-  <a class="nav" data-tab="metodo" href="#metodologia">Metodologia</a>
-</nav>
-<div class="sideNote"><b>Leitura responsável</b><br>Indicadores agregados não identificam pacientes elegíveis e não medem automaticamente demanda jurídica. Nenhum dado pessoal deve ser inserido neste painel.</div></aside>
-<main>
-<section class="screen active" id="screen-overview"><div class="eyebrow">01 / Diagnóstico territorial</div><div class="hero"><div><h1 id="hTitle">Marechal Floriano</h1><p class="lead">Indicadores agregados do município e da ESF Victor Hugo sobre saúde, trabalho rural e acesso à assistência.</p></div><span class="stamp" id="timeStamp">Base atualizada em 23 nov 2026</span></div><div class="alert"><b>Atenção ao território:</b> indicadores da ESF e indicadores do município estão marcados individualmente. Não some populações, não estime prevalência da ESF a partir do município e não interprete notificações como incidência real.</div><div class="kpis" id="kpis"></div>
-<div class="split"><div class="card"><div class="between"><h3>Acidentes de trabalho notificados</h3><span class="pill" id="accTag">MUNICÍPIO · 2020–24</span></div><p class="hint">Notificações do e-SUS Vigilância. Mudanças no registro podem explicar parte da variação.</p><div class="plot" id="accChart"></div><p class="mini" style="margin-top:35px">O número de notificações não equivale necessariamente ao número de trabalhadores únicos nem de benefícios previdenciários devidos.</p></div><div class="card"><div class="between"><h3>Estratificação familiar</h3><span class="pill">ESF · 2021</span></div><p class="hint">Escala Coelho-Savassi. Dados históricos: atualizar com a coordenação e os ACS.</p><div id="riskBars"></div><div class="divider"></div><p class="mini" id="riskText"></p></div></div>
-<div class="sectionHead"><div><h2>O que os números sinalizam</h2><p>Interpretação epidemiológica, não conclusão individual</p></div></div><div class="grid2"><div class="card"><span class="category">Estrutura produtiva</span><h3>Agricultura familiar e dependência do trabalho</h3><p class="mini" id="farmText">O predomínio da agricultura familiar no município justifica investigar como a perda de capacidade funcional interfere na renda e na continuidade do tratamento.</p></div><div class="card"><span class="category">Coordenação do cuidado</span><h3>Barreiras à consulta especializada</h3><p class="mini">Absenteísmo e avaliação de HbA1c são processos diferentes, mas ambos ajudam a formular hipóteses sobre continuidade assistencial. É preciso investigar causas locais de faltas antes de atribuí-las ao trabalho.</p></div></div>
-<div class="sectionHead"><div><h2>Marcos que vale monitorar</h2><p>Dados municipais: não extrapolar diretamente para Victor Hugo</p></div></div><div class="statrows" id="secondaryStats"></div><div class="footer">Painel de diagnóstico situacional. Metodologia reproduzível na seção Metodologia. Dados publicados em anos diferentes e sujeitos a revisão. Não utilizar para identificação de pacientes ou prospecção comercial.</div></section>
-<section class="screen" id="screen-dados"><div class="eyebrow">02 / Evidências quantitativas</div><h1>Indicadores e séries</h1><p class="lead">Cada registro apresenta nível geográfico, referência temporal e origem. Use os filtros para explorar dados comparáveis.</p><div class="card" style="margin:22px 0"><div class="formGrid"><div class="field"><label for="catFilter">Categoria</label><select id="catFilter" onchange="renderTable()"><option value="">Todas</option><option value="Território">Território</option><option value="Risco familiar">Risco familiar</option><option value="Agricultura">Agricultura</option><option value="Doenças crônicas">Doenças crônicas</option><option value="Saúde do trabalhador">Saúde do trabalhador</option><option value="Acesso">Acesso</option><option value="Proteção social">Proteção social</option><option value="Pessoa idosa">Pessoa idosa</option></select></div><div class="field"><label for="scopeFilter">Abrangência</label><select id="scopeFilter" onchange="renderTable()"><option value="">Todos</option><option value="ESF">ESF Victor Hugo</option><option value="Município">Município</option><option value="Comunidade">Comunidade</option></select></div></div></div><div class="tableWrap"><table><thead><tr><th>Indicador</th><th>Escopo</th><th>Ano</th><th class="num">Valor</th><th>Fonte</th></tr></thead><tbody id="dataTable"></tbody></table></div><p class="micro" style="margin-top:10px">Valores percentuais são explicitamente identificados. Os indicadores não possuem um denominador comum e não devem ser somados.</p></section>
-<section class="screen" id="screen-direitos"><div class="eyebrow">03 / Tradução clínica para direitos</div><h1>Da incapacidade ao suporte</h1><p class="lead">Roteiro assistencial para reconhecer impedimentos ao tratamento e à subsistência. A decisão de concessão dos benefícios pertence aos órgãos competentes.</p><div class="info" style="margin:18px 0">O quadro clínico orienta o afastamento e o cuidado. O direito previdenciário requer comprovação própria de enquadramento, qualidade de segurado, incapacidade e demais requisitos. Evitar confundir indicação médica com benefício concedido.</div><div class="rights" id="rightCards"></div><div class="sectionHead"><div><h2>Cinco perguntas úteis na consulta</h2><p>Para anamnese ocupacional quando há repercussão clínica</p></div><button class="btn" onclick="copyQuestions()">Copiar perguntas</button></div><div class="steps" id="questionSteps"></div><div class="sectionHead"><div><h2>Roteiro de decisão</h2></div></div><div class="tableWrap"><table><thead><tr><th>Situação clínica/social</th><th>Investigar</th><th>Via usual</th></tr></thead><tbody id="rightsTable"></tbody></table></div><p class="mini" style="margin-top:14px">Urgências clínicas, suspeita de infecção/isquemia grave e descompensação cardiológica exigem avaliação assistencial imediata; o processo previdenciário não deve atrasar o tratamento.</p></section>
-<section class="screen" id="screen-idosos">
-<div class="eyebrow">04 / Envelhecimento e governança</div>
-<h1>Pessoa idosa · saúde e proteção</h1>
+<main class="shell atlas-main" id="conteudo" tabindex="-1">
+<noscript><p class="info">Ative o JavaScript para carregar os indicadores, aplicar filtros e exportar os dados.</p></noscript>
+<section class="screen" id="screen-overview" aria-labelledby="visao-geral">
+<h2 id="visao-geral">Visão geral</h2>
+<p class="lead">Contexto demográfico, produtivo e assistencial em diferentes períodos.</p>
+<div class="alert"><b>Como comparar:</b> cada medida tem seu próprio recorte. Evite somar populações, usar dados municipais para estimar prevalência na ESF ou interpretar notificações como incidência.</div>
+<div class="kpis" id="kpis"></div>
+<div class="split"><div class="card"><div class="between"><h3>Acidentes de trabalho notificados</h3><span class="pill" id="accTag">MUNICÍPIO · 2020–24</span></div><p class="hint">Notificações do e-SUS Vigilância. Mudanças no registro podem explicar parte da variação.</p><div class="plot" id="accChart"></div><p class="mini" >O número de notificações não equivale necessariamente ao número de trabalhadores únicos nem de benefícios previdenciários devidos.</p></div><div class="card"><div class="between"><h3>Estratificação familiar</h3><span class="pill">ESF · 2021</span></div><p class="hint">Escala Coelho-Savassi. Dados históricos: atualizar com a coordenação e os ACS.</p><div id="riskBars"></div><div class="divider"></div><p class="mini" id="riskText"></p></div></div>
+<div class="sectionHead"><div><h3>O que os números sinalizam</h3><p>Interpretação epidemiológica, não conclusão individual</p></div></div><div class="grid2"><div class="card"><span class="category">Estrutura produtiva</span><h3>Agricultura familiar e dependência do trabalho</h3><p class="mini" id="farmText">O predomínio da agricultura familiar no município justifica investigar como a perda de capacidade funcional interfere na renda e na continuidade do tratamento.</p></div><div class="card"><span class="category">Coordenação do cuidado</span><h3>Barreiras à consulta especializada</h3><p class="mini">Absenteísmo e avaliação de HbA1c são processos diferentes, mas ambos ajudam a formular hipóteses sobre continuidade assistencial. É preciso investigar causas locais de faltas antes de atribuí-las ao trabalho.</p></div></div>
+<div class="sectionHead"><div><h3>Marcos que vale monitorar</h3><p>Dados municipais: não extrapolar diretamente para Victor Hugo</p></div></div><div class="statrows" id="secondaryStats"></div><div class="footnote">Painel de diagnóstico situacional. Metodologia reproduzível na seção Metodologia. Dados publicados em anos diferentes e sujeitos a revisão. Não utilizar para identificação de pacientes ou prospecção comercial.</div></section>
+
+<section class="screen" id="screen-dados" aria-labelledby="indicadores">
+  <h2 id="indicadores">Indicadores e séries</h2>
+  <p class="lead">Explore os registros por abrangência, tema, ano e tipo de dado.</p>
+  <nav class="scope-selector" aria-label="Atalhos de recorte">
+    <a class="btn" href="./#indicadores" data-scope="">Todos os recortes</a>
+    <a class="btn" href="?scope=municipio#indicadores" data-scope="Município">Município</a>
+    <a class="btn" href="?scope=victor-hugo#indicadores" data-scope="ESF">ESF Victor Hugo</a>
+  </nav>
+  <form class="card filter-card" id="indicatorFilters" aria-label="Filtrar indicadores">
+    <div class="formGrid">
+      <div class="field search"><label for="searchFilter">Buscar indicadores</label><input type="search" id="searchFilter" placeholder="Ex.: AMDI, risco, diabetes" maxlength="120"></div>
+      <div class="field"><label for="scopeFilter">Abrangência</label><select id="scopeFilter"><option value="">Todas</option></select></div>
+      <div class="field"><label for="catFilter">Categoria</label><select id="catFilter"><option value="">Todas</option></select></div>
+      <div class="field"><label for="yearFilter">Ano</label><select id="yearFilter"><option value="">Todos</option></select></div>
+      <div class="field"><label for="typeFilter">Tipo de dado</label><select id="typeFilter"><option value="">Todos</option></select></div>
+    </div>
+  </form>
+  <div class="result-bar">
+    <p id="resultCount" role="status" aria-live="polite"></p>
+    <div class="toolbar">
+      <button type="button" class="btn" data-clear>Limpar filtros</button>
+      <button type="button" class="btn" id="exportCSV" disabled>Exportar CSV</button>
+      <button type="button" class="btn strong" id="exportJSON" disabled>Exportar JSON</button>
+    </div>
+  </div>
+  <div class="tableWrap" id="indicatorResults" hidden>
+    <table class="indicator-table" role="table">
+      <caption class="sr-only">Indicadores do ATLAS com os filtros aplicados</caption>
+      <thead role="rowgroup"><tr role="row"><th scope="col" role="columnheader">Indicador</th><th scope="col" role="columnheader">Abrangência</th><th scope="col" role="columnheader">Período</th><th scope="col" role="columnheader" class="num">Valor</th><th scope="col" role="columnheader">Fonte</th></tr></thead>
+      <tbody role="rowgroup" id="dataTable"></tbody>
+    </table>
+  </div>
+  <div class="empty" id="emptyResults" hidden>
+    <strong>Nenhum registro encontrado</strong>
+    <p>Altere a busca ou limpe os filtros para ver todos os registros.</p>
+    <button type="button" class="btn" data-clear>Ver todos os indicadores</button>
+  </div>
+  <p class="footnote">Os arquivos CSV e JSON contêm as linhas exibidas na tabela. Cada indicador tem seu próprio denominador. <a href="#fontes">Consulte as fontes e os limites.</a></p>
+</section>
+<section class="screen" id="screen-direitos" aria-labelledby="direitos">
+<h2 id="direitos">Da incapacidade ao suporte</h2><p class="lead">Roteiro assistencial para reconhecer impedimentos ao tratamento e à subsistência. A decisão de concessão dos benefícios pertence aos órgãos competentes.</p><div class="info" style="margin:18px 0">O quadro clínico orienta o afastamento e o cuidado. O direito previdenciário requer comprovação própria de enquadramento, qualidade de segurado, incapacidade e demais requisitos. Evitar confundir indicação médica com benefício concedido.</div><div class="rights" id="rightCards"></div><div class="sectionHead"><div><h3>Cinco perguntas úteis na consulta</h3><p>Para anamnese ocupacional quando há repercussão clínica</p></div><button class="btn" onclick="copyQuestions()">Copiar perguntas</button></div><div class="steps" id="questionSteps"></div><div class="sectionHead"><div><h3>Roteiro de decisão</h3></div></div><div class="tableWrap"><table><thead><tr><th>Situação clínica/social</th><th>Investigar</th><th>Via usual</th></tr></thead><tbody id="rightsTable"></tbody></table></div><p class="mini" style="margin-top:14px">Urgências clínicas, suspeita de infecção/isquemia grave e descompensação cardiológica exigem avaliação assistencial imediata; o processo previdenciário não deve atrasar o tratamento.</p></section>
+<section class="screen" id="screen-idosos" aria-labelledby="pessoa-idosa">
+<h2 id="pessoa-idosa">Pessoa idosa, saúde e proteção</h2>
 <p class="lead">Integração entre avaliação multidimensional na APS, direitos da pessoa idosa e governança municipal. Dados municipais não representam automaticamente a ESF Victor Hugo.</p>
 <div class="alert"><b>Leitura do indicador:</b> os 37 registros de AMDI em 2025 não significam 37 idosos distintos avaliados nem permitem concluir que houve somente 37 atendimentos. Investigar execução versus qualidade de registro antes de atribuir causas.</div>
+<h3 id="amdi">Avaliação Multidimensional da Pessoa Idosa (AMDI)</h3>
 <div class="kpis">
 <div class="kpi"><div class="label">População com 60 anos ou mais</div><div class="value">2.879</div><div class="meta">Marechal Floriano · IBGE Censo 2022</div></div>
 <div class="kpi"><div class="label">Produção AMDI registrada</div><div class="value">37</div><div class="meta">Município · 2025 · SESA/ES</div></div>
-<div class="kpi"><div class="label">Indicador de AMDI</div><div class="value">1,29%</div><div class="meta">Produção / população de referência · 2025</div></div>
-<div class="kpi"><div class="label">Meta estadual de AMDI</div><div class="value">20%</div><div class="meta">Meta de 2025; não é resultado observado</div></div>
+<div class="kpi"><div class="label">Resultado municipal de AMDI</div><div class="value">1,29%</div><div class="meta">Produção / população de referência · 2025</div></div>
+<div class="kpi goal"><div class="label">Meta estadual de AMDI</div><div class="value">20%</div><div class="meta">Referência da SESA/ES · 2025</div></div>
 </div>
+<div class="info"><strong>ESF Victor Hugo:</strong> produção, denominador e resultado da equipe pendentes de publicação no painel.</div>
 <div class="split">
 <div class="card"><h3>O que investigar no território</h3><p class="mini">Fragilidade e dependência funcional; quedas; cognição; polifarmácia; sobrecarga do cuidador; isolamento; transporte; acesso a medicamentos; insegurança alimentar e violência ou negligência. Produzir apenas agregados autorizados e sem identificadores.</p><div class="divider"></div><h3>Hipóteses concorrentes para AMDI baixa</h3><p class="mini">Baixa execução da avaliação; sub-registro e codificação inconsistente; capacidade operacional da equipe; diferença de competências ou extrações. Exigem validação com a coordenação da APS e dados por equipe.</p></div>
-<div class="card"><h3>Relação com a governança municipal</h3><p class="mini"><b>Lei nº 2.937/2026:</b> disciplina o CMDI e institui o Fundo Municipal do Idoso.</p><p class="mini"><b>Decreto nº 446/2026:</b> regulamenta a gestão e a aplicação de recursos do Fundo, respeitando as deliberações do Conselho.</p><p class="mini"><b>Resolução CMDI nº 031/2026:</b> aprova o calendário ordinário de reuniões para 2027. Não comprova existência de repasses ou projetos financiados.</p></div>
+<div class="card" id="cmdi">
+<h3>CMDI e Fundo Municipal do Idoso</h3>
+<p class="mini"><strong>Lei nº 2.937/2026.</strong> Disciplina o Conselho Municipal de Defesa dos Direitos da Pessoa Idosa e institui o Fundo Municipal do Idoso (FMI).</p>
+<p class="mini"><strong>Decreto nº 446/2026.</strong> Regulamenta o Fundo. A Secretaria Municipal de Assistência Social e Direitos Humanos responde pela gestão, observadas as deliberações do Conselho.</p>
+<p class="mini"><strong>Resolução CMDI nº 031/2026.</strong> Aprova o calendário ordinário de 2027, com reuniões previstas para a terceira quarta-feira do mês, às 9h, sujeitas a remarcação em feriados.</p>
+<p class="mini">Saldo, repasses, projetos financiados e prestação de contas do FMI seguem como pontos de verificação documental.</p>
+<a href="#fontes-cmdi">Consultar os atos e o boletim</a>
 </div>
-<div class="sectionHead"><div><h2>Da necessidade à rede competente</h2><p>Orientação institucional, não seleção de potenciais clientes</p></div></div>
+</div>
+<div class="sectionHead"><div><h3>Da necessidade à rede competente</h3><p>Orientação institucional, não seleção de potenciais clientes</p></div></div>
 <div class="tableWrap"><table><thead><tr><th>Necessidade</th><th>Encaminhamento / gestão</th><th>Limite</th></tr></thead><tbody>
 <tr><td>Quedas, fragilidade, funcionalidade, cognição</td><td>APS, eMulti quando disponível, regulação e projeto terapêutico</td><td>Necessidade clínica não comprova direito previdenciário.</td></tr>
 <tr><td>Vulnerabilidade social e renda insuficiente</td><td>CRAS, CadÚnico e INSS conforme requisitos de BPC ou aposentadoria</td><td>CMDI não concede benefícios individuais.</td></tr>
 <tr><td>Negligência, violência e abandono</td><td>Rede de proteção, CREAS e órgãos competentes conforme risco</td><td>Seguir fluxos legais e proteger sigilo e segurança.</td></tr>
 <tr><td>Gargalos persistentes de cobertura e acesso</td><td>Gestão da APS, assistência social e CMDI no plano de políticas públicas</td><td>Demandas institucionais devem usar indicadores agregados.</td></tr>
 </tbody></table></div>
-<div class="sectionHead"><div><h2>Documentos decisivos ainda necessários</h2></div></div>
+<div class="sectionHead"><div><h3>Documentos decisivos ainda necessários</h3></div></div>
 <div class="grid2">
 <div class="card"><h3>Fundo Municipal do Idoso</h3><p class="mini">Solicitar plano de aplicação para 2027, saldo, previsão de receita, projetos aprovados e pareceres de prestação de contas. Fundo regulamentado não significa saldo disponível.</p></div>
 <div class="card"><h3>APS · Victor Hugo</h3><p class="mini">Solicitar produção AMDI por equipe e competência, denominadores e indicadores atuais, registros de visitas domiciliares, fila de regulação e condições de codificação.</p></div>
 </div>
-<div class="sectionHead"><div><h2>Fontes primárias</h2></div></div>
-<div class="sources">
-<div class="source"><div><b>SESA/ES · Boletim Estadual da APS 2025</b><small>Tabela de AMDI por município: 37 registros, população 60+ de 2.879 e índice de 1,29% para Marechal Floriano.</small></div><a href="https://atencaoprimaria.es.gov.br/Media/AtencaoPrimaria/LinhasDeCuidados/BOLETIM%20APS%202025%20-%20validado%20%2017%20de%20abril%202026.pdf" target="_blank" rel="noopener noreferrer">Abrir fonte ↗</a></div>
-<div class="source"><div><b>Câmara Municipal · Lei nº 2.937/2026</b><small>Conselho Municipal de Defesa dos Direitos da Pessoa Idosa e Fundo Municipal do Idoso.</small></div><a href="https://sapl.marechalfloriano.es.leg.br/norma/2982" target="_blank" rel="noopener noreferrer">Abrir fonte ↗</a></div>
-<div class="source"><div><b>DOM/ES · Decreto nº 446/2026</b><small>Edição 3.124. Regulamentação do Fundo Municipal do Idoso.</small></div><a href="https://ioes.dio.es.gov.br/portal/edicoes/download/11618" target="_blank" rel="noopener noreferrer">Abrir fonte ↗</a></div>
-</div><div class="footer">Recorte de atualização: 23 nov 2026. A resolução nº 031/2026 e atos correlatos devem ser conferidos na edição original do Diário Oficial antes de utilização jurídica formal. Inferências não equivalem a execução comprovada de projetos.</div>
+<div class="sectionHead"><div><h3 id="fontes-cmdi">Fontes do CMDI e da AMDI</h3></div></div>
+<div class="sources" id="olderAdultSources"></div>
+<div class="footnote">Recorte de atualização: <time datetime="2026-11-23">23 nov 2026</time>. Atos administrativos, dados da APS e execução financeira têm evidências próprias.</div>
 </section>
-<section class="screen" id="screen-metodo"><div class="eyebrow">04 / Metodologia</div><h1>Aplicar a outro município</h1><p class="lead">O roteiro orienta a coleta e a conferência de indicadores agregados para outros municípios.</p><div class="sectionHead"><h2>Caminho das pedras</h2></div><div id="replicationSteps"></div></section>
-<section class="screen" id="screen-fontes"><div class="eyebrow">05 / Auditoria e limites</div><h1>Fontes e transparência</h1><p class="lead">Cada indicador deve ser rastreável ao documento e ao ano-base. As fontes abaixo correspondem aos agregados publicados e ao roteiro metodológico.</p><div class="sources" id="sourceList"></div><div class="sectionHead"><div><h2>Limitações essenciais</h2></div></div><div class="grid2"><div class="card"><h3>Comparabilidade temporal</h3><p class="mini">O painel reúne 2017, 2021, 2024, 2025 e 2026. As séries e contagens são históricas e não representam um retrato sincrônico da ESF.</p></div><div class="card"><h3>Geografia e denominadores</h3><p class="mini">Dados municipais não são prevalências de Victor Hugo. Estabelecimentos rurais não equivalem a famílias cadastradas na ESF. Beneficiários não são todos indivíduos potencialmente elegíveis.</p></div><div class="card"><h3>Qualidade dos registros</h3><p class="mini">Condições crônicas são autodeclaradas no cadastro; acidentes são notificações, não casos confirmados de direito previdenciário; percentuais assistenciais possuem bases próprias.</p></div><div class="card"><h3>Privacidade e finalidade</h3><p class="mini">O objetivo é diagnóstico situacional e melhoria da coordenação do cuidado. Não inserir nomes, documentos, prontuários, dados pessoais de saúde ou listas de possíveis clientes.</p></div></div><div class="footer">Produzido para análise territorial e educação em saúde. Não substitui dados oficiais atualizados, avaliação individual do INSS, serviço social, regulação, perícia médica ou consultoria jurídica. Versão inicial: 21 nov 2026; atualização pessoa idosa: 23 nov 2026.</div></section>
-</main></div>
+<section class="screen" id="screen-metodo" aria-labelledby="metodologia">
+<h2 id="metodologia">Aplicar a outro município</h2><p class="lead">O roteiro orienta a coleta e a conferência de indicadores agregados para outros municípios.</p><div class="sectionHead"><h3>Caminho das pedras</h3></div><div class="steps" id="replicationSteps"></div></section>
+<section class="screen" id="screen-fontes" aria-labelledby="fontes">
+<h2 id="fontes">Fontes e transparência</h2><p class="lead">Cada indicador deve ser rastreável ao documento e ao ano-base. As fontes abaixo correspondem aos agregados publicados e ao roteiro metodológico.</p><div class="sources" id="sourceList"></div><div class="sectionHead"><div><h3>Limitações essenciais</h3></div></div><div class="grid2"><div class="card"><h3>Comparabilidade temporal</h3><p class="mini">O painel reúne registros de 2017 e de 2020 a 2026. As séries e contagens são históricas e não representam um retrato sincrônico da ESF.</p></div><div class="card"><h3>Geografia e denominadores</h3><p class="mini">Dados municipais não são prevalências de Victor Hugo. Estabelecimentos rurais não equivalem a famílias cadastradas na ESF. Beneficiários não são todos indivíduos potencialmente elegíveis.</p></div><div class="card"><h3>Qualidade dos registros</h3><p class="mini">Condições crônicas são autodeclaradas no cadastro; acidentes são notificações, não casos confirmados de direito previdenciário; percentuais assistenciais possuem bases próprias.</p></div><div class="card"><h3>Privacidade e finalidade</h3><p class="mini">O objetivo é diagnóstico situacional e melhoria da coordenação do cuidado. Não inserir nomes, documentos, prontuários, dados pessoais de saúde ou listas de possíveis clientes.</p></div></div><div class="footnote">Produzido para análise territorial e educação em saúde. Não substitui dados oficiais atualizados, avaliação individual do INSS, serviço social, regulação, perícia médica ou consultoria jurídica. Versão inicial: 21 nov 2026; atualização pessoa idosa: 23 nov 2026.</div></section>
+
+</main>
+<footer class="site-footer">
+  <div class="shell">
+    <span>AuditorES · Inteligência pública no Espírito Santo</span>
+    <a href="../">Ver municípios</a>
+  </div>
+</footer>
 <script>
 const gov26='https://www.marechalfloriano.es.gov.br/wp-content/uploads/2026/05/PMS-2026-2029-versao-final.pdf';
 const gov22='https://www.marechalfloriano.es.gov.br/downloads/arquivos-saude/instrumentos-gestao/PMS-2022-2025-resumo-DIGISUS.pdf';
-const incaper='https://incaper.es.gov.br/media/incaper/proater/municipios/Marechal_Floriano.pdf';
+const incaper='https://incaper.es.gov.br/Media/proater/municipios/Marechal_Floriano.pdf';
+const amdiBulletin='https://atencaoprimaria.es.gov.br/Media/AtencaoPrimaria/LinhasDeCuidados/BOLETIM%20APS%202025%20-%20validado%20%2017%20de%20abril%202026.pdf#page=22';
 const base=[
 ['População residente',17641,'Território','Município','2022','n','IBGE · Censo 2022 · SIDRA tabela 4714, variável 93','https://apisidra.ibge.gov.br/values/t/4714/n6/3203346/v/93/p/2022','Oficial'],
 ['População estimada',19159,'Território','Município','2026','n','IBGE · Estimativa 2026; não é o Censo 2022','https://www.ibge.gov.br/cidades-e-estados/es/marechal-floriano.html','Oficial'],
@@ -121,11 +177,14 @@ const base=[
 ['Absenteísmo — consulta cirurgia geral',23.26,'Acesso','Município','2024','%','PMS 2026–2029 · Tabela 50, p. 76–77',gov26,'Oficial'],
 ['Absenteísmo — consulta cardiologia',18.63,'Acesso','Município','2024','%','PMS 2026–2029 · Tabela 50, p. 76–77',gov26,'Oficial'],
 ['HbA1c avaliadas / solicitadas',38.98,'Acesso','Município','2024','%','PMS 2026–2029 · Tabela 41, p. 69',gov26,'Oficial'],
-['População com 60 anos ou mais',2879,'Pessoa idosa','Município','2022','n','SESA/ES · Boletim APS 2025, tabela AMDI · população IBGE 2022','https://atencaoprimaria.es.gov.br/Media/AtencaoPrimaria/LinhasDeCuidados/BOLETIM%20APS%202025%20-%20validado%20%2017%20de%20abril%202026.pdf','Oficial'],
-['Avaliações multidimensionais da pessoa idosa — produção',37,'Pessoa idosa','Município','2025','n','SESA/ES · Boletim APS 2025, tabela AMDI; produção, não pessoas únicas','https://atencaoprimaria.es.gov.br/Media/AtencaoPrimaria/LinhasDeCuidados/BOLETIM%20APS%202025%20-%20validado%20%2017%20de%20abril%202026.pdf','Oficial'],
-['Indicador AMDI',1.29,'Pessoa idosa','Município','2025','%','SESA/ES · Boletim APS 2025, tabela AMDI; produção/população 60+','https://atencaoprimaria.es.gov.br/Media/AtencaoPrimaria/LinhasDeCuidados/BOLETIM%20APS%202025%20-%20validado%20%2017%20de%20abril%202026.pdf','Oficial'],
-['Meta estadual AMDI',20,'Pessoa idosa','Município','2025','%','SESA/ES · Boletim APS 2025, meta de referência, não resultado','https://atencaoprimaria.es.gov.br/Media/AtencaoPrimaria/LinhasDeCuidados/BOLETIM%20APS%202025%20-%20validado%20%2017%20de%20abril%202026.pdf','Meta'],
-].map(([label,value,cat,scope,year,unit,source,url,quality])=>({label,value,cat,scope,year,unit,source,url,quality}));
+['População com 60 anos ou mais',2879,'Pessoa idosa','Município','2022','n','SESA/ES · Boletim APS 2025, tabela AMDI · população IBGE 2022',amdiBulletin,'Oficial'],
+['Avaliações multidimensionais da pessoa idosa — produção',37,'Pessoa idosa','Município','2025','n','SESA/ES · Boletim APS 2025, tabela AMDI; produção, não pessoas únicas',amdiBulletin,'Oficial'],
+['Indicador AMDI',1.29,'Pessoa idosa','Município','2025','%','SESA/ES · Boletim APS 2025, tabela AMDI; produção/população 60+',amdiBulletin,'Oficial'],
+['Meta estadual AMDI',20,'Pessoa idosa','Espírito Santo','2025','%','SESA/ES · Boletim APS 2025, meta de referência, não resultado',amdiBulletin,'Meta'],
+].map(([label,value,cat,scope,year,unit,source,url,quality]) => ({
+  label, value, cat, scope, year, unit, source, url, quality,
+  type: quality === 'Meta' ? 'Meta' : label === 'População estimada' || scope === 'Comunidade' ? 'Contexto' : 'Resultado'
+}));
 const baseProfile={city:'Marechal Floriano',esf:'Victor Hugo',uf:'ES',date:'2026-11-23'};
 const data=base,profile=baseProfile;
 const fmt=(n,dec=0)=>Number(n).toLocaleString('pt-BR',{minimumFractionDigits:dec,maximumFractionDigits:dec});
@@ -133,57 +192,238 @@ const get=(label,yr)=>data.find(x=>x.label===label&&(yr==null||x.year===yr));
 const value=(label,yr)=>get(label,yr)?.value??null;
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
 function vshow(n,unit='n'){return n==null?'—':unit==='%'?fmt(n,2)+'%':unit==='R$'?'R$ '+fmt(n,2):fmt(n)}
-const scopeParam=new URLSearchParams(window.location.search).get('scope');
-const scopedView=scopeParam==='municipio'?'municipio':scopeParam==='victor-hugo'?'victor-hugo':'todos';
-document.getElementById('scopeFilter').value=scopedView==='municipio'?'Município':scopedView==='victor-hugo'?'ESF':'';
-document.getElementById('scope-'+(scopedView==='todos'?'all':scopedView)).setAttribute('aria-current','page');
-document.getElementById('scopeNote').textContent=scopedView==='municipio'
- ? 'Tabela e exportações inicialmente filtradas para dados municipais. Os quadros da visão geral contextualizam também a ESF.'
- : scopedView==='victor-hugo'
- ? 'Tabela e exportações inicialmente filtradas para a ESF. Os quadros da visão geral incluem informações municipais apenas como contexto.'
- : 'Sem filtro inicial de abrangência. Use a tabela para separar indicadores do município, comunidade e ESF.';
-function selectedRows(){const cat=document.getElementById('catFilter').value,scope=document.getElementById('scopeFilter').value;return data.filter(x=>(!cat||x.cat===cat)&&(!scope||x.scope===scope));}
+const scopeLabels = {
+  'Município': 'Município', 'ESF': 'ESF Victor Hugo', 'Comunidade': 'Comunidade', 'Espírito Santo': 'Espírito Santo'
+};
+const scopeValues = { municipio: 'Município', 'victor-hugo': 'ESF', comunidade: 'Comunidade', estado: 'Espírito Santo' };
+const typeValues = { resultado: 'Resultado', contexto: 'Contexto', meta: 'Meta' };
+const typeLabels = { Resultado: 'Resultado observado', Contexto: 'Referência de contexto', Meta: 'Meta' };
+const filterForm = document.getElementById('indicatorFilters');
+const filters = {
+  q: document.getElementById('searchFilter'),
+  scope: document.getElementById('scopeFilter'),
+  category: document.getElementById('catFilter'),
+  year: document.getElementById('yearFilter'),
+  type: document.getElementById('typeFilter')
+};
+const shortcutLinks = [...document.querySelectorAll('[data-scope]')];
+const csvButton = document.getElementById('exportCSV');
+const jsonButton = document.getElementById('exportJSON');
+const calendarYear = row => row.year.slice(-4);
+const normalize = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+const categoryValues = Object.fromEntries(
+  [...new Set(data.map(row => row.cat))].sort((a, b) => a.localeCompare(b, 'pt-BR'))
+    .map(category => [slug(category).replaceAll('_', '-'), category])
+);
+const yearValues = [...new Set(data.map(calendarYear))].sort().reverse();
+
+function appendOptions(control, values, labels = {}) {
+  for (const value of values) control.add(new Option(labels[value] || value, value));
+}
+
+appendOptions(filters.scope, Object.values(scopeValues), scopeLabels);
+appendOptions(filters.category, Object.values(categoryValues));
+appendOptions(filters.year, yearValues);
+appendOptions(filters.type, Object.values(typeValues), typeLabels);
+
+function readFilters() {
+  const params = new URLSearchParams(location.search);
+  filters.q.value = (params.get('q') || '').slice(0, 120);
+  filters.scope.value = Object.hasOwn(scopeValues, params.get('scope')) ? scopeValues[params.get('scope')] : '';
+  filters.category.value = Object.hasOwn(categoryValues, params.get('category')) ? categoryValues[params.get('category')] : '';
+  filters.type.value = Object.hasOwn(typeValues, params.get('type')) ? typeValues[params.get('type')] : '';
+  filters.year.value = yearValues.includes(params.get('year')) ? params.get('year') : '';
+}
+
+function currentFilters() {
+  return {
+    category: filters.category.value,
+    scope: filters.scope.value,
+    year: filters.year.value,
+    type: filters.type.value,
+    query: filters.q.value.trim()
+  };
+}
+
+function selectedRows() {
+  const { category, scope, year, type, query } = currentFilters();
+  const terms = normalize(query).split(/\s+/).filter(Boolean);
+  return data.filter(row => {
+    const searchable = normalize([row.label, row.cat, scopeLabels[row.scope], row.year, row.source, typeLabels[row.type]].join(' '));
+    return (!category || row.cat === category) && (!scope || row.scope === scope)
+      && (!year || calendarYear(row) === year) && (!type || row.type === type)
+      && terms.every(term => searchable.includes(term));
+  });
+}
+
+function updateFilters() {
+  const url = new URL(location.href);
+  const { category, scope, year, type, query } = currentFilters();
+  const params = {
+    q: query,
+    scope: Object.keys(scopeValues).find(key => scopeValues[key] === scope),
+    category: Object.keys(categoryValues).find(key => categoryValues[key] === category),
+    year,
+    type: Object.keys(typeValues).find(key => typeValues[key] === type)
+  };
+  for (const [key, value] of Object.entries(params)) {
+    if (value) url.searchParams.set(key, value);
+    else url.searchParams.delete(key);
+  }
+  url.hash = 'indicadores';
+  history.replaceState(history.state, '', url);
+  renderTable();
+}
+
+filterForm.addEventListener('submit', event => event.preventDefault());
+filters.q.addEventListener('input', updateFilters);
+for (const [key, control] of Object.entries(filters)) {
+  if (key !== 'q') control.addEventListener('change', updateFilters);
+}
+for (const button of document.querySelectorAll('[data-clear]')) {
+  button.addEventListener('click', () => {
+    filterForm.reset();
+    updateFilters();
+    filters.q.focus();
+  });
+}
+readFilters();
+
 function render(){renderOverview();renderTable();renderRights();renderSources();}
 function renderOverview(){let pop=value('Pessoas cadastradas na ESF'),families=value('Famílias classificadas'),mid=value('Famílias em risco médio'),max=value('Famílias em risco máximo'),agr=value('Estabelecimentos de agricultura familiar'),non=value('Estabelecimentos de agricultura não familiar'),population=value('População residente','2022');let risk=mid!=null&&max!=null?mid+max:null, pct=risk!=null&&families?risk/families*100:null,share=agr!=null&&non!=null?100*agr/(agr+non):null;
-const k=[['Pessoas cadastradas',pop,'ESF · 30/04/2025','n'],['Famílias em risco médio/máximo',risk,`${pct===null?'Sem base para %':fmt(pct,1)+'% das famílias classificadas'} · ESF 2021`,'n'],['Estabelecimentos rurais familiares',share,'Município · Censo 2017','%'],['População residente',population,'Município · Censo 2022','n']];document.getElementById('kpis').innerHTML=k.map(x=>`<div class="kpi"><div class="label">${esc(x[0])}</div><div class="value">${x[1]==null?'—':x[3]==='%'?fmt(x[1],1)+'%':fmt(x[1])}</div><div class="meta">${esc(x[2])}</div></div>`).join('');
-let series=data.filter(x=>x.label==='Acidentes de trabalho notificados'&&x.scope==='Município').sort((a,b)=>Number(a.year)-Number(b.year));let largest=Math.max(1,...series.map(x=>x.value));document.getElementById('accChart').innerHTML=series.length?series.map(x=>`<div class="barcol"><div class="val">${fmt(x.value)}</div><div class="bar" style="height:${Math.max(4,Math.round((x.value/largest)*153))}px"></div><div class="x">${esc(x.year)}</div></div>`).join(''):'<div class="empty">Sem série informada. Adicione a série municipal de acidentes no editor.</div>';
-let levels=[['Habitual','Famílias em risco habitual','#275f54'],['Menor','Famílias em risco menor','#6da58e'],['Médio','Famílias em risco médio','#d5a95f'],['Máximo','Famílias em risco máximo','#c37c5a']];let sum=levels.reduce((s,x)=>s+(value(x[1])||0),0);document.getElementById('riskBars').innerHTML=levels.map(x=>{let v=value(x[1]);return `<div class="riskItem"><div class="riskRow"><span>${x[0]}</span><b>${v==null?'—':fmt(v)} ${v==null?'':`(${fmt((v/sum)*100,1)}%)`}</b></div><div class="track"><div class="fill" style="width:${v!=null&&sum?((v/sum)*100):0}%;background:${x[2]}"></div></div></div>`}).join('');document.getElementById('riskText').textContent=risk==null?'Atualize as categorias da escala Coelho-Savassi para avaliar o risco familiar.':`${fmt(risk)} famílias em risco médio/máximo, classificadas em agosto de 2021. Risco familiar não significa incapacidade laboral.`;
+const k=[['Pessoas cadastradas',pop,'ESF · 30/04/2025','n'],['Famílias em risco médio/máximo',risk,`${pct===null?'Sem base para %':fmt(pct,1)+'% das famílias classificadas'} · ESF 2021`,'n'],['Estabelecimentos rurais familiares',share,'Município · Censo 2017','%'],['População residente',population,'Município · Censo 2022','n']];document.getElementById('kpis').innerHTML=k.map(x=>`<div class="kpi ${x[2].includes('ESF') ? 'local' : ''}"><div class="label">${esc(x[0])}</div><div class="value">${x[1]==null?'—':x[3]==='%'?fmt(x[1],1)+'%':fmt(x[1])}</div><div class="meta">${esc(x[2])}</div></div>`).join('');
+let series=data.filter(x=>x.label==='Acidentes de trabalho notificados'&&x.scope==='Município').sort((a,b)=>Number(a.year)-Number(b.year));let largest=Math.max(1,...series.map(x=>x.value));document.getElementById('accChart').innerHTML=series.length?series.map(x=>`<div class="barcol"><div class="val">${fmt(x.value)}</div><div class="bar" style="height:${Math.max(4,Math.round((x.value/largest)*153))}px"></div><div class="x">${esc(x.year)}</div></div>`).join(''):'<div class="empty">Série municipal indisponível nesta base.</div>';
+let levels=[['Habitual','Famílias em risco habitual','#1a5383'],['Menor','Famílias em risco menor','#417ca8'],['Médio','Famílias em risco médio','#9a5379'],['Máximo','Famílias em risco máximo','#77294e']];let sum=levels.reduce((s,x)=>s+(value(x[1])||0),0);document.getElementById('riskBars').innerHTML=levels.map(x=>{let v=value(x[1]);return `<div class="riskItem"><div class="riskRow"><span>${x[0]}</span><b>${v==null?'—':fmt(v)} ${v==null?'':`(${fmt((v/sum)*100,1)}%)`}</b></div><div class="track"><div class="fill" style="width:${v!=null&&sum?((v/sum)*100):0}%;background:${x[2]}"></div></div></div>`}).join('');document.getElementById('riskText').textContent=risk==null?'Atualize as categorias da escala Coelho-Savassi para avaliar o risco familiar.':`${fmt(risk)} famílias em risco médio/máximo, classificadas em agosto de 2021. Risco familiar não significa incapacidade laboral.`;
 document.getElementById('farmText').textContent=share==null?'Informe estabelecimentos familiares e não familiares para contextualizar a economia do município.':`${fmt(agr)} dos ${fmt(agr+non)} estabelecimentos agropecuários são classificados como agricultura familiar (${fmt(share,1)}%). Estabelecimentos não equivalem a pessoas ou famílias da ESF.`;
-let mini=[['Pessoas com diabetes',value('Diabetes autodeclarado'),'Cadastro municipal · 2024'],['Insuficiência cardíaca',value('Insuficiência cardíaca autodeclarada'),'Autodeclaração municipal · 2024'],['Absenteísmo vascular',value('Absenteísmo — consulta cirurgia vascular'),'Consultas especializadas · 2024','%']];document.getElementById('secondaryStats').innerHTML=mini.map(x=>`<div class="statrow"><strong>${x[1]==null?'—':vshow(x[1],x[3])}</strong><label>${esc(x[0])}</label><div class="micro">${esc(x[2])}</div></div>`).join('');}
-function renderTable(){let filtered=selectedRows();let el=document.getElementById('dataTable');el.innerHTML=filtered.map(x=>`<tr><td><b>${esc(x.label)}</b><br><span class="micro">${esc(x.cat)}</span></td><td><span class="tag ${x.scope==='ESF'?'local':''}">${esc(x.scope)}</span></td><td>${esc(x.year)}</td><td class="num"><b>${vshow(x.value,x.unit)}</b></td><td><a href="${esc(x.url||'#')}" target="_blank" rel="noopener noreferrer">${esc(x.source||'Fonte não informada')}</a>${x.quality==='Secundária'?'<br><span class="tag sec">Validar fonte primária</span>':''}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">Nenhum dado para este filtro.</td></tr>'}
+const mini=[['Pessoas com diabetes',value('Diabetes autodeclarado'),'Cadastro municipal · 2024'],['Insuficiência cardíaca',value('Insuficiência cardíaca autodeclarada'),'Autodeclaração municipal · 2024'],['Absenteísmo vascular',value('Absenteísmo — consulta cirurgia vascular'),'Consultas especializadas · 2024','%']];document.getElementById('secondaryStats').innerHTML=mini.map(x=>`<div class="statrow"><strong>${x[1]==null?'—':vshow(x[1],x[3])}</strong><span class="stat-label">${esc(x[0])}</span><div class="micro">${esc(x[2])}</div></div>`).join('');}
+function renderTable() {
+  const rows = selectedRows();
+  const count = rows.length;
+  const countLabel = count === 1 ? '1 registro' : `${count} registros`;
+  document.getElementById('resultCount').textContent = `${countLabel} de ${data.length}`;
+  document.getElementById('indicatorResults').hidden = count === 0;
+  document.getElementById('emptyResults').hidden = count !== 0;
+  csvButton.disabled = jsonButton.disabled = count === 0;
+  for (const link of shortcutLinks) {
+    if (link.dataset.scope === filters.scope.value) link.setAttribute('aria-current', 'true');
+    else link.removeAttribute('aria-current');
+  }
+  document.getElementById('dataTable').innerHTML = rows.map(row => {
+    const scopeClass = row.scope === 'ESF' ? 'local' : row.scope === 'Município' ? '' : 'context';
+    const typeClass = row.type === 'Meta' ? 'tag goal' : 'micro';
+    return `<tr role="row">
+      <th scope="row" role="rowheader">${esc(row.label)}<br><span class="micro">${esc(row.cat)}</span></th>
+      <td role="cell" data-label="Abrangência"><span class="tag ${scopeClass}">${esc(scopeLabels[row.scope])}</span></td>
+      <td role="cell" data-label="Período">${esc(row.year)}</td>
+      <td role="cell" class="num" data-label="Valor"><b>${vshow(row.value, row.unit)}</b><br><span class="${typeClass} row-type">${esc(typeLabels[row.type])}</span></td>
+      <td role="cell" data-label="Fonte"><a href="${esc(row.url)}" target="_blank" rel="noopener noreferrer">${esc(row.source)}</a></td>
+    </tr>`;
+  }).join('');
+}
 const rights=[['Incapacidade temporária','Auxílio por incapacidade temporária','Condição incapacitante para a atividade habitual; qualidade de segurado/carência ou isenção e comprovação conforme enquadramento.','INSS / Meu INSS'],['Incapacidade permanente','Aposentadoria por incapacidade permanente','Incapacidade sem possibilidade de reabilitação para atividade que garanta subsistência, além dos demais requisitos.','INSS'],['Impedimento de longo prazo e baixa renda','BPC à pessoa com deficiência','Avaliação biopsicossocial, renda familiar e CadÚnico, conforme requisitos legais; não exige contribuição.','CRAS + INSS'],['Idade rural','Aposentadoria por idade rural','Verificar idade, atividade rural e documentos de comprovação.','INSS'],['Afastamento e sequela de acidente','Auxílio-acidente e outras proteções','Auxílio-acidente não abrange automaticamente todas as categorias de segurado especial. Avaliar categoria e requisitos.','INSS / análise especializada'],['Tratamento e cirurgia pendentes','Acesso à saúde e continuidade do cuidado','Critérios clínicos de prioridade, situação na regulação, transporte e suporte familiar.','ESF / regulação / assistência social']];
 const questions=[['Essa roça é sua, da família ou você trabalha para alguém?','Diferencia o regime de trabalho sem inferir o enquadramento automaticamente.'],['Se você precisar ficar 30 dias sem trabalhar, quem consegue cuidar da produção?','Revela dependência de trabalho pessoal e possibilidade de apoio.'],['O que a doença impede você de fazer no trabalho habitual?','Permite descrever capacidade funcional com tarefas reais.'],['Você já recebe algum benefício ou fez pedido ao INSS?','Identifica proteção existente, requerimento negado ou ausência de solicitação.'],['Quem ajuda com transporte, cuidados e renda durante o afastamento?','Identifica barreiras à continuidade do tratamento.']];
 function renderRights(){document.getElementById('rightCards').innerHTML=rights.map(x=>`<div class="right"><b>${esc(x[1])}</b><small>${esc(x[0])}</small><div class="divider"></div><p class="mini">${esc(x[2])}</p><span class="tag">${esc(x[3])}</span></div>`).join('');document.getElementById('questionSteps').innerHTML=questions.map(x=>`<div class="step"><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join('');document.getElementById('rightsTable').innerHTML=rights.map(x=>`<tr><td>${esc(x[0])}</td><td>${esc(x[1])} — ${esc(x[2])}</td><td>${esc(x[3])}</td></tr>`).join('')}
-const sources=[['Plano Municipal de Saúde 2026–2029','Marechal Floriano · tabelas 14, 38, 39, 41, 50 e 56; dados 2024–2025.',gov26,'Oficial municipal'],['Plano Municipal de Saúde 2022–2025','Tabela 45, agosto de 2021, risco familiar da ESF Victor Hugo.',gov22,'Oficial municipal'],['Incaper · Proater Marechal Floriano','Censo Agropecuário 2017 e associações rurais 2020; tabelas 5 e quadro 1.',incaper,'Oficial estadual'],['SESA/ES · Boletim APS 2025','Avaliação multidimensional da pessoa idosa: indicadores municipais, produção de 2025 e metas estaduais.','https://atencaoprimaria.es.gov.br/Media/AtencaoPrimaria/LinhasDeCuidados/BOLETIM%20APS%202025%20-%20validado%20%2017%20de%20abril%202026.pdf','Oficial estadual'],['Câmara Municipal · Lei 2.937/2026','CMDI e instituição do Fundo Municipal do Idoso.','https://sapl.marechalfloriano.es.leg.br/norma/2982','Legislação municipal'],['DOM/ES · Decreto 446/2026','Regulamentação do Fundo Municipal do Idoso, edição 3.124.','https://ioes.dio.es.gov.br/portal/edicoes/download/11618','Legislação municipal'],['Validação de fontes oficiais','Indicadores confirmados e pendências por recorte e período.','https://github.com/joyceradis/AuditorES/blob/main/docs/fontes.md','Rastreabilidade'],['INSS · Serviços e benefícios','Orientação pública sobre segurado especial e benefícios por incapacidade.','https://www.gov.br/inss/pt-br','Referência normativa/serviços'],['MDS · Proteção social','BPC, Cadastro Único e orientações de assistência social.','https://www.gov.br/mds/pt-br','Referência normativa/serviços'],['IBGE · Cidades e Estados','População e perfil municipal; consultar município específico.','https://cidades.ibge.gov.br/','Fonte replicável']];
-function renderSources(){document.getElementById('sourceList').innerHTML=sources.map(x=>`<div class="source"><div><b>${esc(x[0])}</b><small>${esc(x[1])}</small><span class="tag">${esc(x[3])}</span></div><a href="${esc(x[2])}" target="_blank" rel="noopener noreferrer">Abrir fonte ↗</a></div>`).join('')}
+const olderAdultSources = [
+  ['SESA/ES · Boletim Estadual da APS 2025', 'Tabela de AMDI, p. 22. Base SISAB extraída em 11/02/2026, com população 60+ do Censo IBGE 2022.', amdiBulletin, 'Publicação estadual'],
+  ['Câmara Municipal · Lei nº 2.937/2026', 'Conselho Municipal de Defesa dos Direitos da Pessoa Idosa e instituição do Fundo Municipal do Idoso.', 'https://sapl.marechalfloriano.es.leg.br/norma/2982', 'Legislação municipal'],
+  ['DOM/ES · Decreto nº 446/2026', 'Edição 3.124, p. 148. Regulamentação do Fundo Municipal do Idoso.', 'https://ioes.dio.es.gov.br/portal/edicoes/download/11618#page=148', 'Legislação municipal'],
+  ['DOM/ES · Resolução CMDI nº 031/2026', 'Edição 3.132, p. 200, de 23/11/2026. Calendário ordinário de 2027.', 'https://ioes.dio.es.gov.br/portal/edicoes/download/11656#page=200', 'Ato do CMDI']
+];
+const sources = [
+  ['Plano Municipal de Saúde 2026–2029', 'Tabelas 14, 38, 39, 41, 50 e 56; dados de 2020 a 2025.', gov26, 'Publicação municipal'],
+  ['Plano Municipal de Saúde 2022–2025', 'Tabela 45, agosto de 2021, risco familiar da ESF Victor Hugo.', gov22, 'Publicação municipal'],
+  ['Incaper · Proater Marechal Floriano', 'Censo Agropecuário 2017 e associações rurais 2020; tabela 5 e quadro 1.', incaper, 'Publicação estadual'],
+  ['IBGE · Marechal Floriano', 'Censo 2022 e estimativa populacional municipal de 2026.', 'https://www.ibge.gov.br/cidades-e-estados/es/marechal-floriano.html', 'Publicação federal'],
+  ['IBGE · SIDRA', 'Consulta da população residente no Censo 2022, tabela 4714, variável 93, município 3203346.', 'https://apisidra.ibge.gov.br/values/t/4714/n6/3203346/v/93/p/2022', 'Base de dados'],
+  ...olderAdultSources,
+  ['INSS · Serviços e benefícios', 'Orientação pública sobre segurado especial e benefícios por incapacidade.', 'https://www.gov.br/inss/pt-br', 'Referência de serviços'],
+  ['MDS · Proteção social', 'BPC, Cadastro Único e orientações de assistência social.', 'https://www.gov.br/mds/pt-br', 'Referência de serviços'],
+  ['Trilha de conferência do AuditorES', 'Método de reprodução, recortes e pendências por período.', 'https://github.com/joyceradis/AuditorES/blob/main/docs/fontes.md', 'Documentação do projeto']
+];
+function renderSourceList(id, entries) {
+  document.getElementById(id).innerHTML = entries.map(([title, description, url, type]) =>
+    `<article class="source"><div><a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(title)}</a><small>${esc(description)}</small></div><span class="tag">${esc(type)}</span></article>`
+  ).join('');
+}
+function renderSources() {
+  renderSourceList('sourceList', sources);
+  renderSourceList('olderAdultSources', olderAdultSources);
+}
 const repl=[['Definir unidade territorial','Município, distrito, ESF, microárea e data do levantamento. Não misturar bases territoriais.'],['Ler PMS/PAS/RAG','Planos e relatórios municipais de saúde: população, cadastros, crônicos, regulação, acidentes e produção.'],['Conferir e-SUS APS/CNES/DATASUS','Solicitar agregados atualizados à coordenação e checar o cadastro da equipe, notificações e série histórica.'],['Verificar estrutura produtiva','IBGE Censo Agropecuário, Incaper/Proater, RAIS/CAGED quando pertinente e associações locais.'],['Medir proteção social','MDS (BPC, Bolsa Família, CadÚnico), INSS/BEPS e dados agregados oficiais; distinguir cobertura e elegibilidade.'],['Pessoa idosa e governança','Consultar boletim AMDI da SESA, produção por equipe, CMDI, legislação do FMI, plano de aplicação e prestação de contas. Distinguir competência, meta e execução.'],['Mapear barreiras ao tratamento','Fila de regulação, absenteísmo, transporte, visitas domiciliares, equipe multiprofissional e serviço social.'],['Construir linha de cuidado','Definir quem rastreia necessidade, quem documenta, quem orienta requerimento e como acompanhar o desfecho.'],['Auditar o relatório','Documentar fonte, ano, unidade, denominador, limitações e hipótese a testar. Excluir dados pessoais.']];
 document.getElementById('replicationSteps').innerHTML=repl.map(x=>`<div class="step"><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join('');
-const navigation = [...document.querySelectorAll(".nav[data-tab]")];
-function selectSection(focusHeading = false) {
-  const current = navigation.find(link => link.hash === location.hash) || navigation[0];
-  for (const link of navigation) {
-    const active = link === current;
-    link.classList.toggle("active", active);
-    if (active) link.setAttribute("aria-current", "page");
-    else link.removeAttribute("aria-current");
-    const panel = document.getElementById("screen-" + link.dataset.tab);
-    panel.classList.toggle("active", active);
-    if (active && focusHeading) {
-      const heading = panel.querySelector("h1");
+const sections = [...document.querySelectorAll('.atlas-nav [data-tab]')].map(link => ({
+  link,
+  panel: document.getElementById('screen-' + link.dataset.tab)
+}));
+
+function selectSection(moveFocus = false) {
+  const target = document.getElementById(location.hash.slice(1));
+  const current = sections.find(({ panel }) => target && panel.contains(target)) || sections[0];
+  for (const section of sections) {
+    const active = section === current;
+    section.panel.hidden = !active;
+    if (active) section.link.setAttribute('aria-current', 'location');
+    else section.link.removeAttribute('aria-current');
+  }
+  if (target?.closest('.screen') && target.closest('.screen') === current.panel) {
+    const heading = target.matches('h2, h3') ? target : target.querySelector('h2, h3');
+    if (heading && moveFocus) {
       heading.tabIndex = -1;
       heading.focus({ preventScroll: true });
     }
+    target.scrollIntoView({ block: 'start' });
   }
-  if (focusHeading) window.scrollTo(0, 0);
 }
-window.addEventListener("hashchange", () => selectSection(true));
-selectSection();
-function download(name,text,type){const blob=new Blob([text],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
-function exportJSON(){download('atlas_'+slug(profile.city||'municipio')+'.json',JSON.stringify({schema:'atlas-protecao-social-v1',exported_at:new Date().toISOString(),profile,filters:{category:document.getElementById('catFilter').value,scope:document.getElementById('scopeFilter').value},data:selectedRows()},null,2),'application/json;charset=utf-8')}
-function slug(x){return x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'')}
-function exportCSV(){let header=['indicador','valor','categoria','abrangencia','periodo','unidade','fonte','url','qualidade'];let rows=selectedRows().map(x=>[x.label,x.value,x.cat,x.scope,x.year,x.unit,x.source,x.url,x.quality]);let csv='\uFEFF'+[header,...rows].map(row=>row.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(';')).join('\r\n');download('indicadores_'+slug(profile.city||'municipio')+'.csv',csv,'text/csv;charset=utf-8')}
+
+window.addEventListener('hashchange', () => selectSection(true));
+window.addEventListener('popstate', () => {
+  readFilters();
+  renderTable();
+});
+
+function download(name, content, type) {
+  const url = URL.createObjectURL(new Blob([content], { type }));
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = name;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function slug(text) {
+  return normalize(text).replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
+}
+
+function exportJSON() {
+  const report = {
+    schema: 'atlas-protecao-social-v1',
+    exported_at: new Date().toISOString(),
+    profile,
+    filters: currentFilters(),
+    data: selectedRows()
+  };
+  download('atlas_' + slug(profile.city) + '.json', JSON.stringify(report, null, 2), 'application/json;charset=utf-8');
+}
+
+function exportCSV() {
+  const header = ['indicador', 'valor', 'categoria', 'abrangencia', 'periodo', 'unidade', 'fonte', 'url', 'qualidade', 'tipo'];
+  const rows = selectedRows().map(row => [
+    row.label, row.value, row.cat, row.scope, row.year, row.unit, row.source, row.url, row.quality, row.type
+  ]);
+  const csv = '\uFEFF' + [header, ...rows].map(row =>
+    row.map(value => '"' + String(value ?? '').replaceAll('"', '""') + '"').join(';')
+  ).join('\r\n');
+  download('indicadores_' + slug(profile.city) + '.csv', csv, 'text/csv;charset=utf-8');
+}
+
+csvButton.addEventListener('click', exportCSV);
+jsonButton.addEventListener('click', exportJSON);
+document.getElementById('printReport').addEventListener('click', () => window.print());
 function copyQuestions(){let txt=questions.map((x,i)=>(i+1)+'. '+x[0]).join('\n');if(navigator.clipboard){navigator.clipboard.writeText(txt).then(()=>alert('Perguntas copiadas.'),()=>prompt('Copie as perguntas:',txt))}else prompt('Copie as perguntas:',txt)}
 render();
+selectSection();
 </script>
 </body>
 </html>

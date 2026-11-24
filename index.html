@@ -3,59 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101721">
+  <meta name="theme-color" content="#123453">
   <meta name="description" content="Explore os municípios, os eixos de análise e as fontes do AuditorES, projeto de inteligência em saúde pública no Espírito Santo.">
   <title>AuditorES | Inteligência em saúde pública</title>
+  <link rel="stylesheet" href="assets/public.css">
   <style>
-    :root {
-      color-scheme: light;
-      --nav: #101721;
-      --nav-surface: #1a2734;
-      --nav-muted: #b7c7d2;
-      --ink: #152230;
-      --muted: #4d6070;
-      --paper: #f6f4ee;
-      --surface: #fffefa;
-      --line: #c8d0d3;
-      --accent: #e8a45f;
-      --focus: #155c9e;
-      font: 100%/1.5 "DM Sans", system-ui, sans-serif;
-      color: var(--ink);
-      background: var(--paper);
-    }
-    * { box-sizing: border-box; }
-    body { margin: 0; }
-    h1, h2, h3, h4, p { margin: 0; }
-    h1, h2, h3, h4 { line-height: 1.14; letter-spacing: -.035em; }
-    h1 { font-size: clamp(2.65rem, 7vw, 5rem); text-wrap: balance; }
-    h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
-    h3 { font-size: 1.18rem; }
-    h4 { font-size: 1.08rem; }
-    p { max-width: 65ch; }
-    a { color: var(--focus); text-underline-offset: .2em; }
-    :focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
-    [id] { scroll-margin-block-start: 1.25rem; }
-    .shell { width: min(72rem, calc(100% - 2.5rem)); margin-inline: auto; }
-    .skip { position: absolute; z-index: 2; inset: .5rem auto auto .5rem; transform: translateY(-200%); padding: .65rem .9rem; background: var(--surface); }
-    .skip:focus { transform: none; }
-    .masthead, .hero { background: var(--nav); color: #f8fbfd; }
-    .masthead { border-bottom: 1px solid #334352; }
-    .masthead :focus-visible, .hero :focus-visible { outline-color: var(--accent); }
-    .header-inner { display: flex; min-height: 4.5rem; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .4rem 2rem; }
-    .brand { display: inline-flex; align-items: center; gap: .65rem; color: inherit; text-decoration: none; font-size: 1.35rem; font-weight: 780; letter-spacing: -.04em; }
-    .brand-mark { display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border-radius: .3rem; background: var(--accent); color: var(--nav); font-size: 1rem; }
-    .brand-accent { color: var(--accent); }
-    .main-nav { display: flex; flex-wrap: wrap; gap: .15rem 1.3rem; font-size: .9rem; font-weight: 650; }
-    .main-nav a { display: inline-flex; min-height: 2.75rem; align-items: center; color: #dce6ee; text-decoration: none; }
-    .main-nav a:hover { text-decoration: underline; }
+    h2, h3, p { margin: 0; }
     .hero-inner { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, .8fr); gap: clamp(2rem, 6vw, 6rem); align-items: center; padding-block: clamp(2.75rem, 6vw, 5.5rem); }
-    .geography { color: var(--accent); font-size: .85rem; font-weight: 750; letter-spacing: .06em; margin-bottom: .8rem; }
+    .geography { color: var(--pink); font-size: .85rem; font-weight: 750; letter-spacing: .06em; margin-bottom: .8rem; }
     .hero-copy > p:not(.geography) { margin-top: 1.15rem; color: var(--nav-muted); font-size: clamp(1rem, 2vw, 1.17rem); }
-    .primary-link { display: inline-flex; gap: .8rem; align-items: center; margin-top: 1.35rem; padding: .75rem 1rem; border-radius: .35rem; background: var(--accent); color: var(--nav); text-decoration: none; font-weight: 750; }
-    .primary-link:hover { background: #f6bb80; }
-    .atlas-card { padding: 1.4rem; border: 1px solid #405060; border-radius: .45rem; background: var(--nav-surface); }
+    .primary-link { display: inline-flex; gap: .8rem; align-items: center; margin-top: 1.35rem; padding: .75rem 1rem; border-radius: .35rem; background: var(--pink); color: var(--nav); text-decoration: none; font-weight: 750; }
+    .primary-link:hover { background: #fff; }
+    .atlas-card { padding: 1.4rem; border: 1px solid #6889a4; border-radius: var(--radius); background: var(--nav-surface); }
     .atlas-card p { margin-block: .6rem; color: var(--nav-muted); }
-    .atlas-card a { color: var(--accent); }
+    .atlas-card a { color: var(--pink); }
     .section { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
     .section-intro { margin-bottom: 1.55rem; }
     .section-intro p { margin-top: .6rem; color: var(--muted); }
@@ -64,10 +25,10 @@
     .municipality[open] { border-color: #8193a0; }
     summary { display: grid; grid-template-columns: minmax(0, 1fr) 2rem; gap: .35rem .75rem; align-items: center; padding: 1.15rem; list-style: none; border-radius: .5rem; cursor: pointer; }
     summary::-webkit-details-marker { display: none; }
-    summary:hover { background: #edf2f4; }
+    summary:hover { background: var(--blue-light); }
     .municipality-name { grid-column: 1; font-weight: 780; font-size: 1.25rem; letter-spacing: -.025em; }
     .axis-name { grid-column: 1; color: var(--muted); font-size: .875rem; }
-    .disclosure { grid-column: 2; grid-row: 1 / span 2; display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border: 1px solid #8193a0; border-radius: 50%; color: var(--focus); font-size: 1.2rem; }
+    .disclosure { grid-column: 2; grid-row: 1 / span 2; display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border: 1px solid #8193a0; border-radius: 50%; color: var(--nav); font-size: 1.2rem; }
     .disclosure::before { content: "+"; }
     details[open] .disclosure::before { content: "−"; }
     .municipality-content { border-top: 1px solid var(--line); margin-inline: 1.15rem; padding-block: 1rem 1.2rem; }
@@ -78,13 +39,12 @@
     .scope-type { display: block; margin-bottom: .25rem; color: var(--muted); font-size: .83rem; font-weight: 700; }
     .source-link { display: inline-flex; align-items: center; min-height: 2.75rem; font-weight: 650; }
     .scope-links { display: flex; flex-wrap: wrap; column-gap: 1rem; }
-    .method { background: #eaf0f2; border-block: 1px solid var(--line); }
+    .method { background: var(--blue-light); border-block: 1px solid var(--line); }
     .method-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem 2rem; margin: 0; }
     .method-grid div { border-top: 1px solid #8193a0; padding-top: .75rem; }
     .method-grid dt { font-weight: 750; }
     .method-grid dd { margin: .25rem 0 0; color: var(--muted); }
     .access p { margin-block: .65rem .35rem; color: var(--muted); }
-    .footer { border-top: 1px solid var(--line); padding-block: 1.25rem; color: var(--muted); font-size: .875rem; }
     @media (max-width: 48rem) {
       .hero-inner { grid-template-columns: 1fr; gap: 1.65rem; }
       .atlas-card { max-width: 32rem; }
@@ -101,30 +61,33 @@
   <a class="skip" href="#conteudo">Ir para o conteúdo</a>
   <header class="masthead">
     <div class="shell header-inner">
-      <a class="brand" href="./" aria-label="Página inicial AuditorES">
+      <a class="brand" href="./">
         <span class="brand-mark" aria-hidden="true">A.</span>
         <span>Auditor<span class="brand-accent">ES</span></span>
       </a>
       <nav class="main-nav" aria-label="Navegação principal">
-        <a href="#territorios">Municípios</a>
+        <a href="municipios/">Municípios</a>
         <a href="municipios/marechal-floriano/">ATLAS</a>
         <a href="#metodo">Metodologia</a>
       </nav>
     </div>
   </header>
   <main id="conteudo" tabindex="-1">
-    <header class="hero">
+    <header class="portal-hero">
       <div class="shell hero-inner">
         <div class="hero-copy">
           <p class="geography">Espírito Santo</p>
           <h1>Inteligência em saúde pública</h1>
           <p>Consulte o que está disponível por município em auditoria de contratos assistenciais e inteligência territorial.</p>
-          <a class="primary-link" href="#territorios">Explorar municípios <span aria-hidden="true">↓</span></a>
+          <a class="primary-link" href="municipios/">Explorar municípios <span aria-hidden="true">→</span></a>
         </div>
         <section class="atlas-card" aria-labelledby="atlas-titulo">
           <h2 id="atlas-titulo">ATLAS de Marechal Floriano</h2>
-          <p>Indicadores públicos do município e da ESF Victor Hugo, com filtros e fontes.</p>
-          <a class="source-link" href="municipios/marechal-floriano/">Abrir o ATLAS <span aria-hidden="true"> ↗</span></a>
+          <p>Indicadores do município e da ESF Victor Hugo, com um eixo dedicado à saúde e aos direitos da pessoa idosa.</p>
+          <div class="scope-links">
+            <a class="source-link" href="municipios/marechal-floriano/">Abrir o ATLAS <span aria-hidden="true"> →</span></a>
+            <a class="source-link" href="municipios/marechal-floriano/#pessoa-idosa">CMDI e AMDI</a>
+          </div>
         </section>
       </div>
     </header>
@@ -133,7 +96,7 @@
       <div class="shell">
         <div class="section-intro">
           <h2 id="municipios-titulo">Municípios</h2>
-          <p>Abra um município para consultar o eixo e os recortes apresentados na vitrine.</p>
+          <p>Confira o escopo de cada estudo ou <a href="municipios/">acesse o catálogo de municípios</a>.</p>
         </div>
         <div class="municipalities">
           <details class="municipality" id="vitoria">
@@ -183,7 +146,7 @@
               <span class="disclosure" aria-hidden="true"></span>
             </summary>
             <div class="municipality-content">
-              <p>O eixo reúne estudos sobre saúde do trabalhador rural, acesso à assistência e proteção previdenciária.</p>
+              <p>O eixo reúne estudos sobre saúde do trabalhador rural, acesso à assistência, proteção previdenciária e direitos da pessoa idosa.</p>
               <ul class="scope-list">
                 <li id="recorte-municipal">
                   <span class="scope-type">Território</span>
@@ -198,7 +161,8 @@
               </ul>
               <div class="scope-links">
                 <a class="source-link" href="municipios/marechal-floriano/">Consultar o ATLAS público</a>
-                <a class="source-link" href="https://github.com/joyceradis/AuditorES/blob/main/docs/fontes.md">Consultar fontes públicas de Marechal Floriano</a>
+                <a class="source-link" href="municipios/marechal-floriano/#pessoa-idosa">Pessoa idosa, CMDI e AMDI</a>
+                <a class="source-link" href="municipios/marechal-floriano/#fontes">Consultar fontes públicas de Marechal Floriano</a>
               </div>
             </div>
           </details>
@@ -226,7 +190,7 @@
       <a class="source-link" href="https://github.com/joyceradis/AuditorES">Ver projeto no GitHub</a>
     </section>
   </main>
-  <footer class="footer">
+  <footer class="site-footer">
     <div class="shell">AuditorES · Inteligência pública no Espírito Santo</div>
   </footer>
   <script>
