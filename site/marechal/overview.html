@@ -1,0 +1,50 @@
+<section class="screen" id="screen-overview" aria-labelledby="visao-geral">
+  <div class="atlas-section-intro">
+    <div>
+      <h2 id="visao-geral">Visão geral</h2>
+      <p class="lead">Um ponto de partida para entender o território.</p>
+    </div>
+    <form class="quick-search" action="./#indicadores" method="get" role="search" aria-label="Buscar na base de Marechal Floriano">
+      <label class="sr-only" for="overviewSearch">Buscar nos indicadores de saúde</label>
+      <div>
+        <input type="search" id="overviewSearch" name="q" placeholder="Buscar um indicador" maxlength="120" required>
+        <button class="btn strong" type="submit">Buscar</button>
+      </div>
+    </form>
+  </div>
+  <div class="kpis" id="kpis"></div>
+  <div class="split overview-charts">
+    <article class="card">
+      <div class="between"><h3>Acidentes de trabalho notificados</h3><span class="pill" id="accTag">Município · 2020–24</span></div>
+      <p class="hint">Notificações do e-SUS Vigilância. Mudanças no registro podem explicar parte da variação.</p>
+      <div class="plot" id="accChart"></div>
+      <p class="mini">Notificações não equivalem a trabalhadores únicos nem a benefícios previdenciários devidos.</p>
+    </article>
+    <article class="card">
+      <div class="between"><h3>Estratificação familiar</h3><span class="pill pill-local">ESF · 2021</span></div>
+      <p class="hint">Escala Coelho-Savassi. Os dados são históricos e podem ser atualizados com a coordenação e os ACS.</p>
+      <div id="riskBars"></div>
+      <div class="divider"></div>
+      <p class="mini" id="riskText"></p>
+    </article>
+  </div>
+  <div class="alert"><strong>Antes de comparar.</strong> Confira o recorte de cada medida. Evite somar populações, usar dados municipais para estimar prevalência na ESF ou interpretar notificações como incidência.</div>
+  <a class="overview-feature" href="#pessoa-idosa">
+    <span><strong>Pessoa idosa, CMDI e AMDI</strong><small>Resultado municipal de 2025 e atos do Conselho.</small></span>
+    <span aria-hidden="true">↗</span>
+  </a>
+  <div class="sectionHead"><div><h3>Perguntas que os dados levantam</h3><p>Interpretação epidemiológica para o território.</p></div></div>
+  <div class="grid2">
+    <article class="card">
+      <span class="category">Estrutura produtiva</span><h3>Agricultura familiar e dependência do trabalho</h3>
+      <p class="mini" id="farmText">O predomínio da agricultura familiar no município justifica investigar como a perda de capacidade funcional interfere na renda e na continuidade do tratamento.</p>
+    </article>
+    <article class="card">
+      <span class="category">Coordenação do cuidado</span><h3>Barreiras à consulta especializada</h3>
+      <p class="mini">Absenteísmo e avaliação de HbA1c ajudam a formular hipóteses sobre continuidade assistencial. É preciso investigar causas locais de faltas antes de atribuí-las ao trabalho.</p>
+    </article>
+  </div>
+  <div class="sectionHead"><div><h3>Acesso e condições de saúde em 2024</h3><p>O recorte destas medidas é municipal.</p></div></div>
+  <div class="statrows" id="secondaryStats"></div>
+  <p class="footnote">Painel de diagnóstico situacional. Consulte a metodologia para reproduzir o levantamento. Dados publicados em anos diferentes e sujeitos a revisão. Não utilizar para identificação de pacientes ou prospecção comercial.</p>
+</section>

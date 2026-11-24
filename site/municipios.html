@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Municípios do Espírito Santo | AuditorES</title>
+  <meta name="description" content="Encontre o município para consultar indicadores de atenção primária, contratos de saúde e fontes oficiais.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="../assets/public.css?v=20261123-2">
+  <link rel="stylesheet" href="../assets/municipios.css?v=20261124">
+  <script type="module" src="../assets/municipios-catalogo.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#conteudo">Ir para o conteúdo</a>
+  <header class="masthead">
+    <div class="shell header-inner">
+      <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span>AuditorES</span></a>
+      <nav class="main-nav" aria-label="Navegação principal"><a href="../">Início</a><a href="./" aria-current="page">Municípios</a><a href="../#metodo">Metodologia</a></nav>
+    </div>
+  </header>
+  <main class="shell municipal-main" id="conteudo" tabindex="-1">
+    <header class="municipal-intro">
+      <h1>Municípios</h1>
+      <p class="lead">Escolha um dos ${total} municípios do Espírito Santo para consultar atenção primária, contratos e fontes.</p>
+    </header>
+    <div class="municipal-index-bar" id="auditoria">
+      <div class="municipal-search" hidden>
+        <label for="municipioBusca">Buscar município</label>
+        <input id="municipioBusca" type="search" placeholder="Escreva o nome do município" autocomplete="off">
+      </div>
+      <p id="municipiosContagem" role="status">${total} municípios</p>
+    </div>
+    <ul id="municipiosLista" class="municipal-index" role="list">${municipios}</ul>
+    <p id="municipiosVazio" class="municipal-index-empty" hidden>Nenhum município encontrado. Confira o nome ou tente outra busca.</p>
+    <p class="municipal-index-credit"><a href="${fonte}">Lista oficial de municípios do IBGE</a></p>
+  </main>
+  <footer class="site-footer"><div class="shell"><span>AuditorES · Projeto independente no Espírito Santo</span><a href="../#metodo">Metodologia</a></div></footer>
+</body>
+</html>

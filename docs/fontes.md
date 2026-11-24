@@ -19,7 +19,11 @@ Os recortes de residência, órgão pagador, estabelecimento e equipe têm abran
 
 Use os [agregados municipais](dados-publicos/marechal-floriano-municipio.json) no recorte Município e os [agregados da equipe](dados-publicos/marechal-floriano-victor-hugo.json) no recorte ESF Victor Hugo. O código CNES é mantido na documentação como referência cadastral. A área de trabalho inicia com banco vazio e recebe estes conjuntos por importação autorizada.
 
-## Trilha dos indicadores do ATLAS
+## Fontes comuns aos municípios
+
+O catálogo usa [a lista de municípios do Espírito Santo do IBGE](https://servicodados.ibge.gov.br/api/v1/localidades/estados/32/municipios). As páginas municipais oferecem referências de partida para [Atenção Primária na SESA](https://atencaoprimaria.es.gov.br/Publicacoes), [estabelecimentos no CNES](https://cnes.datasus.gov.br/) e [contratações no PNCP](https://www.gov.br/pncp/pt-br). O [Boletim Estadual da APS 2025](https://atencaoprimaria.es.gov.br/Media/AtencaoPrimaria/LinhasDeCuidados/BOLETIM%20APS%202025%20-%20validado%20%2017%20de%20abril%202026.pdf) é uma referência comum para temas como cobertura, equipes e avaliação da pessoa idosa. Cada ficha publicada aponta para a evidência da respectiva medida.
+
+## Trilha dos indicadores de Marechal Floriano
 
 A tabela do painel registra o recorte, a competência e a referência de cada observação. Estas conferências usam a numeração impressa dos planos municipais.
 
@@ -36,7 +40,7 @@ A tabela do painel registra o recorte, a competência e a referência de cada ob
 
 ## Recortes navegáveis e exportação
 
-O ATLAS tem links diretos para [indicadores municipais](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/?scope=municipio#indicadores) e [indicadores da ESF Victor Hugo](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/?scope=victor-hugo#indicadores). O filtro inicial aplica-se à tabela e aos arquivos CSV/JSON exportados; a visão geral oferece contextualização com escopos explicitamente identificados. A estimativa IBGE de 2026 e a população censitária de 2022 são indicadores diferentes.
+Dados e fontes de Marechal Floriano tem links diretos para [indicadores municipais](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/?scope=municipio#indicadores) e [indicadores da ESF Victor Hugo](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/?scope=victor-hugo#indicadores). O filtro inicial aplica-se à tabela e aos arquivos CSV/JSON exportados. A visão geral identifica o escopo de cada medida. A estimativa IBGE de 2026 e a população censitária de 2022 são indicadores diferentes.
 
 ## Pessoa idosa, CMDI e Fundo Municipal do Idoso
 

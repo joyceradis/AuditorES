@@ -1,0 +1,46 @@
+<section class="screen" id="screen-dados" aria-labelledby="indicadores">
+  <div id="aps" aria-hidden="true"></div>
+  <h2 id="indicadores">Indicadores</h2>
+  <p class="info" id="missingEvidence" role="status" hidden>Ficha indisponível. Use a busca abaixo para localizar o indicador.</p>
+  <p class="lead">Use os filtros para encontrar um indicador. Abra a ficha para consultar a fonte e entender a medida.</p>
+  <nav class="scope-selector" aria-label="Atalhos de recorte">
+    <a class="btn" href="./#indicadores" data-scope="">Todos os recortes</a>
+    <a class="btn" href="?scope=municipio#indicadores" data-scope="Município">Município</a>
+    <a class="btn" href="?scope=victor-hugo#indicadores" data-scope="ESF">ESF Victor Hugo</a>
+  </nav>
+  <form class="filter-card" id="indicatorFilters" aria-label="Filtrar indicadores">
+    <div class="formGrid">
+      <div class="field search"><label for="searchFilter">Buscar indicadores</label><input type="search" id="searchFilter" placeholder="Ex.: AMDI, risco, diabetes" maxlength="120"></div>
+      <div class="field"><label for="scopeFilter">Abrangência</label><select id="scopeFilter"><option value="">Todas</option></select></div>
+      <div class="field"><label for="catFilter">Categoria</label><select id="catFilter"><option value="">Todas</option></select></div>
+      <div class="field"><label for="yearFilter">Ano</label><select id="yearFilter"><option value="">Todos</option></select></div>
+      <div class="field"><label for="typeFilter">Tipo de dado</label><select id="typeFilter"><option value="">Todos</option></select></div>
+    </div>
+  </form>
+  <div class="result-bar">
+    <p id="resultCount" role="status" aria-live="polite"></p>
+    <div class="toolbar">
+      <button type="button" class="btn" data-clear>Limpar filtros</button>
+      <button type="button" class="btn" id="exportCSV" disabled>Exportar CSV</button>
+      <button type="button" class="btn" id="exportJSON" disabled>Exportar JSON</button>
+    </div>
+  </div>
+  <div class="tableWrap" id="indicatorResults" hidden>
+    <table class="indicator-table" role="table">
+      <caption class="sr-only">Indicadores de saúde com os filtros aplicados</caption>
+      <thead role="rowgroup"><tr role="row"><th scope="col" role="columnheader">Indicador</th><th scope="col" role="columnheader">Abrangência</th><th scope="col" role="columnheader">Período</th><th scope="col" role="columnheader" class="num">Valor</th><th scope="col" role="columnheader">Evidência</th></tr></thead>
+      <tbody role="rowgroup" id="dataTable"></tbody>
+    </table>
+  </div>
+  <nav class="pager" id="resultsPager" aria-label="Paginação dos indicadores" hidden>
+    <button type="button" class="btn" id="previousPage">Anterior</button>
+    <span id="pagePosition" role="status"></span>
+    <button type="button" class="btn" id="nextPage">Próxima</button>
+  </nav>
+  <div class="empty" id="emptyResults" hidden>
+    <strong>Nenhum registro encontrado</strong>
+    <p>Altere a busca ou limpe os filtros para ver todos os registros.</p>
+    <button type="button" class="btn" data-clear>Ver todos os indicadores</button>
+  </div>
+  <p class="footnote">Os arquivos CSV e JSON incluem todos os registros que correspondem aos filtros, em todas as páginas. Cada indicador tem seu próprio denominador. <a href="#fontes">Consulte as fontes e os limites.</a></p>
+</section>

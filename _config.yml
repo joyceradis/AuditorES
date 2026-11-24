@@ -1,8 +1,9 @@
-# A publicação por branch do GitHub Pages usa o Jekyll na raiz.
+# Proteção adicional caso a origem do Pages seja alterada. A publicação oficial usa o build do Actions.
 exclude:
   - auditor/
   - docs/
   - scripts/
+  - site/
   - tests/
   - package.json
   - package-lock.json

@@ -280,3 +280,30 @@
     padding: 20px;
   }
 }
+
+.municipal-index-bar { display: flex; align-items: end; gap: .8rem 1.3rem; flex-wrap: wrap; justify-content: space-between; margin: 0 0 1rem; }
+.municipal-index-bar p { margin: 0 0 .48rem; font-size: .88rem; color: var(--muted); }
+.municipal-search { flex: 1 1 15rem; max-width: 23rem; }
+.municipal-search label { display: block; margin: 0 0 .35rem; font-size: .84rem; font-weight: 630; }
+.municipal-search input { width: 100%; min-height: 2.75rem; border: 1px solid var(--control-line); border-radius: var(--corner); padding: .5rem .65rem; color: var(--ink); background: var(--surface); }
+.municipal-index { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .55rem; margin: 0; padding: 0; list-style: none; }
+.municipal-index a { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-content: center; height: 100%; min-height: 4.4rem; padding: .6rem .85rem; border: 1px solid var(--line); border-radius: var(--corner); text-decoration: none; }
+.municipal-index a:hover { border-color: var(--control-line); background: var(--surface-muted); }
+.municipal-index a strong { color: var(--ink); font-size: .91rem; font-weight: 650; }
+.municipal-index a span:not(.municipal-index-arrow) { grid-column: 1; color: var(--muted); font-size: .77rem; }
+.municipal-index-arrow { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+.municipal-index-empty, .municipal-index-credit { color: var(--muted); }
+.municipal-index-empty { padding: 1rem; background: var(--surface-muted); border-radius: var(--corner); }
+.municipal-index-credit { margin-top: 1.5rem; font-size: .83rem; }
+.municipal-choices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
+.municipal-choices a { color: var(--ink); text-decoration: none; }
+.municipal-choices a:hover { border-color: var(--control-line); background: var(--surface-muted); }
+.municipal-choices p, .municipal-pending p, .municipal-sources p { color: var(--muted); }
+.municipal-pending { margin-top: 1rem; background: var(--surface-muted); }
+.municipal-pending h3 { margin-bottom: .55rem; }
+.municipal-sources { margin-block: 1.6rem .5rem; }
+.municipal-sources ul { display: grid; gap: .55rem; margin: .9rem 0 0; padding: 0; list-style: none; }
+.municipal-sources li { padding: .7rem .85rem; border: 1px solid var(--line); border-radius: var(--corner); overflow-wrap: anywhere; }
+.municipal-sources li p { margin: .24rem 0 0; font-size: .85rem; }
+@media (max-width: 52rem) { .municipal-index { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 36rem) { .municipal-index, .municipal-choices { grid-template-columns: minmax(0, 1fr); } }

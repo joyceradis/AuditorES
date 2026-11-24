@@ -1,27 +1,24 @@
 # AuditorES
 
-Auditoria técnico-documental de contratos assistenciais e inteligência territorial em saúde pública no Espírito Santo.
+Governança de dados em saúde pública no Espírito Santo. O AuditorES reúne indicadores, fontes e acompanhamento documental de contratos assistenciais.
 
-- [Vitrine pública](https://joyceradis.github.io/AuditorES/) para encontrar municípios e recortes.
-- [ATLAS de Marechal Floriano](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/) com busca, fichas de evidência e links para documentos originais.
+- [Catálogo dos 78 municípios](https://joyceradis.github.io/AuditorES/municipios/) com uma estrutura comum de consulta.
+- [Dados e fontes de Marechal Floriano](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/) com busca, fichas de evidência e links para documentos originais.
 - [Indicadores municipais](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/?scope=municipio#indicadores) e [indicadores da ESF Victor Hugo](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/?scope=victor-hugo#indicadores), com exportação conforme filtros selecionados.
 - [Pessoa idosa, CMDI e AMDI](https://joyceradis.github.io/AuditorES/municipios/marechal-floriano/#pessoa-idosa), com o resultado municipal, a meta estadual e o que ainda requer evidência.
 - [Área de trabalho autenticada](docs/operacao.md#área-de-trabalho) para operar localmente ou em infraestrutura própria.
 
-## Municípios e recortes
+## O que está publicado
 
-| Município | Eixo | Escopo apresentado |
-| --- | --- | --- |
-| Vitória | Auditoria de OS | PA São Pedro como unidade de referência |
-| Serra | Auditoria de OS | Mapeamento documental em estruturação |
-| Colatina | Auditoria de OS | Mapeamento documental em estruturação |
-| Marechal Floriano | Inteligência territorial | Município e ESF Victor Hugo |
+Todas as páginas municipais têm visão geral, Atenção Primária (APS), contratos e organizações sociais (OS), e fontes e limites. Quando uma seção ainda aguarda dados revisados, a página informa que está em construção e oferece as referências disponíveis.
+
+Marechal Floriano tem 37 fichas em recortes municipais, da ESF Victor Hugo e de contexto. Vitória tem [o roteiro de conferência do PA São Pedro](https://joyceradis.github.io/AuditorES/municipios/vitoria/#contratos), com a execução contratual pendente de documentação.
 
 ## Código e documentação
 
 | Caminho | Conteúdo |
 | --- | --- |
-| [index.html](index.html) e [municipios/](municipios/) | Páginas públicas e rotas de compatibilidade |
+| [index.html](index.html) e [site/](site/) | Página inicial, modelo municipal, cadastro do IBGE e dados de publicação por município |
 | [auditor/](auditor/) | Servidor Python, SQLite e interface da área autenticada |
 | [docs/fontes.md](docs/fontes.md) | Fontes oficiais, recortes, competências e pendências |
 | [docs/operacao.md](docs/operacao.md) | Prévia local, configuração de contas, testes e publicação |

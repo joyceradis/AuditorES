@@ -9,7 +9,17 @@ bash scripts/build-pages.sh /tmp/auditores-vitrine
 python3 -m http.server --bind 127.0.0.1 --directory /tmp/auditores-vitrine 8000
 ```
 
-Use um diretório de saída vazio. O script usa uma lista explícita das páginas e dos arquivos estáticos. O GitHub Pages recebe o mesmo pacote, criado pelo GitHub Actions a partir de `main` depois dos testes. A importação de observações fica na área de trabalho autenticada.
+Use um diretório de saída vazio. O script gera o catálogo e as 78 rotas municipais, inclui a página inicial e copia os arquivos estáticos autorizados. O GitHub Pages recebe o mesmo pacote, criado pelo GitHub Actions a partir de `main` depois dos testes. A importação de observações fica na área de trabalho autenticada.
+
+## Atualização das páginas municipais
+
+[O cadastro municipal](../site/municipios.json) fornece o nome, o identificador IBGE e o endereço de cada cidade. [O modelo compartilhado](../site/municipio.html) gera as páginas. Faça as atualizações editoriais em [estudos.json](../site/estudos.json), na entrada identificada pelo mesmo nome curto de cada rota, e monte o pacote novamente. Se a entrada ou a seção ainda estiver vazia, o modelo publica o estado em construção.
+
+- Em `indicadores`, cada registro tem `indicador`, `valor` numérico, `unidade`, `recorte`, `competencia`, `metodo` e `fonte` com `titulo` e `url` HTTPS.
+- Em `contratos.registros`, cada linha tem `obrigacao`, `previsto`, `comprovado`, `situacao` e `fonte` com `titulo` e `url` HTTPS. Use `instrumento`, `unidade` e `competencia` para identificar o recorte quando constarem na documentação.
+- Marechal Floriano inclui uma extensão com [fichas e filtros existentes](../assets/atlas-data.mjs). As abas, a estrutura da página e as fontes comuns vêm do mesmo modelo municipal.
+
+Antes de incluir uma observação pública, confira a fonte, o recorte, a competência e a pertinência do agregado para publicação. Registre zero somente quando o documento sustentar esse valor.
 
 ## Área de trabalho
 

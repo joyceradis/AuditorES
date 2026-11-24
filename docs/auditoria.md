@@ -1,5 +1,13 @@
 # Auditoria do AuditorES · 23/11/2026
 
+## Estrutura municipal · 24/11/2026
+
+O catálogo e as páginas dos 78 municípios são gerados pelo mesmo modelo, com nomes e identificadores do IBGE. A navegação compartilhada cobre visão geral, APS, contratos e OS, e fontes e limites. A publicação de um indicador registra fonte, competência e recorte. As seções à espera de dados revisados mostram esse estado. Marechal Floriano preserva as 37 fichas, os links e a exportação existentes.
+
+O acompanhamento do PA São Pedro usa o fluxo de unidade, contrato, competência e evidência do [protótipo histórico](https://github.com/joyceradis/AuditorES/blob/1fcd8bf/municipios/vitoria/index.html). A matriz atual tem campos distintos para o previsto e o comprovado. A publicação mantém esses campos pendentes até que os documentos de execução sejam conferidos.
+
+## Revisão de 23/11/2026
+
 Revisão da vitrine pública, do ATLAS de Marechal Floriano, dos arquivos de referência, da área de trabalho autenticada e da publicação. Os resultados descrevem o funcionamento do repositório e as evidências que ele apresenta.
 
 | Área | Achado | Correção |

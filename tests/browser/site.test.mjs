@@ -23,8 +23,12 @@ after(async () => {
   await site?.close();
 });
 
-async function withPage(run, viewport = { width: 1280, height: 900 }) {
-  const context = await browser.newContext({ viewport, permissions: ['clipboard-read', 'clipboard-write'] });
+async function withPage(run, viewport = { width: 1280, height: 900 }, options = {}) {
+  const context = await browser.newContext({
+    viewport,
+    permissions: ['clipboard-read', 'clipboard-write'],
+    ...options
+  });
   try {
     const page = await context.newPage();
     page.setDefaultTimeout(8500);
@@ -135,7 +139,7 @@ test('da visualização à ficha, com as séries e fontes corretas', async () =>
 
 test('busca, atalhos de recorte e exportação trabalham sobre a mesma consulta', async () => withPage(async page => {
   await page.goto(site.url);
-  await page.getByLabel('Buscar no ATLAS de Marechal Floriano').fill('risco');
+  await page.getByLabel('Buscar nos dados de Marechal Floriano').fill('risco');
   await page.getByRole('button', { name: 'Buscar', exact: true }).click();
   await page.waitForURL('**/?q=risco#indicadores');
   await page.getByLabel('Ano', { exact: true }).selectOption('2021');
@@ -184,13 +188,119 @@ test('o relatório e o CSV incluem todos os resultados da seleção', async () =
   assert.equal(csv.split('\r\n').length, 29);
   assert.match(csv, /acidentes-de-trabalho-notificados-2024/);
   await page.emulateMedia({ media: 'print' });
-  assert.equal(await page.locator('.screen:visible').count(), 6);
+  assert.equal(await page.locator('.screen:visible').count(), 7);
   assert.equal(await page.locator('#dataTable tr:visible').count(), 28);
 }));
 
+const municipalNavigation = [
+  ['Visão geral', '#visao-geral'],
+  ['Atenção Primária (APS)', '#indicadores'],
+  ['Contratos e OS', '#contratos'],
+  ['Fontes e limites', '#fontes']
+];
+
+const municipalRoutes = [
+  { slug: 'marechal-floriano', title: 'Marechal Floriano', source: 'www.marechalfloriano.es.gov.br' },
+  { slug: 'vitoria', title: 'Vitória', source: 'cartadeservicos.vitoria.es.gov.br' },
+  { slug: 'serra', title: 'Serra', source: 'www.serra.es.gov.br' },
+  { slug: 'colatina', title: 'Colatina', source: 'www.colatina.es.gov.br' },
+  { slug: 'afonso-claudio', title: 'Afonso Cláudio' }
+];
+
+test('o catálogo estadual oferece as 78 rotas e busca com ou sem acentos', async () => withPage(async page => {
+  await page.goto(site.url + 'municipios/');
+  const entries = page.locator('[data-municipality]');
+  assert.equal(await entries.count(), 78);
+  const search = page.getByLabel('Buscar município');
+  await search.fill('afonso claudio');
+  await page.waitForFunction(() => [...document.querySelectorAll('[data-municipality]')]
+    .filter(entry => entry.getClientRects().length > 0).length === 1);
+  await page.getByRole('link', { name: /Afonso Cláudio/ }).click();
+  assert.equal(page.url(), site.url + 'municipios/afonso-claudio/');
+  await page.getByRole('heading', { name: 'Afonso Cláudio', level: 1 }).waitFor();
+}));
+
+test('os municípios compartilham as mesmas seções e separam dados publicados de lacunas', async () => withPage(async page => {
+  for (const { slug, title, source } of municipalRoutes) {
+    const url = site.url + 'municipios/' + slug + '/';
+    assert.equal((await page.goto(url)).status(), 200);
+    assert.equal(page.url(), url);
+    await page.getByRole('heading', { name: title, level: 1, exact: true }).waitFor();
+    const navigation = page.getByRole('navigation', { name: 'Seções do município' });
+    const links = navigation.getByRole('link');
+    for (const [index, [name, hash]] of municipalNavigation.entries()) {
+      const link = links.nth(index).and(navigation.getByRole('link', { name, exact: true }));
+      await link.waitFor();
+      assert.equal(new URL(await link.getAttribute('href'), url).hash, hash);
+    }
+    await navigation.getByRole('link', { name: 'Atenção Primária (APS)', exact: true }).click();
+    if (slug === 'marechal-floriano') {
+      await page.getByText('37 registros de 37').waitFor();
+    } else {
+      await page.getByRole('heading', { name: 'Atenção Primária (APS)', exact: true }).waitFor();
+      await page.getByText(/^Ops, esta seção ainda está em construção\.?$/).filter({ visible: true }).first().waitFor();
+      assert.equal(await page.locator('#dataTable tr:visible').count(), 0);
+    }
+    await navigation.getByRole('link', { name: 'Contratos e OS', exact: true }).click();
+    const contracts = page.locator('#screen-contratos');
+    await contracts.waitFor();
+    const contractText = await contracts.innerText();
+    assert.equal(/PA São Pedro/.test(contractText), slug === 'vitoria');
+    assert.doesNotMatch(contractText, /R\$\s*(?:0\b|649[.,]999\b|5,41\s*M|65,00\s*M)|\b(?:0|12|76)\s*%/i);
+    if (source) {
+      await navigation.getByRole('link', { name: 'Fontes e limites', exact: true }).click();
+      const official = page.locator(`a[href^="https://${source}/"]:visible`);
+      await official.first().waitFor();
+    }
+  }
+}));
+
+test('as âncoras antigas de Vitória levam a conteúdo útil e o ATLAS mantém sua ficha por URL', async () => withPage(async page => {
+  const vitoria = site.url + 'municipios/vitoria/';
+  for (const hash of ['#pa', '#status', '#plataforma', '#impacto']) {
+    await page.goto(vitoria + hash);
+    await page.locator(hash).waitFor();
+    const contracts = page.locator('#screen-contratos');
+    await contracts.waitFor();
+    assert.match(await contracts.innerText(), /PA São Pedro/);
+  }
+  const matrix = page.getByRole('table', { name: /matriz de execução.*sem registros conferidos/i });
+  await matrix.getByRole('columnheader', { name: 'Previsto' }).waitFor();
+  await matrix.getByRole('columnheader', { name: 'Comprovado' }).waitFor();
+  assert.equal(await matrix.getByRole('cell', { name: 'Pendente', exact: true }).count(), 2);
+  await page.goto(vitoria + '#documentos');
+  await page.locator('a[href^="https://cartadeservicos.vitoria.es.gov.br/"]:visible').first().waitFor();
+
+  await page.goto(atlas + '#aps');
+  await page.getByText('37 registros de 37').waitFor();
+  assert.equal(new URL(page.url()).hash, '#aps');
+
+  await page.goto(atlas + '#evidencia-meta-estadual-amdi-2025');
+  await page.getByRole('dialog').getByRole('heading', { name: 'Meta estadual AMDI' }).waitFor();
+  await page.keyboard.press('Escape');
+  await page.waitForURL('**/#aps');
+  await page.getByText('37 registros de 37').waitFor();
+}));
+
+test('a estrutura municipal e suas âncoras também funcionam sem JavaScript', async () => withPage(async page => {
+  for (const { slug, title } of municipalRoutes) {
+    const url = site.url + 'municipios/' + slug + '/';
+    await page.goto(url);
+    await page.getByRole('heading', { name: title, level: 1, exact: true }).waitFor();
+    const navigation = page.getByRole('navigation', { name: 'Seções do município' });
+    for (const [name, hash] of municipalNavigation) {
+      await navigation.getByRole('link', { name, exact: true }).click();
+      assert.equal(new URL(page.url()).hash, hash);
+      await page.locator(hash).waitFor();
+    }
+  }
+}, undefined, { javaScriptEnabled: false }));
+
 for (const width of [390, 320]) {
   test('navegação e leitura a ' + width + ' px', async () => withPage(async page => {
-    for (const url of [site.url, site.url + 'municipios/', atlas, atlas + '?scope=victor-hugo#indicadores', atlas + '#pessoa-idosa']) {
+    const otherCities = municipalRoutes.filter(({ slug }) => slug !== 'marechal-floriano')
+      .map(({ slug }) => site.url + 'municipios/' + slug + '/');
+    for (const url of [site.url, site.url + 'municipios/', atlas, atlas + '?scope=victor-hugo#indicadores', atlas + '#pessoa-idosa', ...otherCities]) {
       await page.goto(url);
       await page.waitForLoadState('load');
       const layout = await page.evaluate(() => {

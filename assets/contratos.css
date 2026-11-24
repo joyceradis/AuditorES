@@ -1,0 +1,177 @@
+.contratos-heading h2,
+.contratos-panel h3,
+.contratos-followup h3,
+.contratos-layout h4,
+.contratos-checklist h4 {
+  margin: 0;
+}
+
+.contratos-heading .lead {
+  margin: .6rem 0 1.3rem;
+}
+
+.contratos-layout {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  align-items: start;
+  gap: 1rem;
+}
+
+.contratos-panel {
+  padding: clamp(1rem, 3vw, 1.6rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow-wrap: anywhere;
+}
+
+.contratos-panel h3,
+.contratos-followup h3 {
+  font-size: clamp(1.15rem, 2.4vw, 1.45rem);
+  line-height: 1.2;
+}
+
+.contratos-panel p,
+.contratos-followup > p,
+.contratos-checklist p {
+  margin: .55rem 0 0;
+  color: var(--muted);
+}
+
+.contratos-panel .contratos-step-label,
+.contratos-checklist .contratos-step-label {
+  margin: 0 0 .45rem;
+  color: var(--nav);
+  font-size: .8rem;
+  font-weight: 670;
+}
+
+.contratos-status {
+  background: var(--blue-light);
+  border-color: #d8e3f5;
+}
+
+.contratos-publication {
+  margin-top: 1rem;
+  padding-top: .9rem;
+  border-top: 1px solid #d8e3f5;
+  font-size: .89rem;
+}
+
+.contratos-publication h4 {
+  font-size: .9rem;
+}
+
+.contratos-fonte {
+  display: inline-block;
+  margin-top: .9rem;
+  font-size: .92rem;
+  font-weight: 620;
+}
+
+.contratos-followup {
+  margin-top: clamp(1.65rem, 4vw, 2.5rem);
+}
+
+.contratos-checklist {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .75rem;
+  margin: .9rem 0 0;
+  padding-inline-start: 1.45rem;
+}
+
+.contratos-checklist li {
+  padding: .8rem .9rem;
+  border: 1px solid var(--line);
+  border-radius: var(--corner);
+  background: var(--surface);
+  overflow-wrap: anywhere;
+}
+
+.contratos-checklist li::marker {
+  color: var(--nav);
+  font-weight: 680;
+}
+
+.contratos-checklist h4 {
+  font-size: 1rem;
+}
+
+.contratos-checklist p:not(.contratos-step-label) {
+  font-size: .89rem;
+}
+
+.contratos-table-scroll {
+  max-width: 100%;
+  margin-top: .9rem;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.contratos-table-scroll table {
+  width: 100%;
+  min-width: 36rem;
+  border-collapse: collapse;
+  font-size: .86rem;
+  text-align: start;
+}
+
+.contratos-table-scroll th,
+.contratos-table-scroll td {
+  padding: .75rem .85rem;
+  text-align: start;
+  vertical-align: top;
+}
+
+.contratos-table-scroll thead {
+  background: var(--surface-muted);
+  border-bottom: 1px solid var(--line);
+}
+
+.contratos-table-scroll tbody th {
+  font-weight: 570;
+}
+
+.contratos-table-scroll tbody tr + tr {
+  border-top: 1px solid var(--line);
+}
+
+.contratos-row-details {
+  margin: .45rem 0 0;
+  color: var(--muted);
+  font-size: .77rem;
+  font-weight: 450;
+}
+
+.contratos-row-details div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .1rem .35rem;
+}
+
+.contratos-row-details dt {
+  font-weight: 610;
+}
+
+.contratos-row-details dd {
+  margin: 0;
+}
+
+@media (max-width: 44rem) {
+  .contratos-layout, .contratos-checklist {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media print {
+  .contratos-table-scroll {
+    overflow: visible;
+  }
+
+  .contratos-table-scroll table {
+    min-width: 0;
+  }
+}

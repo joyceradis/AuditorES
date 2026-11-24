@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>${nome} | AuditorES</title>
+  <meta name="description" content="Dados de saúde, contratos públicos e fontes para consulta em ${nome}.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="../../assets/public.css?v=20261123-2">
+  <link rel="stylesheet" href="../../assets/atlas.css?v=20261123-2">
+  <link rel="stylesheet" href="../../assets/municipios.css?v=20261124">
+  <link rel="stylesheet" href="../../assets/contratos.css">
+</head>
+<body>
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+<header class="masthead">
+  <div class="shell header-inner">
+    <a class="brand" href="../../"><span class="brand-mark" aria-hidden="true"></span><span>AuditorES</span></a>
+    <nav class="main-nav" aria-label="Navegação principal">
+      <a href="../../">Início</a><a href="../">Municípios</a><a href="../../#metodo">Metodologia</a>
+    </nav>
+  </div>
+</header>
+<div class="atlas-hero">
+  <div class="shell atlas-hero-grid">
+    <div class="atlas-intro">
+      <nav class="crumbs" aria-label="Você está em"><a href="../">Municípios</a><span aria-hidden="true">/</span><span aria-current="page">${nome}</span></nav>
+      <p class="atlas-kicker">Dados e fontes</p>
+      <h1 id="hTitle">${nome}</h1>
+      <p class="lead">Atenção primária, contratos de saúde e os documentos disponíveis para conferir cada informação.</p>
+      <div class="toolbar atlas-intro-actions">
+        <a class="btn strong" href="#indicadores">Consultar APS</a>
+        <a class="btn" href="#contratos">Consultar contratos e OS</a>
+        ${impressao}
+      </div>
+    </div>
+    ${resumo}
+  </div>
+</div>
+<nav class="atlas-nav" aria-label="Seções do município">
+  <div class="shell">
+    <a data-tab="overview" href="#visao-geral">Visão geral</a>
+    <a data-tab="dados" href="#indicadores">Atenção Primária (APS)</a>
+    <a data-tab="contratos" href="#contratos">Contratos e OS</a>
+    <a data-tab="fontes" href="#fontes">Fontes e limites</a>
+    ${temas}
+  </div>
+</nav>
+<main class="shell atlas-main" id="conteudo" tabindex="-1">
+  ${visao_geral}
+  ${aps}
+  ${contratos}
+  ${fontes}
+  ${extras}
+</main>
+${fichas}
+<footer class="site-footer">
+  <div class="shell"><span>AuditorES · Projeto independente no Espírito Santo</span><a href="../../#metodo">Metodologia</a><a href="../">Todos os municípios</a></div>
+</footer>
+${aplicacao}
+</body>
+</html>

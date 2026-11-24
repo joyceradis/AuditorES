@@ -1,6 +1,7 @@
 import { data, normalize, gov26, gov22, incaper, amdiBulletin, rgps, mortality, scopeLabels, typeLabels, filterRows } from './atlas-data.mjs';
 import { categoryValues, filtersFromSearch, rowsAsCSV, scopeValues, typeValues, urlForFilters, yearValues } from './atlas-query.mjs';
 import { evidenceHash } from './atlas-series.mjs';
+import { initMunicipalNavigation } from './municipio-nav.mjs';
 
 const baseProfile={city:'Marechal Floriano',esf:'Victor Hugo',uf:'ES',date:'2026-11-23'};
 const profile = baseProfile;
@@ -229,11 +230,6 @@ function renderSources() {
 }
 const repl=[['Definir unidade territorial','Município, distrito, ESF, microárea e data do levantamento. Não misturar bases territoriais.'],['Ler PMS/PAS/RAG','Planos e relatórios municipais de saúde: população, cadastros, crônicos, regulação, acidentes e produção.'],['Conferir e-SUS APS/CNES/DATASUS','Solicitar agregados atualizados à coordenação e checar o cadastro da equipe, notificações e série histórica.'],['Verificar estrutura produtiva','IBGE Censo Agropecuário, Incaper/Proater, RAIS/CAGED quando pertinente e associações locais.'],['Medir proteção social','MDS (BPC, Bolsa Família, CadÚnico), INSS/BEPS e dados agregados oficiais; distinguir cobertura e elegibilidade.'],['Pessoa idosa e governança','Consultar boletim AMDI da SESA, produção por equipe, CMDI, legislação do FMI, plano de aplicação e prestação de contas. Distinguir competência, meta e execução.'],['Mapear barreiras ao tratamento','Fila de regulação, absenteísmo, transporte, visitas domiciliares, equipe multiprofissional e serviço social.'],['Construir linha de cuidado','Definir quem rastreia necessidade, quem documenta, quem orienta requerimento e como acompanhar o desfecho.'],['Auditar o relatório','Documentar fonte, ano, unidade, denominador, limitações e hipótese a testar. Excluir dados pessoais.']];
 document.getElementById('replicationSteps').innerHTML=repl.map(x=>`<div class="step"><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join('');
-const sections = [...document.querySelectorAll('.atlas-nav [data-tab]')].map(link => ({
-  link,
-  panel: document.getElementById('screen-' + link.dataset.tab)
-}));
-
 function renderEvidence(row) {
   rowForDialog = row;
   document.getElementById('evidenceTitle').textContent = row.label;
@@ -252,46 +248,33 @@ function renderEvidence(row) {
   }
 }
 
-function selectSection(moveFocus = false, previousHash = null) {
-  const target = document.getElementById(location.hash.slice(1));
-  const isEvidence = location.hash.startsWith('#evidencia-');
-  const row = isEvidence ? data.find(item => location.hash === evidenceHash(item.id)) : null;
-  if (row && !dialog.open) {
-    returnFocus = document.activeElement;
-    returnHash = previousHash?.startsWith('#evidencia-') ? '#indicadores' : previousHash ?? '#indicadores';
-  }
-  const current = isEvidence ? sections.find(({ link }) => link.hash === '#indicadores')
-    : sections.find(({ panel }) => target && panel.contains(target)) || sections[0];
-  for (const section of sections) {
-    const active = section === current;
-    section.panel.hidden = !active;
-    if (active) section.link.setAttribute('aria-current', 'location');
-    else section.link.removeAttribute('aria-current');
-  }
+function isEvidenceHash(hash) {
+  return hash?.startsWith('#evidencia-') ?? false;
+}
+
+function navigateEvidence({ hash, previousHash }) {
+  const isEvidence = isEvidenceHash(hash);
+  const row = isEvidence ? data.find(item => hash === evidenceHash(item.id)) : null;
   document.getElementById('missingEvidence').hidden = !isEvidence || Boolean(row);
-  if (row) {
-    renderEvidence(row);
-    return;
+  if (!row) {
+    if (dialog.open) dialog.close();
+    return false;
   }
-  if (dialog.open) dialog.close();
-  if (target?.closest('.screen') === current.panel) {
-    const heading = target.matches('h2, h3') ? target : target.querySelector('h2, h3');
-    if (heading && moveFocus) {
-      heading.tabIndex = -1;
-      heading.focus({ preventScroll: true });
-    }
-    const start = target.id === 'visao-geral' ? current.panel : target;
-    start.scrollIntoView({ block: 'start' });
+  if (!dialog.open) {
+    returnFocus = document.activeElement;
+    returnHash = isEvidenceHash(previousHash) ? '#indicadores' : previousHash ?? '#indicadores';
   }
+  renderEvidence(row);
+  return true;
 }
 
 document.getElementById('closeEvidence').addEventListener('click', () => dialog.close());
 dialog.addEventListener('close', () => {
-  if (!location.hash.startsWith('#evidencia-')) return;
+  if (!isEvidenceHash(location.hash)) return;
   const url = new URL(location.href);
   url.hash = returnHash;
   history.replaceState(history.state, '', url);
-  if (url.hash !== '#indicadores') selectSection();
+  if (url.hash !== '#indicadores') refreshNavigation();
   if (returnFocus instanceof HTMLAnchorElement) returnFocus.focus();
   else if (url.hash === '#indicadores') filters.q.focus();
 });
@@ -308,7 +291,6 @@ document.getElementById('copyEvidence').addEventListener('click', async () => {
   }
 });
 
-window.addEventListener('hashchange', event => selectSection(true, new URL(event.oldURL).hash));
 window.addEventListener('popstate', () => {
   if (location.search === filterSearch) return;
   filterSearch = location.search;
@@ -368,4 +350,7 @@ async function copyQuestions() {
 }
 document.getElementById('copyQuestions').addEventListener('click', copyQuestions);
 render();
-selectSection();
+const refreshNavigation = initMunicipalNavigation({
+  tabForHash: hash => isEvidenceHash(hash) ? 'dados' : null,
+  onNavigate: navigateEvidence
+});
